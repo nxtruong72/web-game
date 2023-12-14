@@ -1,0 +1,13 @@
+{
+  "name": "webgame",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "b2c:build": "pnpm --filter b2c build",
+    "b2b:build": "pnpm --filter b2b build",
+    "be:build": "cd backend && gradlew build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
