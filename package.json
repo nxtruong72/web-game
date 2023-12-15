@@ -5,7 +5,8 @@
   "scripts": {
     "b2c:build": "pnpm --filter b2c build",
     "b2b:build": "pnpm --filter b2b build",
-    "be:build": "cd backend && gradlew build"
+    "be:build": "cd backend && gradlew build",
+    "buildall": "pnpm run be:build && pnpm run b2b:build && pnpm run b2c:build"
   },
   "keywords": [],
   "author": "",
