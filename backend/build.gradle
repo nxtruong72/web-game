@@ -32,16 +32,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("io.github.oshai:kotlin-logging-jvm:${kotlinLoggingVersion}")
+    implementation("org.springframework.security:spring-security-crypto:${springSecurityCryptoVersion}")
+    implementation("org.slf4j:jcl-over-slf4j")
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.yaml:snakeyaml")
     testImplementation("io.micronaut:micronaut-http-client")
-//    testImplementation("io.micronaut.test:micronaut-test-spock")
-//    testImplementation("org.spockframework:spock-core") {
-//        exclude group: "org.codehaus.groovy", module: "groovy-all"
-//    }
     aotPlugins platform("io.micronaut.platform:micronaut-platform:${micronautVersion}")
     aotPlugins("io.micronaut.security:micronaut-security-aot")
 }

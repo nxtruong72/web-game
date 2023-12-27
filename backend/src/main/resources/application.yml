@@ -1,6 +1,9 @@
 micronaut:
   application:
     name: webgame
+  http:
+    hateoas:
+      enable: false
   security:
     authentication: bearer
     token:

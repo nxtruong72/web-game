@@ -9,7 +9,6 @@ import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.*
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.authentication.AuthenticationResponse
-import io.micronaut.security.authentication.UsernamePasswordCredentials
 import io.micronaut.security.event.LoginFailedEvent
 import io.micronaut.security.event.LoginSuccessfulEvent
 import io.micronaut.security.handlers.LoginHandler
@@ -33,15 +32,9 @@ class AuthenticationController(
 ) {
   private val logger: Logger = LoggerFactory.getLogger(AuthenticationController::class.java)
 
-  @Post("/register")
-  fun register(@Body user: UserRegisterRequest): HttpResponse<String> {
-    // Add logic to register the user (e.g., store in a database)
-    return HttpResponse.ok("B2B Registration Successful")
-  }
-
   @Secured(SecurityRule.IS_ANONYMOUS)
   @Post("/login")
-  fun login(@Body credentials: UsernamePasswordCredentials, request: HttpRequest<*>): Publisher<MutableHttpResponse<*>> {
+  fun login(@Body credentials: UserLoginRequest, request: HttpRequest<*>): Publisher<MutableHttpResponse<*>> {
     return Flux.from(authenticator.authenticate(request, credentials))
       .map { authenticationResponse: AuthenticationResponse ->
         if (authenticationResponse.isAuthenticated && authenticationResponse.authentication.isPresent) {
