@@ -1,3 +1,11 @@
-
+pluginManagement {
+    repositories {
+        maven {
+            url "https://download.red-gate.com/maven/release"
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
 rootProject.name="webgame"
 

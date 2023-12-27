@@ -1,50 +1,45 @@
-## Micronaut 4.2.1 Documentation
+# Web Game Guidelines
 
-- [User Guide](https://docs.micronaut.io/4.2.1/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.2.1/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.2.1/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+## Folder structure:
+```
+|--web-game
+   |--backend    # backend service folder
+   |--docker     # docker related files
+   |--docs       # common document files
+   |--scripts    # bash scripts file for build/deployment support
+   |--frontend   # frontend projects
+      |--b2b     # CMS frontend project - for staff/admin to control the application
+      |--b2c     # Web application project - end users website application
+   docker-compose.yml  # starting and test as services
+   package.json        # build make whole project
+   pnpm-workspace.yaml # sub-projects configured
+```
 
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
-## Feature micronaut-aot documentation
-
-- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
-
-
-## Feature flyway documentation
-
-- [Micronaut Flyway Database Migration documentation](https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html)
-
-- [https://flywaydb.org/](https://flywaydb.org/)
+## Backend
 
 
-## Feature security-jwt documentation
-
-- [Micronaut Security JWT documentation](https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html)
+## B2B
 
 
-## Feature jdbc-hikari documentation
+## B2C or B2E (end user project)
 
-- [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
+## Required tools:
+Need install those:
+- Nodejs (v20+) with pnpm
+- Java v17
 
+## Environments
 
-## Feature ksp documentation
+```shell
+# Database need to be existed (created) before run
+POSTGRES_URL="jdbc:postgresql://127.0.0.1:5432/postgres"
+POSTGRES_USER="postgres"
+POSTGRES_PASS="changeme"
 
-- [Micronaut Kotlin Symbol Processing (KSP) documentation](https://docs.micronaut.io/latest/guide/#kotlin)
+TEST_POSTGRES_URL="jdbc:postgresql://127.0.0.1:5432/postgres-test"
+TEST_POSTGRES_USER="postgres"
+TEST_POSTGRES_PASS="changeme"
 
-- [https://kotlinlang.org/docs/ksp-overview.html](https://kotlinlang.org/docs/ksp-overview.html)
-
-
-## Feature serialization-jackson documentation
-
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
-
-
-## Feature test-resources documentation
-
-- [Micronaut Test Resources documentation](https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/)
-
-
+WEBGAME_HOME=/path/to/server
+```
+To clean flyway migration by gradle task need update build.gradle with correct postgres url/user/password

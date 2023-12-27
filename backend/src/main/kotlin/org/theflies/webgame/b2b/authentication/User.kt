@@ -4,10 +4,10 @@ import io.micronaut.data.annotation.*
 import jakarta.validation.constraints.NotBlank
 import java.time.LocalDateTime
 
-@MappedEntity
+@MappedEntity("users")
 data class User(
   @field:Id
-  @GeneratedValue
+  @field:AutoPopulated
   var id: Long? = null,
 
   @NotBlank
@@ -37,4 +37,16 @@ data class User(
   val deviceUsedForRegister: String? = null,
 
   val accountStatus: Boolean = true // Assuming true means active and false means locked
+)
+
+data class UserRegisterRequest(
+  val username: String,
+  val password: String,
+  val phone: String,
+  val email: String
+)
+
+data class UserLoginRequest(
+  val username: String,
+  val password: String
 )

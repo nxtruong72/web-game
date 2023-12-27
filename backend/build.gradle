@@ -2,9 +2,12 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.21"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.9.21"
     id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+    id("groovy")
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.2.0"
-    id("io.micronaut.aot") version "4.2.0"
+    id("io.micronaut.application") version "${micronautVersion}"
+    id("io.micronaut.aot") version "${micronautVersion}"
+//    for clean db when develop
+    id("org.flywaydb.flyway") version "${flywayVersion}"
 }
 
 version = "0.1"
@@ -25,15 +28,21 @@ dependencies {
     implementation("io.micronaut.security:micronaut-security-jwt")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("io.github.oshai:kotlin-logging-jvm:${kotlinLoggingVersion}")
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.yaml:snakeyaml")
     testImplementation("io.micronaut:micronaut-http-client")
-    aotPlugins platform("io.micronaut.platform:micronaut-platform:4.2.1")
+//    testImplementation("io.micronaut.test:micronaut-test-spock")
+//    testImplementation("org.spockframework:spock-core") {
+//        exclude group: "org.codehaus.groovy", module: "groovy-all"
+//    }
+    aotPlugins platform("io.micronaut.platform:micronaut-platform:${micronautVersion}")
     aotPlugins("io.micronaut.security:micronaut-security-aot")
 }
 
@@ -49,7 +58,7 @@ java {
 graalvmNative.toolchainDetection = false
 micronaut {
     runtime("netty")
-    testRuntime("junit5")
+    testRuntime("spock2")
     processing {
         incremental(true)
         annotations("org.theflies.*")
@@ -68,5 +77,10 @@ micronaut {
     }
 }
 
+flyway {
+    cleanDisabled = false
+    url = "${System.env.POSTGRES_URL ?: 'jdbc:postgresql://127.0.0.1:5432/postgres'}"
 
-
+    user = "${System.env.POSTGRES_USER ?: 'postgres'}"
+    password = "${System.env.POSTGRES_PASS ?: 'changeme'}"
+}

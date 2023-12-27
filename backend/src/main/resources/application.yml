@@ -11,7 +11,7 @@ micronaut:
               secret: ${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}
 datasources:
   default:
-    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    url: ${POSTGRES_URL:`jdbc:postgresql://127.0.0.1:5432/postgres`}
     driver-class-name: org.postgresql.Driver
     db-type: postgres
     dialect: POSTGRES

@@ -1,6 +1,8 @@
-jpa:
+datasources:
   default:
-    properties:
-      hibernate:
-        hbm2ddl:
-          auto: none
+    url: ${POSTGRES_URL_TEST:`jdbc:postgresql://127.0.0.1:5432/postgres-test`}
+    driver-class-name: org.postgresql.Driver
+    db-type: postgres
+    dialect: POSTGRES
+    username: ${POSTGRES_USER_TEST:postgres}
+    password: ${POSTGRES_PASSWORD_TEST:changeme}
