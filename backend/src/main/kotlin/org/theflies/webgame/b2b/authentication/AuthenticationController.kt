@@ -1,5 +1,6 @@
 package org.theflies.webgame.b2b.authentication
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventPublisher
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -14,24 +15,20 @@ import io.micronaut.security.event.LoginSuccessfulEvent
 import io.micronaut.security.handlers.LoginHandler
 import io.micronaut.security.rules.SecurityRule
 import org.reactivestreams.Publisher
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.security.Principal
 
+private val logger = KotlinLogging.logger{}
 
-@Controller("/b2b")
+@Controller("/b2b/auth")
 class AuthenticationController(
 //  private val refreshTokenGenerator: RefreshTokenGenerator,
   private val authenticator: AuthenticationProvider,
   private val loginSuccessfulEventPublisher: ApplicationEventPublisher<LoginSuccessfulEvent>,
   private val loginFailedEventPublisher : ApplicationEventPublisher<LoginFailedEvent>,
-  private val loginHandler: LoginHandler<HttpRequest<*>, MutableHttpResponse<*>>,
-//  private val jwtTokenValidator: JwtTokenValidator
+  private val loginHandler: LoginHandler<HttpRequest<*>, MutableHttpResponse<*>>
 ) {
-  private val logger: Logger = LoggerFactory.getLogger(AuthenticationController::class.java)
-
   @Secured(SecurityRule.IS_ANONYMOUS)
   @Post("/login")
   fun login(@Body credentials: UserLoginRequest, request: HttpRequest<*>): Publisher<MutableHttpResponse<*>> {
@@ -42,9 +39,7 @@ class AuthenticationController(
           loginSuccessfulEventPublisher.publishEvent(LoginSuccessfulEvent(authentication))
           return@map loginHandler.loginSuccess(authentication, request)
         } else {
-          if (logger.isTraceEnabled) {
-            logger.trace("login failed for username: {}", credentials.username)
-          }
+            logger.trace {  "login failed for username: ${credentials.username}" }
           loginFailedEventPublisher.publishEvent(LoginFailedEvent(authenticationResponse, credentials))
           return@map loginHandler.loginFailed(authenticationResponse, request)
         }
