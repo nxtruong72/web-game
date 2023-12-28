@@ -1,9 +1,6 @@
 micronaut:
   application:
     name: webgame
-  http:
-    hateoas:
-      enable: false
   security:
     authentication: bearer
     token:
@@ -20,8 +17,13 @@ datasources:
     dialect: POSTGRES
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:changeme}
+
 flyway:
   datasources:
     default:
       enabled: true
 
+mailjet:
+  enabled: true
+  api-key: ${MAILJET_API_KEY}
+  api-secret: ${MAILJET_API_SECRET}

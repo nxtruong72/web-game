@@ -17,6 +17,9 @@ class UserService(
       throw UserException(400, "User already existed")
     }
     val user = repo.save(User(null,userRequest.username, userRequest.email, userRequest.phone, encoder.encode(userRequest.password)))
+
+
+
     return UserRegisterResponse(user.id!!, user.username, user.phone, user.email)
   }
 }

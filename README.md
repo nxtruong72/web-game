@@ -40,6 +40,10 @@ TEST_POSTGRES_URL="jdbc:postgresql://127.0.0.1:5432/postgres-test"
 TEST_POSTGRES_USER="postgres"
 TEST_POSTGRES_PASS="changeme"
 
+# mailjet api keys for send mail
+MAILJET_API_KEY="your mailjet api key"
+MAILJET_API_SECRET="your mailjet api secret"
+
 WEBGAME_HOME=/path/to/server
 ```
 To clean flyway migration by gradle task need update build.gradle with correct postgres url/user/password

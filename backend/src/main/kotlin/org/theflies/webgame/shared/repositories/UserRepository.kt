@@ -8,5 +8,5 @@ import org.theflies.webgame.shared.models.User
 @JdbcRepository(dialect = Dialect.POSTGRES)
 interface UserRepository: PageableRepository<User, Long> {
   fun findByUsername(identity: String): User?
-  fun findByUsernameOrEmailOrPhone(username: String, email: String, phone: String): Array<User>
+  fun findByUsernameOrEmailOrPhone(username: String, email: String, phone: String): List<User>
 }
