@@ -27,6 +27,3 @@ mailjet:
   enabled: true
   api-key: ${MAILJET_API_KEY}
   api-secret: ${MAILJET_API_SECRET}
-
-mail:
-  enabled: false

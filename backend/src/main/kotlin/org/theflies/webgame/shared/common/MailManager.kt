@@ -12,7 +12,7 @@ import jakarta.inject.Singleton
 import org.theflies.webgame.shared.models.User
 
 @Singleton
-@Requires(property="mail.enabled", value="true", defaultValue = "true")
+@Requires(property="mailjet.enabled", value="true", defaultValue = "false")
 class MailManager(
   private val emailSender: EmailSender<Any, Any>,
   @Value("\${mail.enabled:true}")

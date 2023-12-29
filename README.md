@@ -34,7 +34,7 @@ After created account need add your domain and config spf/dkim based on guidelin
 https://app.mailjet.com/account/sender?type=domain
 https://app.mailjet.com/account/sender?type=auth
 
->> We can disable mail sending by set `mail.enabled` to `false` in `application.yml`
+>> We can disable mail sending by set `mailjet.enabled` to `false` in `application.yml`
 
 ## Environments
 
