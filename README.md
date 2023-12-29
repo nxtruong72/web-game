@@ -28,6 +28,14 @@ Need install those:
 - Nodejs (v20+) with pnpm
 - Java v17
 
+## Send mail Mailjet
+Need update your own domain and create mailjet account for your mail service
+After created account need add your domain and config spf/dkim based on guidelines here:
+https://app.mailjet.com/account/sender?type=domain
+https://app.mailjet.com/account/sender?type=auth
+
+>> We can disable mail sending by set `mail.enabled` to `false` in `application.yml`
+
 ## Environments
 
 ```shell

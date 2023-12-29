@@ -4,6 +4,7 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.security.authentication.AuthenticationRequest
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import jakarta.validation.constraints.NotBlank
+import org.theflies.webgame.shared.models.AccountStatus
 
 @Introspected
 @Deserializable
@@ -15,7 +16,9 @@ data class UserRegisterRequest(
   @NotBlank
   val phone: String,
   @NotBlank
-  val email: String
+  val email: String,
+
+  val accountStatus: AccountStatus?
 )
 
 @Introspected

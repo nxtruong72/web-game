@@ -12,7 +12,7 @@ CREATE TABLE users (
     ip_visited VARCHAR(45),
     device_used_for_login VARCHAR(255),
     device_used_for_register VARCHAR(255),
-    account_status BOOLEAN DEFAULT true -- Assuming true means active and false means locked
+    account_status VARCHAR(45) DEFAULT 'INACTIVATE'
 );
 
 CREATE INDEX idx_username ON users(username);

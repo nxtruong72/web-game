@@ -37,5 +37,5 @@ data class User(
 
   val deviceUsedForRegister: String? = null,
 
-  val accountStatus: Boolean = false // Assuming true means active and false means locked
+  val accountStatus: AccountStatus = AccountStatus.INACTIVATE // Assuming true means active and false means locked
 )

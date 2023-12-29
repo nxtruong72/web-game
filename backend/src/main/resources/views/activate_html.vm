@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activate your account</title>
+</head>
+<body>
+<section>
+    <h1>Dear, username: <span>$username</span></h1>
+    <span>Welcome to our site.</span>
+</section>
+</body>
+</html>
