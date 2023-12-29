@@ -1,5 +1,6 @@
 package org.theflies.webgame.shared.common
 
+import io.micronaut.context.annotation.Requires
 import io.micronaut.context.annotation.Value
 import io.micronaut.email.BodyType
 import io.micronaut.email.Email
@@ -11,6 +12,7 @@ import jakarta.inject.Singleton
 import org.theflies.webgame.shared.models.User
 
 @Singleton
+@Requires(property="mail.enabled", value="true", defaultValue = "true")
 class MailManager(
   private val emailSender: EmailSender<Any, Any>,
   @Value("\${mail.enabled:true}")
