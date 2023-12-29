@@ -8,6 +8,7 @@ import io.micronaut.security.authentication.AuthenticationRequest
 import io.micronaut.security.authentication.AuthenticationResponse
 import jakarta.inject.Singleton
 import org.reactivestreams.Publisher
+import org.theflies.webgame.shared.models.AccountStatus
 import org.theflies.webgame.shared.repositories.UserRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.FluxSink
@@ -25,7 +26,9 @@ class AuthenticationProvider(
   ): Publisher<AuthenticationResponse> {
     return Flux.create({ emitter ->
 
-      val user = userRepository.findByUsername(authenticationRequest.identity as String)
+      val user = userRepository.findByUsernameAndAccountStatus(
+        authenticationRequest.identity as String, AccountStatus.ACTIVATED
+      )
       user?.let {
         // TODO check user is activated, check user is blocked
         if (passwordEncoder.matches(authenticationRequest.secret as String, user.password)) {

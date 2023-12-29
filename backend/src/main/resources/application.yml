@@ -24,6 +24,6 @@ flyway:
       enabled: true
 
 mailjet:
-  enabled: true
+  enabled: false
   api-key: ${MAILJET_API_KEY}
   api-secret: ${MAILJET_API_SECRET}
