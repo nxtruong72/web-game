@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2b.users
+package org.theflies.webgame.b2c.users
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventListener

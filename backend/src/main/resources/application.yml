@@ -27,3 +27,7 @@ mailjet:
   enabled: false
   api-key: ${MAILJET_API_KEY}
   api-secret: ${MAILJET_API_SECRET}
+
+#app:
+#  register:
+#    code_expire: 5
