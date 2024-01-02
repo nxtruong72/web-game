@@ -5,15 +5,15 @@ meta {
 }
 
 post {
-  url: {{host}}/b2b/auth/login
+  url: {{host}}/b2c/auth/login
   body: json
   auth: none
 }
 
 body:json {
   {
-    "username": "gaconkzk",
-    "password": "gaconkzk"
+    "username": "admin",
+    "password": "{{admin_email}}"
   }
 }
 
