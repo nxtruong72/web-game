@@ -3,7 +3,6 @@ package org.theflies.webgame.shared.models
 import io.micronaut.data.annotation.*
 import jakarta.validation.constraints.NotBlank
 import java.time.Instant
-import java.time.LocalDateTime
 
 @MappedEntity("users")
 data class User(
@@ -12,30 +11,32 @@ data class User(
   var id: Long? = null,
 
   @NotBlank
-  val username: String,
+  var username: String,
 
   @NotBlank
-  val email: String,
+  var email: String,
 
   @NotBlank
-  val phone: String,
+  var phone: String,
 
   @NotBlank
-  val password: String,
+  var password: String,
 
   @field:DateCreated
-  val createdAt: Instant? = null,
+  var createdAt: Instant? = null,
 
   @field:DateUpdated
-  val lastVisitedAt: Instant? = null,
+  var updatedAt: Instant? = null,
 
-  val ipCreated: String? = null,
+  var lastVisitedAt: Instant? = null,
 
-  val ipVisited: String? = null,
+  var ipCreated: String? = null,
 
-  val deviceUsedForLogin: String? = null,
+  var ipVisited: String? = null,
 
-  val deviceUsedForRegister: String? = null,
+  var deviceUsedForLogin: String? = null,
 
-  val accountStatus: AccountStatus = AccountStatus.INACTIVATE // Assuming true means active and false means locked
+  var deviceUsedForRegister: String? = null,
+
+  var accountStatus: AccountStatus = AccountStatus.INACTIVATE // Assuming true means active and false means locked
 )

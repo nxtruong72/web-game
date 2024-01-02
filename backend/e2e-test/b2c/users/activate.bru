@@ -1,0 +1,17 @@
+meta {
+  name: activate
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/b2b/users/activate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "code": "9aae2cac-f6d2-4662-9d85-4bce0270ab51"
+  }
+}

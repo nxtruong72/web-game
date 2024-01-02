@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2b.authentication
+package org.theflies.webgame.b2c.authentication
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.http.HttpRequest

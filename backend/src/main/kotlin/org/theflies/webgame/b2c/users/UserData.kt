@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2b.users
+package org.theflies.webgame.b2c.users
 
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable.Deserializable

@@ -1,0 +1,17 @@
+meta {
+  name: re-send
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/b2b/users/resend-activate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{admin_email}}"
+  }
+}

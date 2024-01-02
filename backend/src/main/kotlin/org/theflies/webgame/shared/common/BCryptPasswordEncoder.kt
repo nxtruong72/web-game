@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2b.authentication
+package org.theflies.webgame.shared.common
 
 import jakarta.inject.Singleton
 import jakarta.validation.constraints.NotBlank
