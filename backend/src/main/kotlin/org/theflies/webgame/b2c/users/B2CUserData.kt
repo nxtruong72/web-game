@@ -4,8 +4,11 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import io.micronaut.serde.annotation.Serdeable.Serializable
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Size
 import org.theflies.webgame.shared.common.RegisterEvent
 import org.theflies.webgame.shared.models.AccountStatus
+import org.theflies.webgame.shared.models.RoleType
 import org.theflies.webgame.shared.models.User
 
 @Introspected
@@ -19,6 +22,10 @@ data class UserRegisterRequest(
   val phone: String,
   @NotBlank
   val email: String,
+  @Size(min = 1)
+  @NotNull
+  val roles: List<RoleType>,
+  val accountStatus: AccountStatus?
 )
 
 @Introspected

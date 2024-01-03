@@ -1,3 +1,4 @@
 Dear $username,
 
-Welcome to our site.
+Your activation code is: $activationCode. You can go to the site and input code to activate your account.
+Or you can copy and paste this $activationUrl to open browser and activate your account automatically.

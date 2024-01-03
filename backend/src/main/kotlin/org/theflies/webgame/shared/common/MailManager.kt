@@ -1,6 +1,7 @@
 package org.theflies.webgame.shared.common
 
 import io.micronaut.context.annotation.Requires
+import io.micronaut.context.annotation.Value
 import io.micronaut.email.BodyType
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
@@ -16,7 +17,12 @@ class MailManager(
   private val emailSender: EmailSender<Any, Any>
 ) {
 
-  fun sendActivateMailFor(user: User, activationCode: String) {
+  fun sendActivateMailFor(user: User, activationCode: String, url: String) {
+    val body = mapOf(
+      "username" to user.username,
+      "activationCode" to activationCode,
+      "activationUrl" to url
+    )
     emailSender.send(
       Email.builder()
         .from("Web Game <noreply@theflies.live>")
@@ -24,8 +30,8 @@ class MailManager(
         .subject("Activate your account")
         .body(
           MultipartBody(
-            TemplateBody(BodyType.HTML, ModelAndView("activate_html", user)),
-            TemplateBody(BodyType.TEXT, ModelAndView("activate_text", user))
+            TemplateBody(BodyType.HTML, ModelAndView("activate_html", body)),
+            TemplateBody(BodyType.TEXT, ModelAndView("activate_text", body))
           )
         )
     )

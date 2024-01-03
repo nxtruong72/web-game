@@ -22,11 +22,7 @@ data class UserRegisterRequest(
   @NotBlank
   val phone: String,
   @NotBlank
-  val email: String,
-  @Size(min = 1)
-  @NotNull
-  val roles: List<RoleType>,
-  val accountStatus: AccountStatus?
+  val email: String
 )
 
 @Introspected
