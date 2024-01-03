@@ -35,7 +35,7 @@ class AuthenticationProvider(
         if (passwordEncoder.matches(authenticationRequest.secret as String, user.password)) {
           // success login, update lastVisited
           userRepository.update(user.id!!, Instant.now())
-          emitter.next(AuthenticationResponse.success(authenticationRequest.identity as String))
+          emitter.next(AuthenticationResponse.success(authenticationRequest.identity as String, user.roles.map { it.name }))
           emitter.complete()
         } else {
           emitter.error(AuthenticationResponse.exception(AuthenticationFailureReason.CREDENTIALS_DO_NOT_MATCH))

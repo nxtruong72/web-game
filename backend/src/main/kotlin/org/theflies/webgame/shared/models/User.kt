@@ -1,6 +1,7 @@
 package org.theflies.webgame.shared.models
 
 import io.micronaut.data.annotation.*
+import io.micronaut.data.model.DataType
 import jakarta.validation.constraints.NotBlank
 import java.time.Instant
 
@@ -38,5 +39,8 @@ data class User(
 
   var deviceUsedForRegister: String? = null,
 
-  var accountStatus: AccountStatus = AccountStatus.INACTIVATE // Assuming true means active and false means locked
+  var accountStatus: AccountStatus = AccountStatus.INACTIVATE, // Assuming true means active and false means locked
+
+  @MappedProperty(type = DataType.STRING)
+  var roles: List<RoleType> = emptyList()
 )

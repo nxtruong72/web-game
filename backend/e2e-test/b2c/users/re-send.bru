@@ -5,13 +5,13 @@ meta {
 }
 
 post {
-  url: {{host}}/b2b/users/resend-activate
+  url: {{host}}/b2c/users/resend-activate
   body: json
   auth: none
 }
 
 body:json {
   {
-    "email": "{{admin_email}}"
+    "email": "{{my_email}}"
   }
 }

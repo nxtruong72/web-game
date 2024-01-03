@@ -13,6 +13,7 @@ CREATE TABLE users (
     ip_visited VARCHAR(45),
     device_used_for_login VARCHAR(255),
     device_used_for_register VARCHAR(255),
+    roles VARCHAR(1024) NOT NULL,
     account_status VARCHAR(45) DEFAULT 'INACTIVATE'
 );
 
