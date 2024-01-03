@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2b.authentication
+package org.theflies.webgame.b2c.authentication
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.http.HttpRequest
@@ -10,6 +10,7 @@ import jakarta.inject.Singleton
 import org.reactivestreams.Publisher
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.models.AccountStatus
+import org.theflies.webgame.shared.models.RoleType
 import org.theflies.webgame.shared.repositories.UserRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.FluxSink
@@ -18,7 +19,7 @@ import java.time.Instant
 private val logger = KotlinLogging.logger {}
 
 @Singleton
-class AuthenticationProvider(
+class B2CAuthenticationProvider(
   private val userRepository: UserRepository,
   private val passwordEncoder: PasswordEncoder
 ) : AuthenticationProvider<HttpRequest<*>> {
@@ -33,10 +34,18 @@ class AuthenticationProvider(
       )
       user?.let {
         if (passwordEncoder.matches(authenticationRequest.secret as String, user.password)) {
-          // success login, update lastVisited
-          userRepository.update(user.id!!, Instant.now())
-          emitter.next(AuthenticationResponse.success(authenticationRequest.identity as String))
-          emitter.complete()
+          if (user.roles.contains(RoleType.MEMBER)) {
+            // success login, update lastVisited
+            userRepository.update(user.id!!, Instant.now())
+            emitter.next(
+              AuthenticationResponse.success(
+                authenticationRequest.identity as String,
+                user.roles.map { it.name })
+            )
+            emitter.complete()
+          } else {
+            emitter.error(AuthenticationResponse.exception("No permission"))
+          }
         } else {
           emitter.error(AuthenticationResponse.exception(AuthenticationFailureReason.CREDENTIALS_DO_NOT_MATCH))
         }

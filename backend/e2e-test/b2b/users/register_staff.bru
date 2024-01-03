@@ -1,0 +1,24 @@
+meta {
+  name: register_staff
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/b2b/users
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "username": "gaconkzk1",
+    "password": "{{my_pass}}1",
+    "phone": "{{my_phone}}1",
+    "email": "1{{my_email}}"
+  }
+}

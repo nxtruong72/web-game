@@ -1,0 +1,21 @@
+meta {
+  name: re-send_staff
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/b2b/users/resend-activate
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "email": "1{{my_email}}"
+  }
+}

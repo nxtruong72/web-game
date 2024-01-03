@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2c.users
+package org.theflies.webgame.shared.common
 
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse

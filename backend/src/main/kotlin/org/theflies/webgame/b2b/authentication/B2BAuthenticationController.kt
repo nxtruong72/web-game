@@ -1,4 +1,4 @@
-package org.theflies.webgame.b2c.authentication
+package org.theflies.webgame.b2b.authentication
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventPublisher
@@ -21,10 +21,10 @@ import java.security.Principal
 
 private val logger = KotlinLogging.logger{}
 
-@Controller("/b2c/auth")
-class AuthenticationController(
+@Controller("/b2b/auth")
+class B2BAuthenticationController(
 //  private val refreshTokenGenerator: RefreshTokenGenerator,
-  private val authenticator: AuthenticationProvider,
+  private val authenticator: B2BAuthenticationProvider,
   private val loginSuccessfulEventPublisher: ApplicationEventPublisher<LoginSuccessfulEvent>,
   private val loginFailedEventPublisher : ApplicationEventPublisher<LoginFailedEvent>,
   private val loginHandler: LoginHandler<HttpRequest<*>, MutableHttpResponse<*>>

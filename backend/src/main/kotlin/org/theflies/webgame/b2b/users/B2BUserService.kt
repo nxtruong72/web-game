@@ -4,7 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventPublisher
 import jakarta.inject.Singleton
 import org.theflies.webgame.shared.common.PasswordEncoder
-import org.theflies.webgame.b2b.authentication.UserRegisterRequest
+import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.models.AccountStatus
 import org.theflies.webgame.shared.models.User
 import org.theflies.webgame.shared.repositories.TokenRepository
@@ -14,7 +14,7 @@ import java.time.Instant
 private val logger = KotlinLogging.logger {  }
 
 @Singleton
-class UserService(
+class B2BUserService(
   private val userRepository: UserRepository,
   private val tokenRepository: TokenRepository,
   private val eventPublisher: ApplicationEventPublisher<Any>,
@@ -34,7 +34,8 @@ class UserService(
         userRequest.email,
         userRequest.phone,
         encoder.encode(userRequest.password),
-        accountStatus = userRequest.accountStatus ?: AccountStatus.INACTIVATE
+        accountStatus = userRequest.accountStatus ?: AccountStatus.INACTIVATE,
+        roles = userRequest.roles
       )
     )
     eventPublisher.publishEvent(UserRegisterEvent(url, user))

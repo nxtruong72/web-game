@@ -1,0 +1,21 @@
+meta {
+  name: activate_staff
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/b2b/users/activate
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "code": "9a54d645-2cce-465f-bbec-713f2096b72d"
+  }
+}

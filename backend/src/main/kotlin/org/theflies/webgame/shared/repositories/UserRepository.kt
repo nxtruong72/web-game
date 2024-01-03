@@ -15,4 +15,5 @@ interface UserRepository: PageableRepository<User, Long> {
   fun update(@Id id: Long, lastVisitedAt: Instant)
   fun update(@Id id: Long, accountStatus: AccountStatus)
   fun findByEmail(email: String): User?
+  fun findByUsername(name: String): User?
 }

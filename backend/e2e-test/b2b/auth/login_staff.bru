@@ -1,0 +1,22 @@
+meta {
+  name: login_staff
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/b2b/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "gaconkzk",
+    "password": "{{my_pass}}"
+  }
+}
+
+vars:post-response {
+  access_token: res.body["access_token"]
+}
