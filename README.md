@@ -19,7 +19,7 @@
 
 Make sure postgres already started, you can start with `docker-compose` (postgres already configured in there). The database existed and can access with username and password. In this sample, postgres is 127.0.0.1:5432, and the database name is `postgres` with user `postgres` pass `changeme`.
 
-If you have mailjet api key and secrect, then update `src/main/resources/application.yml`, `mailjet.enable` from `false` to `true`
+If you have mailjet api key and secrect, then update `src/main/resources/application.yml`, `mailjet.enable` from `false` to `true`. If no mailjet, then all mail message (activation code, forgot password code ...) will be logged to console instead of mail.
 
 Start dev service:
 
