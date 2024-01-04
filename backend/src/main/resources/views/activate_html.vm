@@ -5,7 +5,7 @@
 </head>
 <body>
 <section>
-    <h1>Dear, username: <span>$username</span></h1>
+    <h1>Dear, <strong>$username</strong></h1>
     <p>Your activation code is: $activationCode. You can go to the site and input code to activate your account</p>
     <span>Or you can click&nbsp;<a href=$activationUrl>here</a>&nbsp;to activate your account automatically.</span
 </section>

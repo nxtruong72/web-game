@@ -20,6 +20,27 @@
 
 ## B2B
 
+Make sure postgres already started. The database existed and can access with username and password. In this sample, postgres is 127.0.0.1:5432, and the database name is `postgres` with user `postgres` pass `changeme`.
+
+If you have mailjet api key and secrect, then update `src/main/resources/application.yml`, `mailjet.enable` from `false` to `true`
+
+Start dev service:
+
+```shell
+# environment can be set throught windows environments ui
+# or unix shell rc file, for ex: ~/.bashrc with bash, or ~/.zshrc with zsh
+
+export POSTGRES_URL="jdbc:postgresql://127.0.0.1:5432/postgres"
+export POSTGRES_USER="postgres"
+export POSTGRES_PASS="changeme"
+
+export MAILJET_API_KEY="your mailjet api key"
+export MAILJET_API_SECRET="your mailjet api secret"
+
+cd webgame/backend
+./gradlew run
+```
+
 
 ## B2C or B2E (end user project)
 
