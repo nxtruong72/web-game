@@ -6,6 +6,7 @@ import jakarta.inject.Singleton
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.models.AccountStatus
+import org.theflies.webgame.shared.models.RoleType
 import org.theflies.webgame.shared.models.User
 import org.theflies.webgame.shared.repositories.TokenRepository
 import org.theflies.webgame.shared.repositories.UserRepository
@@ -34,8 +35,8 @@ class B2CUserService(
         userRequest.email,
         userRequest.phone,
         encoder.encode(userRequest.password),
-        accountStatus = userRequest.accountStatus ?: AccountStatus.INACTIVATE,
-        roles = userRequest.roles
+        accountStatus = AccountStatus.INACTIVATE,
+        roles = listOf(RoleType.MEMBER)
       )
     )
     eventPublisher.publishEvent(UserRegisterEvent(url, user))

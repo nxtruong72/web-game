@@ -29,7 +29,7 @@ mailjet:
   api-secret: ${MAILJET_API_SECRET}
 
 app:
-  site_url: 'http://localhost:8080'
+  site_url: 'http://localhost:8080/'
   register:
     code_expire: 5
     activate_path: '/activate'

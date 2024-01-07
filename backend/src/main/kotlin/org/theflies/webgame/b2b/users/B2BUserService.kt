@@ -35,8 +35,8 @@ class B2BUserService(
         userRequest.email,
         userRequest.phone,
         encoder.encode(userRequest.password),
-        accountStatus = AccountStatus.INACTIVATE,
-        roles = listOf(RoleType.MEMBER)
+        accountStatus = userRequest.accountStatus ?: AccountStatus.INACTIVATE,
+        roles = userRequest.roles
       )
     )
     eventPublisher.publishEvent(UserRegisterEvent(url, user))
