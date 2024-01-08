@@ -28,7 +28,7 @@ class B2CUserController(
 
   @Post("/activate")
   @Secured(SecurityRule.IS_ANONYMOUS)
-  fun activation(@Body token: UserActivateRequest, request: HttpRequest<*>): HttpResponse<Any> {
+  fun activation(@Body token: UserActivateRequest): HttpResponse<Any> {
     userService.activate(token)
     return HttpResponse.ok()
   }
