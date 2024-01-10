@@ -7,7 +7,7 @@ import { BASE_PATH } from './const.api';
   providedIn: 'root',
 })
 export class AuthApiService {
-  private readonly LOGIN_PATH = 'auth/login';
+  private readonly LOGIN_PATH = 'b2b/auth/login';
 
   constructor(private _http: HttpClient) {}
 
