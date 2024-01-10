@@ -8,6 +8,6 @@ export const permissionGuard: CanActivateFn = () => {
   if (authService.isAdmin) {
     return true;
   }
-  router.navigate(['sign-in']);
+  router.navigate(['dang-nhap']);
   return false;
 };

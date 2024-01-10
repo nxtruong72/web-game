@@ -8,7 +8,7 @@ export const routes: Routes = [
     canActivate: [permissionGuard],
   },
   {
-    path: 'sign-in',
+    path: 'dang-nhap',
     loadComponent: () => import('./authentication/components/sign-in/sign-in.component').then((m) => m.SignInComponent),
   },
   {
