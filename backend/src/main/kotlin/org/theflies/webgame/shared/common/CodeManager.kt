@@ -8,19 +8,30 @@ import org.theflies.webgame.shared.models.User
 import org.theflies.webgame.shared.repositories.TokenRepository
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-import java.util.UUID
+import java.util.*
+
 
 @Singleton
 class CodeManager(
   private val tokenRepository: TokenRepository,
-  @Value("\${app.register.code_expire:1}")
-  val expiryTime: Long
+  @Value("\${app.user.register.code_expire:1}")
+  val registerCodeExpireTime: Long,
+  @Value("\${app.user.forgot_pass.code_expire:1}")
+  val forgotPassCodeExpireTime: Long
 ) {
   fun generateAndPersistActivateCode(user: User): String {
-    val code = UUID.randomUUID().toString()
-    val expireAt = Instant.now().plus(expiryTime, ChronoUnit.MINUTES)
+    return generateAndPersistToken(user, registerCodeExpireTime, TokenType.REGISTER_ACTIVATION_CODE)
+  }
 
-    val token = Token(null, code, TokenType.REGISTER_ACTIVATION_CODE, user, expireAt)
+  fun generateAndPersistNewPassword(user: User): String {
+    return generateAndPersistToken(user, forgotPassCodeExpireTime, TokenType.FORGOT_PASSWORD_CODE)
+  }
+
+  private fun generateAndPersistToken(user: User, time: Long, type: TokenType): String {
+    val code = UUID.randomUUID().toString()
+    val expireAt = Instant.now().plus(time, ChronoUnit.MINUTES)
+
+    val token = Token(null, code, type, user, expireAt)
     tokenRepository.save(token)
     return code
   }

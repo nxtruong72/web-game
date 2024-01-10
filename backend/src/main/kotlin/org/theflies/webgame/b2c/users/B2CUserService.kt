@@ -61,7 +61,7 @@ class B2CUserService(
       }
 
       logger.debug { "Update user ${tok.user.id}" }
-      userRepository.update(tok.user.id!!, AccountStatus.ACTIVATED)
+      userRepository.updateAccountStatus(tok.user.id!!, AccountStatus.ACTIVATED)
       tokenRepository.update(tok.id!!, true)
     } ?: run {
       throw UserException(400, "Token not found")
@@ -75,5 +75,30 @@ class B2CUserService(
     }
 
     eventPublisher.publishEvent(UserRegisterEvent(url, user))
+  }
+
+  fun forgotPass(request: UserForgotPasswordRequest) {
+    val user = userRepository.findByEmail(request.email) ?: throw UserException(400, "Email not found")
+
+    eventPublisher.publishEvent(UserForgotPasswordEvent(user))
+  }
+
+  fun newPass(request: NewPasswordRequest) {
+    val token = tokenRepository.findByToken(request.code)
+    token?.let { tok ->
+      if (tok.used) {
+        throw UserException(400, "Token is used")
+      }
+      if (Instant.now() >= token.expireAt) {
+        tokenRepository.delete(token)
+        throw UserException(400, "Token is expired")
+      }
+
+      val password = request.newPassword
+      userRepository.updatePassword(tok.user.id!!, encoder.encode(password))
+      tokenRepository.update(tok.id!!, true)
+    } ?: run {
+      throw UserException(400, "Token not found")
+    }
   }
 }

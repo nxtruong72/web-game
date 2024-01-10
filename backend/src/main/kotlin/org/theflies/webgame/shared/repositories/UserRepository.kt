@@ -12,8 +12,10 @@ import java.time.Instant
 interface UserRepository: PageableRepository<User, Long> {
   fun findByUsernameOrEmailOrPhone(username: String, email: String, phone: String): List<User>
   fun findByUsernameAndAccountStatus(username: String, accountStatus: AccountStatus): User?
-  fun update(@Id id: Long, lastVisitedAt: Instant)
-  fun update(@Id id: Long, accountStatus: AccountStatus)
   fun findByEmail(email: String): User?
   fun findByUsername(name: String): User?
+
+  fun updateLastVisitedAt(@Id id: Long, lastVisitedAt: Instant)
+  fun updateAccountStatus(@Id id: Long, accountStatus: AccountStatus)
+  fun updatePassword(@Id id: Long, password: String)
 }

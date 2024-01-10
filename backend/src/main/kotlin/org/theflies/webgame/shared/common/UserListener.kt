@@ -6,6 +6,7 @@ import io.micronaut.context.event.ApplicationEventListener
 import io.micronaut.security.authentication.Authentication
 import io.micronaut.security.event.LoginSuccessfulEvent
 import jakarta.inject.Singleton
+import org.theflies.webgame.b2c.users.UserForgotPasswordEvent
 import org.theflies.webgame.shared.models.AccountStatus
 import org.theflies.webgame.shared.repositories.UserRepository
 import java.time.Instant
@@ -17,16 +18,38 @@ class UserListener(
   private val userRepository: UserRepository,
   private val mailManager: MailManager?,
   private val codeManager: CodeManager,
-  @Value("\${app.register.activate_path:}")
+  @Value("\${app.user.register.path:}")
   private val activatePath: String,
+  @Value("\${app.user.forgot_pass.path:}")
+  private val newPasswordPath: String,
   @Value("\${app.site_url:http://localhost:8080}")
-  private val activateDomain: String) :
+  private val appDomain: String
+) :
   ApplicationEventListener<Any> {
   override fun onApplicationEvent(event: Any) {
-    if (event is RegisterEvent) {
-      processRegisterEvent(event, mailManager)
-    } else if (event is LoginSuccessfulEvent) {
-      processLoginSuccessEvent(event)
+    when (event) {
+      is RegisterEvent -> {
+        processRegisterEvent(event)
+      }
+
+      is LoginSuccessfulEvent -> {
+        processLoginSuccessEvent(event)
+      }
+
+      is UserForgotPasswordEvent -> {
+        processForgotPasswordEvent(event)
+      }
+    }
+  }
+
+  private fun processForgotPasswordEvent(event: UserForgotPasswordEvent) {
+    val user = event.user
+    val newPassCode = codeManager.generateAndPersistNewPassword(user)
+    val newPassUrl = "${appDomain}$newPasswordPath/$newPassCode"
+    if (mailManager != null) {
+      mailManager.sendNewPassMailFor(user, newPassCode, newPassUrl)
+    } else {
+      logger.debug { "New password code for user: $newPassCode, user: ${user.username}, url: $newPassUrl" }
     }
   }
 
@@ -36,22 +59,21 @@ class UserListener(
     val user = userRepository.findByUsername(obj.name)
     // success login, update lastVisited
     user?.let {
-      userRepository.update(it.id!!, Instant.now())
+      userRepository.updateLastVisitedAt(it.id!!, Instant.now())
     }
   }
 
   private fun processRegisterEvent(
     event: RegisterEvent,
-    mailManager: MailManager?
   ) {
     val user = event.user
     if (user.accountStatus == AccountStatus.INACTIVATE) {
       val activationCode = codeManager.generateAndPersistActivateCode(user)
-      val activateUrl = "${activateDomain}$activatePath/$activationCode"
+      val activateUrl = "${appDomain}$activatePath/$activationCode"
       if (mailManager != null) {
         mailManager.sendActivateMailFor(user, activationCode, activateUrl)
       } else {
-        logger.debug { "Activation code is: $activationCode, url: $activateUrl" }
+        logger.debug { "Activation code is: $activationCode, user: ${user.username} url: $activateUrl" }
       }
     }
   }

@@ -1,0 +1,18 @@
+meta {
+  name: new-pass
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{host}}/b2c/users/new-pass
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "code": "191def41-8a48-437e-89ac-3463c7818c7d",
+    "newPassword": "hello"
+  }
+}

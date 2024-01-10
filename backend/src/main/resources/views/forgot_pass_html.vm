@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your account is refreshed</title>
+</head>
+<body>
+<section>
+    <h1>Dear, <strong>$username</strong></h1>
+    <p>Due to a request to reset your account password.</p>
+    <span>Your new password code is: $newPassCode</span>
+    <span>Or you can click&nbsp;<a href=$newPassUrl>here</a>&nbsp;to update your account password.</span>
+</section>
+</body>
+</html>

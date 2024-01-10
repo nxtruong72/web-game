@@ -6,7 +6,6 @@ import jakarta.inject.Singleton
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.models.AccountStatus
-import org.theflies.webgame.shared.models.RoleType
 import org.theflies.webgame.shared.models.User
 import org.theflies.webgame.shared.repositories.TokenRepository
 import org.theflies.webgame.shared.repositories.UserRepository
@@ -61,7 +60,7 @@ class B2BUserService(
       }
 
       logger.debug { "Update user ${tok.user.id}" }
-      userRepository.update(tok.user.id!!, AccountStatus.ACTIVATED)
+      userRepository.updateAccountStatus(tok.user.id!!, AccountStatus.ACTIVATED)
       tokenRepository.update(tok.id!!, true)
     } ?: run {
       throw UserException(400, "Token not found")

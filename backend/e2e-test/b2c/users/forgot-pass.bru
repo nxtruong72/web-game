@@ -1,0 +1,17 @@
+meta {
+  name: forgot-pass
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/b2c/users/forgot-pass
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{my_email}}"
+  }
+}

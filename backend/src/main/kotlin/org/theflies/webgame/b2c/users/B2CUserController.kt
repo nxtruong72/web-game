@@ -33,6 +33,20 @@ class B2CUserController(
     return HttpResponse.ok()
   }
 
+  @Post("/forgot-pass")
+  @Secured(SecurityRule.IS_ANONYMOUS)
+  fun forgotPassword(@Body request: UserForgotPasswordRequest): HttpResponse<Any> {
+    userService.forgotPass(request)
+    return HttpResponse.ok()
+  }
+
+  @Post("/new-pass")
+  @Secured(SecurityRule.IS_ANONYMOUS)
+  fun newPassword(@Body request: NewPasswordRequest): HttpResponse<Any> {
+    userService.newPass(request)
+    return HttpResponse.ok()
+  }
+
   @Post("/resend-activate")
   @Secured(SecurityRule.IS_ANONYMOUS)
   fun resendActivation(@Body reactivate: UserResendActivationCodeRequest, request: HttpRequest<*>): HttpResponse<Any> {

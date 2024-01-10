@@ -1,7 +1,6 @@
 package org.theflies.webgame.shared.common
 
 import io.micronaut.context.annotation.Requires
-import io.micronaut.context.annotation.Value
 import io.micronaut.email.BodyType
 import io.micronaut.email.Email
 import io.micronaut.email.EmailSender
@@ -32,6 +31,26 @@ class MailManager(
           MultipartBody(
             TemplateBody(BodyType.HTML, ModelAndView("activate_html", body)),
             TemplateBody(BodyType.TEXT, ModelAndView("activate_text", body))
+          )
+        )
+    )
+  }
+
+  fun sendNewPassMailFor(user: User, newPass: String, appUrl: String) {
+    val body = mapOf(
+      "username" to user.username,
+      "newPassCode" to newPass,
+      "newPassUrl" to appUrl,
+    )
+    emailSender.send(
+      Email.builder()
+        .from("Web Game <noreply@theflies.live>")
+        .to(user.email)
+        .subject("Your password is refreshed")
+        .body(
+          MultipartBody(
+            TemplateBody(BodyType.HTML, ModelAndView("forgot_pass_html", body)),
+            TemplateBody(BodyType.TEXT, ModelAndView("forgot_pass_text", body))
           )
         )
     )

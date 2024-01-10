@@ -36,7 +36,7 @@ class B2CAuthenticationProvider(
         if (passwordEncoder.matches(authenticationRequest.secret as String, user.password)) {
           if (user.roles.contains(RoleType.MEMBER)) {
             // success login, update lastVisited
-            userRepository.update(user.id!!, Instant.now())
+            userRepository.updateLastVisitedAt(user.id!!, Instant.now())
             emitter.next(
               AuthenticationResponse.success(
                 authenticationRequest.identity as String,
