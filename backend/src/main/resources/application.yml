@@ -1,6 +1,13 @@
 micronaut:
   application:
     name: webgame
+  server:
+    cors:
+      enabled: true
+#      configurations:
+#        ui:
+#          allowed-origins:
+#            - http://127.0.0.1:8000
   security:
     authentication: bearer
     token:
