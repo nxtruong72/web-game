@@ -60,7 +60,9 @@ export class SignInComponent implements OnInit {
           }),
         )
         .subscribe(
-          () => {},
+          (data) => {
+            console.log(data);
+          },
           (errorRes: HttpErrorResponse) => {
             this.errMsg = errorRes.error.message;
           },
@@ -70,7 +72,7 @@ export class SignInComponent implements OnInit {
 
   private initForm() {
     this.form = this._formBuilder.group({
-      userName: ['', Validators.compose([Validators.required, Validators.email])],
+      userName: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
     });
   }
