@@ -1,9 +1,11 @@
 import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
 import { routes } from '../app/app.routes';
 import { tap } from 'rxjs';
+import { InterceptorService } from '../app/service/interceptor.service';
+import { ErrorInterceptorService } from '../app/service/error.interceptor.service';
 let todos: Array<any> = [];
 export function initializeApplication(http: HttpClient) {
   return () =>
@@ -25,6 +27,16 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeApplication,
       multi: true,
       deps: [HttpClient],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true,
     },
     {
       provide: 'TODO',
