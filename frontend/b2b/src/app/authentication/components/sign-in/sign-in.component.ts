@@ -15,6 +15,7 @@ import { isEmptyString } from '../../../../shared/until.helper';
 import { requiredMsg } from '../../../../shared/msg.const';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs';
+import { Router } from '@angular/router';
 
 provideFluentDesignSystem().register(
   fluentButton(),
@@ -41,6 +42,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
+    private _router: Router,
   ) {}
 
   ngOnInit() {
@@ -62,6 +64,7 @@ export class SignInComponent implements OnInit {
         .subscribe(
           (data) => {
             console.log(data);
+            this._router.navigate(['']);
           },
           (errorRes: HttpErrorResponse) => {
             this.errMsg = errorRes.error.message;

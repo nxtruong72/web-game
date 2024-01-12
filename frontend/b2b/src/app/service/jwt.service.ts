@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { JWT_TOKEN } from '../../api/common.api';
+import { JWT_TOKEN } from '../../api/common.const';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { JWT_TOKEN } from '../../api/common.api';
 export class JwtService {
   constructor(private cookie: CookieService) {}
 
-  getJwToken() {
+  get getJwToken() {
     return this.cookie.get(JWT_TOKEN);
   }
 

@@ -18,17 +18,7 @@
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.14);
 
       .signin__container__card--logo {
-        width: 148px;
-        height: 48px;
-        background-color: $gray-color;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $blue-color;
-        font-size: 10px;
-        line-height: 14px;
-        font-weight: 600;
-        margin-bottom: 12px;
+        @include logo;
       }
       .signin__container__card--title {
         display: flex;

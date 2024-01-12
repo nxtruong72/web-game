@@ -4,7 +4,7 @@ import { permissionGuard } from './guard/permission.guard';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./admin/cms/cms.component').then((m) => m.CmsComponent),
+    loadComponent: () => import('./admin/components/cms/cms.component').then((m) => m.CmsComponent),
     canActivate: [permissionGuard],
   },
   {

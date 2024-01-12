@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JwtService } from './jwt.service';
-import { LOGIN_PATH } from '../../api/common.api';
+import { LOGIN_PATH } from '../../api/common.const';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class InterceptorService {
     if (request.url.endsWith(LOGIN_PATH)) {
       return next.handle(request);
     } else {
-      request = this.setHeader(request, this._cookie.getJwToken());
+      request = this.setHeader(request, this._cookie.getJwToken);
     }
     return next.handle(request);
   }

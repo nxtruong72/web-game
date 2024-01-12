@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BASE_PATH, LOGIN_PATH } from '../common.api';
+import { BASE_PATH, LOGIN_PATH } from '../common.const';
 
 @Injectable({
   providedIn: 'root',

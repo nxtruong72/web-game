@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { JwtService } from './service/jwt.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,15 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'game-online';
-
-  constructor(@Inject('TODO') private TODO: any) {}
+  constructor(
+    @Inject('TODO') private TODO: any,
+    private _jwtService: JwtService,
+    private _router: Router,
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.TODO);
+    if (this._jwtService.getJwToken) {
+      this._router.navigate(['']);
+    }
   }
 }

@@ -1,11 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../authentication/service/auth.service';
+import { JwtService } from '../service/jwt.service';
 
 export const permissionGuard: CanActivateFn = () => {
   const router = inject(Router);
-  const authService = inject(AuthService);
-  if (authService.isAdmin) {
+  const jwtService = inject(JwtService);
+
+  if (jwtService.getJwToken) {
     return true;
   }
   router.navigate(['dang-nhap']);
