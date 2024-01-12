@@ -1,3 +1,16 @@
+@mixin logo {
+  width: 148px;
+  height: 48px;
+  background-color: $gray-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $blue-color;
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
 .c_required__input {
   font-weight: 400;
   font-size: $font14;

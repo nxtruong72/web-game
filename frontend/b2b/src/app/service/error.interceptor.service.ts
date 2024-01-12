@@ -32,7 +32,7 @@ export class ErrorInterceptorService {
   }
 
   private handleCode401(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const _request = this._interceptorService.setHeader(request, this._jwtService.getJwToken());
+    const _request = this._interceptorService.setHeader(request, this._jwtService.getJwToken);
     return next.handle(_request);
   }
 

@@ -1,0 +1,20 @@
+<view-container
+  class="view-container"
+  *ngIf="view$ | async as view"
+  [appViewMain]="mainTmp"
+  [errorTmp]="errorTmp"
+  [loaderTmp]="loaderTmp"
+  [view]="view"
+></view-container>
+
+<ng-template #loaderTmp>
+  <app-loading></app-loading>
+</ng-template>
+
+<ng-template #mainTmp let-model="view">
+  <div class="mainView">Dashboard Work</div>
+</ng-template>
+
+<ng-template #errorTmp let-error="view">
+  <div class="error"></div>
+</ng-template>
