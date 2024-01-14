@@ -36,3 +36,35 @@ CREATE TABLE tokens (
 
 CREATE INDEX idx_token ON tokens(token);
 ALTER TABLE tokens ADD CONSTRAINT fk_tokens_users FOREIGN KEY (user_id) REFERENCES users (id);
+
+DROP TABLE IF EXISTS wallets;
+
+CREATE TABLE wallets (
+    id SERIAL PRIMARY KEY,
+    version INTEGER,
+    balance NUMERIC(32,5) NOT NULL CHECK(balance >= 0),
+    blocked_balance NUMERIC(32,5) NOT NULL CHECK(blocked_balance >= 0),
+    reward NUMERIC(32,5) NOT NULL CHECK(reward >= 0),
+    blocked_reward NUMERIC(32,5) NOT NULL CHECK(blocked_reward >= 0),
+    user_id INTEGER NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE wallets ADD CONSTRAINT fk_wallet_users FOREIGN KEY (user_id) REFERENCES users (id);
+
+DROP TABLE IF EXISTS transactions;
+
+CREATE TABLE transactions (
+     id SERIAL PRIMARY KEY,
+     amount NUMERIC(32,5) NOT NULL CHECK ( amount > 0 ),
+     transaction_status VARCHAR(45) DEFAULT 'PENDING' NOT NULL,
+     transaction_type VARCHAR(45) NOT NULL,
+     transaction_method VARCHAR(45) DEFAULT 'BANK' NOT NULL,
+     notes VARCHAR(1024)  NOT NULL,
+     wallet_id INTEGER  NULL,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE transactions ADD CONSTRAINT fk_transactions_wallets FOREIGN KEY (wallet_id) REFERENCES wallets (id);

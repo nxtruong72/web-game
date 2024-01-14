@@ -3,14 +3,12 @@ package org.theflies.webgame.b2b.users
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import io.micronaut.serde.annotation.Serdeable.Serializable
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Size
+import jakarta.validation.constraints.*
 import org.theflies.webgame.shared.common.RegisterEvent
 import org.theflies.webgame.shared.models.AccountStatus
 import org.theflies.webgame.shared.models.RoleType
 import org.theflies.webgame.shared.models.User
+import java.math.BigDecimal
 
 @Introspected
 @Deserializable

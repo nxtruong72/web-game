@@ -2,26 +2,34 @@ package org.theflies.webgame.b2c.users
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventPublisher
+import io.micronaut.core.type.Argument.listOf
+import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
-import org.theflies.webgame.shared.models.AccountStatus
-import org.theflies.webgame.shared.models.RoleType
-import org.theflies.webgame.shared.models.User
+import org.theflies.webgame.shared.common.WalletException
+import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.TokenRepository
+import org.theflies.webgame.shared.repositories.TransactionRepository
 import org.theflies.webgame.shared.repositories.UserRepository
+import org.theflies.webgame.shared.repositories.WalletRepository
+import java.math.BigDecimal
+import java.security.Principal
 import java.time.Instant
 
 private val logger = KotlinLogging.logger {  }
 
 @Singleton
-class B2CUserService(
+open class B2CUserService(
   private val userRepository: UserRepository,
   private val tokenRepository: TokenRepository,
+  private val walletRepository: WalletRepository,
+  private val transactionRepository: TransactionRepository,
   private val eventPublisher: ApplicationEventPublisher<Any>,
   private val encoder: PasswordEncoder,
 ) {
-  fun create(userRequest: UserRegisterRequest, url: String): UserRegisterResponse {
+  @Transactional
+  open fun create(userRequest: UserRegisterRequest, url: String): UserRegisterResponse {
     val existed =
       userRepository.findByUsernameOrEmailOrPhone(userRequest.username, userRequest.email, userRequest.phone)
     if (existed.isNotEmpty()) {
@@ -37,6 +45,17 @@ class B2CUserService(
         encoder.encode(userRequest.password),
         accountStatus = AccountStatus.INACTIVATE,
         roles = listOf(RoleType.MEMBER)
+      )
+    )
+    walletRepository.save(
+      Wallet(
+        null,
+        0,
+        BigDecimal(0),
+        BigDecimal(0),
+        BigDecimal(0),
+        BigDecimal(0),
+        user,
       )
     )
     eventPublisher.publishEvent(UserRegisterEvent(url, user))
@@ -100,5 +119,26 @@ class B2CUserService(
     } ?: run {
       throw UserException(400, "Token not found")
     }
+  }
+  @Transactional
+  open fun withdraw(request: WithdrawRequest, principal: Principal) {
+    logger.info { "User ${principal.name} request withdraw ${request.amount}" }
+    val user = userRepository.findByUsername(principal.name) ?: throw UserException(400, "Username not found")
+    val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(400, "Wallet not found")
+    if (wallet.balance < request.amount) {
+      throw WalletException(400, "Balance insufficient")
+    }
+    transactionRepository.save(Transaction(
+      null,
+      request.amount,
+      request.transactionMethod,
+      TransactionType.WITHDRAW,
+      TransactionStatus.PENDING,
+      request.notes,
+      wallet
+    ))
+    wallet.balance = wallet.balance.subtract(request.amount);
+    wallet.blockedBalance = wallet.blockedBalance.add(request.amount);
+    walletRepository.update(wallet)
   }
 }

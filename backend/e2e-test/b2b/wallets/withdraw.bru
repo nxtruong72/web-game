@@ -1,0 +1,21 @@
+meta {
+  name: withdraw
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/b2b/wallets/withdraw/4/approval
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "approval": true
+  }
+}
