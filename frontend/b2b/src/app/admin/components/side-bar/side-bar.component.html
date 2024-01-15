@@ -1,0 +1,27 @@
+<div class="sidebar">
+  <div class="sidebar__container">
+    <div class="sidebar__container__logo">
+      <div class="sidebar__container__logo__src">LOGO</div>
+    </div>
+    <div class="sidebar__container__menu">
+      @for (item of menu; track item) {
+        <div class="sidebar__container__menu__item">
+          <img src="\assets\icons\bang-dieu-khien.svg" class="sidebar__container__menu__item__icon" alt="" />
+          <span class="sidebar__container__menu__item__name">
+            {{ item.name }}
+          </span>
+        </div>
+      }
+    </div>
+    <div class="sidebar__container__function">
+      <fluent-divider></fluent-divider>
+      <div class="sidebar__container__function__version">
+        <span class="sidebar__container__function__version__text">Phiên bản:</span>
+        <span class="sidebar__container__function__version__number">1.0.0</span>
+      </div>
+      <div class="sidebar__container__function__toggle">
+        <img src="\assets\icons\menu-toggle.svg" class="sidebar__container__function__toggle__icon" alt="" />
+      </div>
+    </div>
+  </div>
+</div>
