@@ -4,6 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.annotation.Value
 import io.micronaut.context.event.ApplicationEventListener
 import io.micronaut.security.authentication.Authentication
+import io.micronaut.security.event.LoginFailedEvent
 import io.micronaut.security.event.LoginSuccessfulEvent
 import jakarta.inject.Singleton
 import org.theflies.webgame.b2c.users.UserForgotPasswordEvent
@@ -28,7 +29,7 @@ class UserListener(
   ApplicationEventListener<Any> {
   override fun onApplicationEvent(event: Any) {
     when (event) {
-      is RegisterEvent -> {
+      is RegisteredEvent -> {
         processRegisterEvent(event)
       }
 
@@ -36,10 +37,18 @@ class UserListener(
         processLoginSuccessEvent(event)
       }
 
+      is LoginFailedEvent -> {
+        processLoginFailedEvent(event)
+      }
+
       is UserForgotPasswordEvent -> {
         processForgotPasswordEvent(event)
       }
     }
+  }
+
+  private fun processLoginFailedEvent(event: LoginFailedEvent) {
+    TODO("Not yet implemented")
   }
 
   private fun processForgotPasswordEvent(event: UserForgotPasswordEvent) {
@@ -64,7 +73,7 @@ class UserListener(
   }
 
   private fun processRegisterEvent(
-    event: RegisterEvent,
+    event: RegisteredEvent,
   ) {
     val user = event.user
     if (user.accountStatus == AccountStatus.INACTIVATE) {
