@@ -1,0 +1,13 @@
+@import '../../../../scss/variable';
+.nav__header {
+  height: 52px;
+  background-color: $white-color;
+
+  .nav__header__container {
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+  }
+}
