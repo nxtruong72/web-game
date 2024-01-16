@@ -11,6 +11,11 @@
   font-weight: 600;
   margin-bottom: 12px;
 }
+
+@mixin cursorPointer {
+  cursor: pointer;
+}
+
 .c_required__input {
   font-weight: 400;
   font-size: $font14;

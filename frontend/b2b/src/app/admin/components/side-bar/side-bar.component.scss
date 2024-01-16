@@ -33,6 +33,7 @@
         justify-content: flex-start;
         margin-bottom: 12px;
         position: relative;
+        @include cursorPointer;
         .sidebar__container__menu__item__icon {
           margin-left: 12px;
         }
@@ -53,6 +54,11 @@
         height: 16px;
         border-radius: 999px;
         background-color: $blue-color;
+      }
+      .sidebar__container__menu__item.active {
+        .sidebar__container__menu__item__name {
+          font-weight: 600;
+        }
       }
     }
 
@@ -87,12 +93,9 @@
         img {
           width: 20px;
           height: 20px;
+          @include cursorPointer;
         }
       }
     }
   }
-}
-
-img.svg-icon {
-  fill: red; /* Màu bạn muốn thay đổi */
 }
