@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { MenuI } from '../../interface/admin.interface';
 import { provideFluentDesignSystem, fluentDivider } from '@fluentui/web-components';
+import { RouterModule } from '@angular/router';
 
 provideFluentDesignSystem().register(fluentDivider());
 
@@ -10,48 +11,54 @@ provideFluentDesignSystem().register(fluentDivider());
   styleUrls: ['./side-bar.component.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [RouterModule],
 })
 export class SideBarComponent implements OnInit {
   menu: Array<MenuI> = [
     {
       name: 'Bảng điều khiển',
-      icon: '',
+      icon: 'chart_multiple.svg',
+      route: 'bang-dieu-khien',
     },
     {
       name: 'Người chơi',
-      icon: '',
+      icon: 'user.svg',
+      route: 'nguoi-choi',
     },
     {
       name: 'IP máy khách',
-      icon: '',
+      icon: 'computer.svg',
+      route: 'ip-may-khach',
     },
     {
       name: 'Giao dịch',
-      icon: '',
+      icon: 'pay.svg',
+      route: 'giao-dich',
     },
     {
       name: 'Kèo cá cược',
-      icon: '',
-    },
-    {
-      name: 'Bảng điều khiển',
-      icon: '',
+      icon: 'ball.svg',
+      route: 'keo-ca-cuoc',
     },
     {
       name: 'Bots',
-      icon: '',
+      icon: 'bot.svg',
+      route: 'bots',
     },
     {
       name: 'Campaigns',
-      icon: '',
+      icon: 'campaigns.svg',
+      route: 'campaigns',
     },
     {
       name: 'Gift code',
-      icon: '',
+      icon: 'gift.svg',
+      route: 'gift-code',
     },
     {
       name: 'Gamebank',
-      icon: '',
+      icon: 'bank.svg',
+      route: 'game-bank',
     },
   ];
 

@@ -1,4 +1,5 @@
 @import '../../../../scss/variable';
+@import '../../../../scss/common';
 .nav__header {
   height: 52px;
   background-color: $white-color;
@@ -8,6 +9,55 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 32px;
+
+    .nav__header__container__title {
+      font-weight: 600;
+      font-size: $font16;
+      line-height: 22px;
+      color: $gray-color-7;
+    }
+    .nav__header__container_function {
+      display: flex;
+      align-items: center;
+      .nav__header__container_function__setting {
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
+        @include cursorPointer;
+      }
+      .nav__header__container_function__notify {
+        width: 18px;
+        height: 20px;
+        margin-right: 16px;
+        @include cursorPointer;
+      }
+      .nav__header__container_function__user {
+        display: flex;
+        align-items: center;
+        .nav__header__container_function__user__avatar {
+          width: 30px;
+          height: 30px;
+          border-radius: 30px;
+          background-color: $gray-color-5;
+          margin-right: 8px;
+          @include cursorPointer;
+        }
+        .nav__header__container_function__user__detail {
+          display: flex;
+          flex-direction: column;
+          .nav__header__container_function__user__detail__name {
+            font-size: $font14;
+            font-weight: 400;
+            line-height: 20px;
+          }
+          .nav__header__container_function__user__detail__role {
+            font-size: $font14;
+            font-weight: 400;
+            line-height: 16px;
+          }
+        }
+      }
+    }
   }
 }
