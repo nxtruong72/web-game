@@ -101,3 +101,9 @@ data class RoundEndRequest(
   @Max(2)
   var teamWin: Int
 )
+
+data class RoundEndedEvent(
+  var id: Long,
+  var roundStatus: RoundStatus,
+  var teamWin: Int
+)

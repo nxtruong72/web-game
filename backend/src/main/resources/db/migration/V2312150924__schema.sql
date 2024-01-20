@@ -52,6 +52,7 @@ CREATE TABLE wallets (
 );
 
 ALTER TABLE wallets ADD CONSTRAINT fk_wallet_users FOREIGN KEY (user_id) REFERENCES users (id);
+CREATE INDEX user_id_wallets ON wallets(user_id);
 
 DROP TABLE IF EXISTS transactions;
 
@@ -68,6 +69,7 @@ CREATE TABLE transactions (
 );
 
 ALTER TABLE transactions ADD CONSTRAINT fk_transactions_wallets FOREIGN KEY (wallet_id) REFERENCES wallets (id);
+CREATE INDEX wallet_id_transactions ON transactions(wallet_id);
 
 CREATE TABLE games (
      id SERIAL PRIMARY KEY,
@@ -96,6 +98,7 @@ CREATE TABLE rounds (
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ALTER TABLE rounds ADD CONSTRAINT fk_rounds_games FOREIGN KEY (game_id) REFERENCES games (id);
+CREATE INDEX game_id_rounds ON rounds(game_id);
 
 CREATE TABLE bets (
     id SERIAL PRIMARY KEY,
@@ -109,3 +112,6 @@ CREATE TABLE bets (
 );
 ALTER TABLE bets ADD CONSTRAINT fk_bets_rounds FOREIGN KEY (round_id) REFERENCES rounds (id);
 ALTER TABLE bets ADD CONSTRAINT fk_bets_wallets FOREIGN KEY (wallet_id) REFERENCES wallets (id);
+
+CREATE INDEX round_id_bets ON bets(round_id);
+CREATE INDEX wallet_id_bets ON bets(wallet_id);

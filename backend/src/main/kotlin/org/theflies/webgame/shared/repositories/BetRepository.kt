@@ -16,9 +16,9 @@ import java.util.*
 interface BetRepository: PageableRepository<Bet, Long> {
     @Join("round")
     @Join("wallet")
-    fun findByIdForUpdate(@Id id: Long): Round?
+    fun findByIdForUpdate(@Id id: Long): Bet?
 
     @Join("round")
     @Join("wallet")
-    fun findByRoundIdForUpdate(@Id id: Long): List<Round>
+    fun findByRoundIdForUpdate(@Id roundId: Long): List<Bet>
 }

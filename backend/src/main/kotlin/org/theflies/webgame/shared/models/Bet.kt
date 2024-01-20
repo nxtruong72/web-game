@@ -1,6 +1,7 @@
 package org.theflies.webgame.shared.models
 
 import io.micronaut.data.annotation.*
+import io.micronaut.data.annotation.Relation.Cascade
 import jakarta.validation.constraints.NotBlank
 import java.math.BigDecimal
 import java.time.Instant
@@ -24,7 +25,7 @@ class Bet (
     @MappedProperty("round_id")
     var round: Round? = null,
 
-    @Relation(value = Relation.Kind.MANY_TO_ONE)
+    @Relation(value = Relation.Kind.MANY_TO_ONE, cascade = [Cascade.UPDATE])
     @MappedProperty("wallet_id")
     var wallet: Wallet? = null,
 
