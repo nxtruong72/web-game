@@ -1,0 +1,14 @@
+@import '../../../../scss/variable';
+.main__container {
+  display: flex;
+  background-color: $gray-color-6;
+  .main__container__left {
+    width: 172px;
+  }
+  .main__container__right {
+    flex: 1;
+    .main__container__right__container {
+      padding: 32px;
+    }
+  }
+}
