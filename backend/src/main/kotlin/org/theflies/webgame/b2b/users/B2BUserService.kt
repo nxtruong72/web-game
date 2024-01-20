@@ -5,18 +5,20 @@ import io.micronaut.context.event.ApplicationEventPublisher
 import jakarta.inject.Singleton
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
-import org.theflies.webgame.shared.models.AccountStatus
-import org.theflies.webgame.shared.models.User
+import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.TokenRepository
 import org.theflies.webgame.shared.repositories.UserRepository
+import org.theflies.webgame.shared.repositories.WalletRepository
+import java.math.BigDecimal
 import java.time.Instant
 
 private val logger = KotlinLogging.logger {  }
 
 @Singleton
-class B2BUserService(
+open class B2BUserService(
   private val userRepository: UserRepository,
   private val tokenRepository: TokenRepository,
+  private val walletRepository: WalletRepository,
   private val eventPublisher: ApplicationEventPublisher<Any>,
   private val encoder: PasswordEncoder,
 ) {
@@ -38,8 +40,19 @@ class B2BUserService(
         roles = userRequest.roles
       )
     )
-    eventPublisher.publishEvent(UserRegisterEvent(url, user))
 
+    walletRepository.save(
+      Wallet(
+        null,
+        0,
+        BigDecimal(0),
+        BigDecimal(0),
+        BigDecimal(0),
+        BigDecimal(0),
+        user,
+      )
+    )
+    eventPublisher.publishEvent(UserRegisterEvent(url, user))
     return UserRegisterResponse(user.id!!, user.username, user.phone, user.email)
   }
 

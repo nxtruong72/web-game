@@ -9,6 +9,8 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.server.util.HttpHostResolver
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
+import jakarta.annotation.security.RolesAllowed
+import java.security.Principal
 
 private val logger = KotlinLogging.logger {  }
 
@@ -52,6 +54,14 @@ class B2CUserController(
   fun resendActivation(@Body reactivate: UserResendActivationCodeRequest, request: HttpRequest<*>): HttpResponse<Any> {
     val appUrl = hostResolver.resolve(request)
     userService.resendActivationCode(reactivate, appUrl)
+    return HttpResponse.ok()
+  }
+
+  @Post("/withdraw")
+  @Secured(SecurityRule.IS_AUTHENTICATED)
+  @RolesAllowed("MEMBER")
+  fun withdraw(@Body withdrawRequest: WithdrawRequest, principal: Principal): HttpResponse<Any> {
+    userService.withdraw(withdrawRequest, principal)
     return HttpResponse.ok()
   }
 }

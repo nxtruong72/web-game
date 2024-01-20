@@ -1,0 +1,24 @@
+meta {
+  name: deposit
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/b2b/wallets/deposit
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "userId": 2,
+    "amount": 100,
+    "transactionMethod": "BANK",
+    "notes": "Test"
+  } 
+}

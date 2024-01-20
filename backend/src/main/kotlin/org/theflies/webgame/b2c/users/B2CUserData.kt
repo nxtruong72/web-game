@@ -4,8 +4,11 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import io.micronaut.serde.annotation.Serdeable.Serializable
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Positive
 import org.theflies.webgame.shared.common.RegisterEvent
+import org.theflies.webgame.shared.models.Method
 import org.theflies.webgame.shared.models.User
+import java.math.BigDecimal
 
 @Introspected
 @Deserializable
@@ -61,6 +64,20 @@ data class NewPasswordRequest(
   val code: String,
   @NotBlank
   val newPassword: String,
+)
+
+@Introspected
+@Deserializable
+data class WithdrawRequest(
+  @NotBlank
+  @Positive
+  val amount: BigDecimal,
+
+  @NotBlank
+  val transactionMethod: Method,
+
+  @NotBlank
+  val notes: String,
 )
 
 data class UserForgotPasswordEvent(

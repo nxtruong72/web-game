@@ -1,0 +1,21 @@
+meta {
+  name: end Round
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/b2b/games/3/rounds/1/end
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "teamWin": 0
+  }
+}

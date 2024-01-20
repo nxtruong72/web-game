@@ -1,0 +1,15 @@
+meta {
+  name: Start Game
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/b2b/games/3/start
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
