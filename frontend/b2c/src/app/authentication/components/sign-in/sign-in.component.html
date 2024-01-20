@@ -1,25 +1,27 @@
-<div class="signin">
-  <div class="signin__container">
-    <div class="signin__container__logo">
+<div class="auth">
+  <div class="auth__container">
+    <div class="auth__container__logo">
       <img src="assets/icons/auth/logo.svg" alt="" srcset="" />
     </div>
-    <div class="card signin__container__card">
-      <div class="card-body signin__container__body">
-        <div class="signin__container__body--title">Đăng Nhập</div>
-        <div class="signin__container__body--inputs">
+    <div class="card auth__container__card">
+      <div class="card-body auth__container__body">
+        <div class="auth__container__body--title">Đăng Nhập</div>
+        <div class="auth__container__body--inputs">
           <div class="mb-3">
             <label class="form-label">Tài khoản *</label>
-            <input type="email" class="form-control" placeholder="Tên đăng nhập" />
+            <input type="text" class="form-control" placeholder="Tên đăng nhập" />
           </div>
           <div class="mb-3">
             <label class="form-label">Mật khẩu *</label>
-            <input type="email" class="form-control" placeholder="Mật khẩu đăng nhập" />
+            <input type="password" class="form-control" placeholder="Mật khẩu đăng nhập" />
           </div>
-          <div class="mb-3 signin__container__body--forgot__password">Quên mật khẩu?</div>
+          <div class="mb-3 auth__container__body--forgot__password">
+            <a routerLink="/quen-mat-khau">Quên mật khẩu?</a>
+          </div>
         </div>
-        <div class="signin__container__body--action">
-          <button type="button" class="btn btn-primary w-100 signin__container__body--action__login">Đăng Nhập</button>
-          <div class="signin__container__body--action__signin">
+        <div class="auth__container__body--action">
+          <button type="button" class="btn btn-primary w-100 auth__container__body--action__login">Đăng Nhập</button>
+          <div class="auth__container__body--action__auth">
             Chưa có tài khoản?
             <a routerLink="/dang-ki">Đăng kí</a>
           </div>
@@ -27,13 +29,13 @@
       </div>
     </div>
   </div>
-  <div class="signin__footer">
-    <div class="signin__container">
-      <div class="signin__footer__version">
+  <div class="auth__footer">
+    <div class="auth__container">
+      <div class="auth__footer__version">
         Phiên bản:
         <span>1.0.0</span>
       </div>
-      <div class="signin__footer__hotline">
+      <div class="auth__footer__hotline">
         CSKH:
         <span>1900 9999</span>
       </div>
