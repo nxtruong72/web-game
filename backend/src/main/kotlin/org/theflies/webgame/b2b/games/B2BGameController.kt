@@ -11,6 +11,7 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import jakarta.annotation.security.RolesAllowed
+import jakarta.validation.Valid
 
 @Controller("/b2b/games")
 class B2BGameController(
@@ -59,7 +60,7 @@ class B2BGameController(
     @Post("/{gameId}/rounds/{roundId}/end")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
-    fun endRound (gameId: Long, roundId: Long, @Body endRequest: RoundEndRequest, request: HttpRequest<*>): HttpResponse<RoundResponse> {
+    fun endRound (gameId: Long, roundId: Long, @Body @Valid endRequest: RoundEndRequest, request: HttpRequest<*>): HttpResponse<RoundResponse> {
         val roundResponse = gameService.endRound(roundId, endRequest)
         return HttpResponse.ok(roundResponse)
     }
@@ -75,14 +76,14 @@ class B2BGameController(
     @Get("/")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
-    fun withdraw(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<GameResponse>> {
+    fun listGames(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<GameResponse>> {
         return HttpResponse.ok(gameService.getGame(pageable))
     }
 
     @Get("/round/{id}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
-    fun withdraw(id: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
+    fun listRound(id: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
         return HttpResponse.ok(gameService.getRoundByGameId(id, pageable))
     }
 }

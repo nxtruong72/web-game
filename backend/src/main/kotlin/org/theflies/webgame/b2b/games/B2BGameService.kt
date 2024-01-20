@@ -25,6 +25,7 @@ open class B2BGameService(
     private val eventPublisher: ApplicationEventPublisher<Any>,
 ) {
     fun createGame(createGameRequest: CreateGameRequest): GameResponse {
+        logger.info { "Create Game $createGameRequest" }
         val game = gameRepository.save(Game(
            null,
             createGameRequest.name,
@@ -42,6 +43,7 @@ open class B2BGameService(
 
     @Transactional
     open fun startGame(gameId: Long): GameResponse {
+        logger.info {"Start game for $gameId"}
         val game = gameRepository.findByIdForUpdate(gameId) ?: throw GameException(404, "Game is not existing")
         if (game.gameStatus != GameStatus.PENDING) {
             throw GameException(400, "Game can't start, because status is not pending")
@@ -53,6 +55,7 @@ open class B2BGameService(
 
     @Transactional
     open fun stopGame(gameId: Long): GameResponse {
+        logger.info {"Stop game for $gameId"}
         val game = gameRepository.findByIdForUpdate(gameId) ?: throw GameException(404, "Game is not existing")
         if (game.gameStatus != GameStatus.START) {
             throw GameException(400, "Game can't stop, because status is not started yet")
@@ -64,6 +67,7 @@ open class B2BGameService(
 
     @Transactional
     open fun cancelGame(gameId: Long): GameResponse {
+        logger.info {"Cancel game for $gameId"}
         val game = gameRepository.findByIdForUpdate(gameId) ?: throw GameException(404, "Game is not existing")
         if (game.gameStatus != GameStatus.PENDING
             || game.gameStatus != GameStatus.START ) {
@@ -75,11 +79,12 @@ open class B2BGameService(
     }
 
     fun createNewRound(gameId: Long): RoundResponse {
+        logger.info { "Create round for gameId $gameId" }
         val game = gameRepository.findByIdForUpdate(gameId) ?: throw GameException(404, "Game is not existing")
         if (game.gameStatus != GameStatus.START) {
             throw GameException(400, "Game is not started yet")
         }
-        val round = roundRepository.update(Round(
+        val round = roundRepository.save(Round(
             null,
             0,
             RoundStatus.START,
@@ -92,6 +97,7 @@ open class B2BGameService(
 
     @Transactional
     open fun endRound(roundId: Long, roundEndRequest: RoundEndRequest): RoundResponse {
+        logger.info { "End round id $roundId with info $roundEndRequest" }
         val round = roundRepository.findByIdForUpdate(roundId) ?: throw RoundException(404, "Round is not existing")
         if (round.roundStatus != RoundStatus.START) {
             throw RoundException(400, "Round is not in start state")
@@ -141,19 +147,17 @@ open class B2BGameService(
     @TransactionalEventListener
     open fun onRoundEndedEvent(roundEndedEvent: RoundEndedEvent) {
         when(roundEndedEvent.roundStatus) {
-            RoundStatus.CALCULATE -> processBestResult(roundEndedEvent)
+            RoundStatus.CALCULATE -> processBetResult(roundEndedEvent)
             RoundStatus.CANCELING -> processCancel(roundEndedEvent)
             else -> {}
         }
     }
 
     @Transactional
-    open fun processBestResult(roundEndedEvent: RoundEndedEvent) {
+    open fun processBetResult(roundEndedEvent: RoundEndedEvent) {
+        logger.info {"Process Bet with $roundEndedEvent"}
         val round = roundRepository.findByIdForUpdate(roundEndedEvent.id) ?: throw RoundException(404, "Round is not existing")
         val bets = betRepository.findByRoundIdForUpdate(roundEndedEvent.id)
-        if (bets.isEmpty()) {
-            return
-        }
         val teamBets = bets.groupBy {it.teamBet}
         val winBets = teamBets[round.teamWin] ?: emptyList()
         val loseBets = teamBets[if (round.teamWin == 1) 2 else 1] ?: emptyList()
@@ -214,7 +218,7 @@ open class B2BGameService(
             game.profit,
             game.gameTypes,
             game.streamURL,
-            game.startTime!!,
+            game.startTime,
             game.createdAt!!,
             game.updatedAt!!
         )

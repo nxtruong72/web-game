@@ -61,7 +61,7 @@ data class GameResponse(
   var streamURL: String,
 
   @NotBlank
-  var startTime: Instant,
+  var startTime: Instant? = null,
 
   @NotBlank
   var createdAt: Instant,

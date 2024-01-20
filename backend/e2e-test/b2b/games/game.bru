@@ -1,0 +1,25 @@
+meta {
+  name: game
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/b2b/games
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "name": "Game 4",
+    "teamOne": "Team 1",
+    "teamTwo": "Team 2",
+    "gameTypes": ["CUNG"],
+    "streamURL": "https://www.youtube.com/watch?v=VdrL_KrlBjY"
+  }
+}

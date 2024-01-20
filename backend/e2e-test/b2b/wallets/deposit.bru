@@ -5,7 +5,20 @@ meta {
 }
 
 post {
-  url: deposit
-  body: none
-  auth: none
+  url: {{host}}/b2b/wallets/deposit
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "userId": 2,
+    "amount": 100,
+    "transactionMethod": "BANK",
+    "notes": "Test"
+  } 
 }

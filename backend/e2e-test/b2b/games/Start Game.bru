@@ -1,21 +1,15 @@
 meta {
-  name: withdraw
+  name: Start Game
   type: http
-  seq: 6
+  seq: 4
 }
 
 post {
-  url: {{host}}/b2c/users/withdraw
+  url: {{host}}/b2b/games/3/start
   body: json
   auth: bearer
 }
 
 auth:bearer {
   token: {{access_token}}
-}
-
-body:json {
-  {
-    "amount": 2
-  }
 }

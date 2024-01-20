@@ -1,21 +1,15 @@
 meta {
-  name: withdraw
+  name: create round
   type: http
   seq: 2
 }
 
 post {
-  url: {{host}}/b2b/wallets/withdraw/4/approval
+  url: {{host}}/b2b/games/3/rounds
   body: json
   auth: bearer
 }
 
 auth:bearer {
   token: {{access_token}}
-}
-
-body:json {
-  {
-    "approval": false
-  }
 }

@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: 
+  url: {{host}}/b2b/wallets/transactions
   body: none
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
 }
