@@ -3,6 +3,7 @@ package org.theflies.webgame.shared.repositories;
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.Join;
+import io.micronaut.data.annotation.repeatable.JoinSpecifications
 import io.micronaut.data.jdbc.annotation.JdbcRepository;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.PageableRepository;
@@ -18,7 +19,11 @@ interface BetRepository: PageableRepository<Bet, Long> {
     @Join("wallet")
     fun findByIdForUpdate(@Id id: Long): Bet?
 
-    @Join("round")
-    @Join("wallet")
+    @JoinSpecifications(
+        Join(value = "round"),
+        Join(value = "round.game"),
+        Join(value = "wallet"),
+        Join(value = "wallet.user"),
+    )
     fun findByRoundIdForUpdate(@Id roundId: Long): List<Bet>
 }

@@ -1,7 +1,6 @@
 package org.theflies.webgame.b2c.games
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.micronaut.context.event.ApplicationEventPublisher
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
 import io.micronaut.transaction.annotation.Transactional
@@ -12,14 +11,12 @@ import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.common.WalletException
 import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.*
-import java.math.BigDecimal
 import java.security.Principal
-import java.util.Locale
 
 private val logger = KotlinLogging.logger {  }
 
 @Singleton
-open class B2BGameService(
+open class B2CGameService(
     private val gameRepository: GameRepository,
     private val roundRepository: RoundRepository,
     private val betRepository: BetRepository,

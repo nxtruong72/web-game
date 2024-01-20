@@ -77,7 +77,7 @@ data class BetRequest (
 )
 
 @Introspected
-@Deserializable
+@Serializable
 data class BetResponse (
   @NotBlank
   var id: Long,

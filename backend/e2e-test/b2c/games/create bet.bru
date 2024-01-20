@@ -1,0 +1,23 @@
+meta {
+  name: create bet
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/b2c/games/bet
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "roundInd": 2,
+    "teamBet": 1,
+    "amount": "10"
+  }
+}

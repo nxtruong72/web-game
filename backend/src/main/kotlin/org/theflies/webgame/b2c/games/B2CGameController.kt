@@ -14,7 +14,7 @@ import java.security.Principal
 
 @Controller("/b2c/games")
 class B2CGameController(
-    private val gameService: B2BGameService,
+    private val gameService: B2CGameService,
     private val hostResolver: HttpHostResolver
 ) {
   @Post("/bet")
