@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReplaySubject, takeUntil, timer } from 'rxjs';
 
 @Component({
