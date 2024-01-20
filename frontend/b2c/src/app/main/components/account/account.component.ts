@@ -7,13 +7,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterOutlet]
+  imports: [CommonModule, RouterOutlet],
 })
 export class AccountComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

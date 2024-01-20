@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  standalone: true
+  standalone: true,
 })
 export class SignUpComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

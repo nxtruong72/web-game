@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-transaction-history',
   templateUrl: './transaction-history.component.html',
   styleUrls: ['./transaction-history.component.scss'],
-  standalone: true
+  standalone: true,
 })
 export class TransactionHistoryComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

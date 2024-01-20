@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-guideline',
   templateUrl: './guideline.component.html',
   styleUrls: ['./guideline.component.scss'],
-  standalone: true
+  standalone: true,
 })
 export class GuidelineComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
