@@ -123,8 +123,8 @@ open class B2CUserService(
   @Transactional
   open fun withdraw(request: WithdrawRequest, principal: Principal) {
     logger.info { "User ${principal.name} request withdraw ${request.amount}" }
-    val user = userRepository.findByUsername(principal.name) ?: throw UserException(400, "Username not found")
-    val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(400, "Wallet not found")
+    val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
+    val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
     if (wallet.balance < request.amount) {
       throw WalletException(400, "Balance insufficient")
     }

@@ -22,7 +22,7 @@ open class B2BWalletService(
     open fun deposit(request: UserDepositRequest) {
         logger.info { "Deposit money for user ${request.userId} with amount ${request.amount}" }
         val wallet = walletRepository.findByUserIdForUpdate(request.userId) ?: throw WalletException(
-            400,
+            404,
             "Wallet is not existing"
         )
         transactionRepository.save(
@@ -66,7 +66,7 @@ open class B2BWalletService(
         walletRepository.update(wallet)
     }
 
-    fun getDepositWithdrawTransaction(pageable: Pageable): Page<TransactionResponse> {
+    fun getTransaction(pageable: Pageable): Page<TransactionResponse> {
         return transactionRepository
             .findAll(pageable)
             .map {

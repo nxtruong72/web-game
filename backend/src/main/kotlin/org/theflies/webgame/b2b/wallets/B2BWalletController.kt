@@ -37,6 +37,6 @@ class B2BWalletController(
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun withdraw(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<TransactionResponse>> {
-        return HttpResponse.ok(walletService.getDepositWithdrawTransaction(pageable))
+        return HttpResponse.ok(walletService.getTransaction(pageable))
     }
 }

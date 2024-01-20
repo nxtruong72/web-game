@@ -62,9 +62,50 @@ CREATE TABLE transactions (
      transaction_type VARCHAR(45) NOT NULL,
      transaction_method VARCHAR(45) DEFAULT 'BANK' NOT NULL,
      notes VARCHAR(1024)  NOT NULL,
-     wallet_id INTEGER  NULL,
+     wallet_id INTEGER NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE transactions ADD CONSTRAINT fk_transactions_wallets FOREIGN KEY (wallet_id) REFERENCES wallets (id);
+
+CREATE TABLE games (
+     id SERIAL PRIMARY KEY,
+     name VARCHAR(1024) NOT NULL,
+     game_status VARCHAR(45) DEFAULT 'PENDING' NOT NULL,
+     team_one VARCHAR(255) NOT NULL,
+     team_two VARCHAR(255) NOT NULL,
+     game_types VARCHAR(1024) NOT NULL,
+     total_bet BIGINT NOT NULL CHECK ( total_bet >= 0 ),
+     profit NUMERIC(32,5) NOT NULL CHECK ( profit >= 0 ),
+     stream_url VARCHAR(1024) NOT NULL,
+     avatar_url VARCHAR(1024),
+     start_time TIMESTAMP,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE rounds (
+    id SERIAL PRIMARY KEY,
+    team_win INTEGER NOT NULL CHECK ( team_win >= 0 ),
+    round_status VARCHAR(45) DEFAULT 'START' NOT NULL,
+    total_bet BIGINT NOT NULL CHECK ( total_bet >= 0 ),
+    profit NUMERIC(32,5) NOT NULL CHECK ( profit >= 0 ),
+    game_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ALTER TABLE rounds ADD CONSTRAINT fk_rounds_games FOREIGN KEY (game_id) REFERENCES games (id);
+
+CREATE TABLE bets (
+    id SERIAL PRIMARY KEY,
+    team_bet INTEGER NOT NULL CHECK ( team_bet > 0 ),
+    bet_status VARCHAR(45) DEFAULT 'PENDING' NOT NULL,
+    amount NUMERIC(32,5) NOT NULL CHECK ( amount > 0 ),
+    round_id INTEGER NOT NULL,
+    wallet_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ALTER TABLE bets ADD CONSTRAINT fk_bets_rounds FOREIGN KEY (round_id) REFERENCES rounds (id);
+ALTER TABLE bets ADD CONSTRAINT fk_bets_wallets FOREIGN KEY (wallet_id) REFERENCES wallets (id);
