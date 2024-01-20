@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-bet-history',
   templateUrl: './bet-history.component.html',
   styleUrls: ['./bet-history.component.scss'],
-  standalone: true
+  standalone: true,
 })
 export class BetHistoryComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

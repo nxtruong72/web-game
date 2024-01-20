@@ -15,7 +15,10 @@ export const routes: Routes = [
   },
   {
     path: 'quen-mat-khau',
-    loadComponent: () => import('./authentication/components/forgot-password/forgot-password.component').then((m) => m.ForgotPasswordComponent),
+    loadComponent: () =>
+      import('./authentication/components/forgot-password/forgot-password.component').then(
+        (m) => m.ForgotPasswordComponent,
+      ),
   },
   {
     path: 'tai-khoan',
@@ -23,13 +26,17 @@ export const routes: Routes = [
     children: [
       {
         path: 'lich-su-giao-dich',
-        loadComponent: () => import('./main/components/account/transaction-history/transaction-history.component').then((m) => m.TransactionHistoryComponent), 
+        loadComponent: () =>
+          import('./main/components/account/transaction-history/transaction-history.component').then(
+            (m) => m.TransactionHistoryComponent,
+          ),
       },
       {
         path: 'lich-su-dat-cuoc',
-        loadComponent: () => import('./main/components/account/bet-history/bet-history.component').then((m) => m.BetHistoryComponent), 
-      }
-    ]
+        loadComponent: () =>
+          import('./main/components/account/bet-history/bet-history.component').then((m) => m.BetHistoryComponent),
+      },
+    ],
   },
   {
     path: 'huong-dan',
