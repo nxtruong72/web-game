@@ -80,10 +80,24 @@ class B2BGameController(
         return HttpResponse.ok(gameService.getGame(pageable))
     }
 
-    @Get("/round/{id}")
+    @Get("/round/{gameId}")
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
-    fun listRound(id: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
-        return HttpResponse.ok(gameService.getRoundByGameId(id, pageable))
+    fun listRoundByGameId(gameId: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
+        return HttpResponse.ok(gameService.getRoundByGameId(gameId, pageable))
+    }
+
+    @Get("/{gameId}/rounds/{id}")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @RolesAllowed("ADMIN", "STAFF")
+    fun getRoundById(gameId: Long, id: Long, request: HttpRequest<*>): HttpResponse<RoundResponse> {
+        return HttpResponse.ok(gameService.getRoundById(id))
+    }
+
+    @Get("/{id}")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @RolesAllowed("ADMIN", "STAFF")
+    fun getGameById(id: Long, request: HttpRequest<*>): HttpResponse<GameResponse> {
+        return HttpResponse.ok(gameService.getGameById(id))
     }
 }

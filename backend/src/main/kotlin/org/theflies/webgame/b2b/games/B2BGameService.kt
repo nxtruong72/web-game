@@ -144,6 +144,16 @@ open class B2BGameService(
             .map { mapRoundToRoundResponse(it) }
     }
 
+    fun getRoundById(roundId: Long): RoundResponse {
+        val round = roundRepository.findById(roundId).orElseThrow { throw RoundException(404, "Round is not exit") }
+        return mapRoundToRoundResponse(round)
+    }
+
+    fun getGameById(gameId: Long): GameResponse {
+        val game = gameRepository.findById(gameId).orElseThrow { throw GameException(404, "Game is not exit") }
+        return mapGameToGameResponse(game)
+    }
+
     @TransactionalEventListener
     open fun onRoundEndedEvent(roundEndedEvent: RoundEndedEvent) {
         when(roundEndedEvent.roundStatus) {

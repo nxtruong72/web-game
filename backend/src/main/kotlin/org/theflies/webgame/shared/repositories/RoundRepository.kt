@@ -20,4 +20,7 @@ interface RoundRepository: PageableRepository<Round, Long> {
 
     @Join("game")
     fun findByGameId(gameId: Long, pageable: Pageable): Page<Round>
+
+    @Join("game")
+    override fun findById(id: Long): @NonNull Optional<Round>
 }

@@ -1,0 +1,15 @@
+meta {
+  name: Get Round By Id
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{host}}/b2b/games/3/rounds/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
