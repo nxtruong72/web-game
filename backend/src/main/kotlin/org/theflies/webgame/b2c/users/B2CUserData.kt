@@ -4,6 +4,7 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import io.micronaut.serde.annotation.Serdeable.Serializable
 import jakarta.validation.constraints.NotBlank
+import org.theflies.webgame.shared.common.DeviceType
 import org.theflies.webgame.shared.common.RegisteredEvent
 import jakarta.validation.constraints.Positive
 import org.theflies.webgame.shared.models.Method
@@ -91,5 +92,7 @@ data class UserRegisterEvent(
   override val url: String,
 
   @NotBlank
-  override val user: User
+  override val user: User,
+  override val ipAddress: String,
+  override val device: DeviceType
 ): RegisteredEvent
