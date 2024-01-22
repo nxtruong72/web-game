@@ -3,6 +3,7 @@ package org.theflies.webgame.b2b.users
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventPublisher
 import jakarta.inject.Singleton
+import org.theflies.webgame.shared.common.DeviceType
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.models.*
@@ -22,7 +23,7 @@ open class B2BUserService(
   private val eventPublisher: ApplicationEventPublisher<Any>,
   private val encoder: PasswordEncoder,
 ) {
-  fun create(userRequest: UserRegisterRequest, url: String): UserRegisterResponse {
+  fun create(userRequest: UserRegisterRequest, url: String, extraInfo: Pair<DeviceType, String>? = null): UserRegisterResponse {
     val existed =
       userRepository.findByUsernameOrEmailOrPhone(userRequest.username, userRequest.email, userRequest.phone)
     if (existed.isNotEmpty()) {
@@ -52,7 +53,9 @@ open class B2BUserService(
         user,
       )
     )
-    eventPublisher.publishEvent(UserRegisterEvent(url, user))
+
+    val (device, ip) = extraInfo ?: Pair(DeviceType.PC_UNKNOWN, "")
+    eventPublisher.publishEvent(SendActivationCodeEvent(url, user, device, ip))
     return UserRegisterResponse(user.id!!, user.username, user.phone, user.email)
   }
 
@@ -80,12 +83,13 @@ open class B2BUserService(
     }
   }
 
-  fun resendActivationCode(request: UserResendActivationCodeRequest, url: String) {
+  fun resendActivationCode(request: UserResendActivationCodeRequest, url: String, extraInfo: Pair<DeviceType, String>?) {
     val user = userRepository.findByEmail(request.email) ?: throw UserException(400, "Email not found")
     if (user.accountStatus != AccountStatus.INACTIVATE) {
       throw UserException(400, "User already activated")
     }
 
-    eventPublisher.publishEvent(UserRegisterEvent(url, user))
+    val (device, ip) = extraInfo ?: Pair(DeviceType.PC_UNKNOWN, "")
+    eventPublisher.publishEvent(SendActivationCodeEvent(url, user, device, ip))
   }
 }

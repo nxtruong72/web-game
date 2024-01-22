@@ -5,6 +5,7 @@ import io.micronaut.context.event.ApplicationEventPublisher
 import io.micronaut.core.type.Argument.listOf
 import io.micronaut.transaction.annotation.Transactional
 import jakarta.inject.Singleton
+import org.theflies.webgame.shared.common.DeviceType
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.common.WalletException
@@ -29,7 +30,7 @@ open class B2CUserService(
   private val encoder: PasswordEncoder,
 ) {
   @Transactional
-  open fun create(userRequest: UserRegisterRequest, url: String): UserRegisterResponse {
+  open fun create(userRequest: UserRegisterRequest, url: String, extraInfo: Pair<DeviceType, String>?): UserRegisterResponse {
     val existed =
       userRepository.findByUsernameOrEmailOrPhone(userRequest.username, userRequest.email, userRequest.phone)
     if (existed.isNotEmpty()) {
@@ -58,7 +59,8 @@ open class B2CUserService(
         user,
       )
     )
-    eventPublisher.publishEvent(UserRegisterEvent(url, user))
+    val (device, ip) = extraInfo ?: Pair(DeviceType.PC_UNKNOWN, "")
+    eventPublisher.publishEvent(UserRegisterEvent(url, user, device, ip))
 
     return UserRegisterResponse(user.id!!, user.username, user.phone, user.email)
   }
@@ -87,13 +89,14 @@ open class B2CUserService(
     }
   }
 
-  fun resendActivationCode(request: UserResendActivationCodeRequest, url: String) {
+  fun resendActivationCode(request: UserResendActivationCodeRequest, url: String, extraInfo: Pair<DeviceType, String>?) {
     val user = userRepository.findByEmail(request.email) ?: throw UserException(400, "Email not found")
     if (user.accountStatus != AccountStatus.INACTIVATE) {
       throw UserException(400, "User already activated")
     }
 
-    eventPublisher.publishEvent(UserRegisterEvent(url, user))
+    val (device, ip) = extraInfo ?: Pair(DeviceType.PC_UNKNOWN, "")
+    eventPublisher.publishEvent(UserRegisterEvent(url, user, device, ip))
   }
 
   fun forgotPass(request: UserForgotPasswordRequest) {

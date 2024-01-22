@@ -57,7 +57,7 @@ data class UserResendActivationCodeRequest(
 )
 
 // Event data
-data class UserRegisterEvent(
+data class SendActivationCodeEvent(
   @NotBlank
   override val url: String,
 

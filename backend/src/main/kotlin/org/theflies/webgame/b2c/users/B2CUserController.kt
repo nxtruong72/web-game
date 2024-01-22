@@ -10,6 +10,7 @@ import io.micronaut.http.server.util.HttpHostResolver
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import jakarta.annotation.security.RolesAllowed
+import org.theflies.webgame.shared.common.extraInfo
 import java.security.Principal
 
 private val logger = KotlinLogging.logger {  }
@@ -23,7 +24,7 @@ class B2CUserController(
   @Secured(SecurityRule.IS_ANONYMOUS)
   fun register(@Body user: UserRegisterRequest, request: HttpRequest<*>): HttpResponse<UserRegisterResponse> {
     val appUrl = hostResolver.resolve(request)
-    val response = userService.create(user, appUrl)
+    val response = userService.create(user, appUrl, request.extraInfo())
 
     return HttpResponse.ok(response)
   }
@@ -53,7 +54,7 @@ class B2CUserController(
   @Secured(SecurityRule.IS_ANONYMOUS)
   fun resendActivation(@Body reactivate: UserResendActivationCodeRequest, request: HttpRequest<*>): HttpResponse<Any> {
     val appUrl = hostResolver.resolve(request)
-    userService.resendActivationCode(reactivate, appUrl)
+    userService.resendActivationCode(reactivate, appUrl, request.extraInfo())
     return HttpResponse.ok()
   }
 

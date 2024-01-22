@@ -1,18 +1,15 @@
 package org.theflies.webgame.b2b.wallets
 
 import io.micronaut.core.annotation.Introspected
-import io.micronaut.data.annotation.DateCreated
-import io.micronaut.data.annotation.DateUpdated
-import io.micronaut.data.annotation.MappedProperty
-import io.micronaut.data.annotation.Relation
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import io.micronaut.serde.annotation.Serdeable.Serializable
-import jakarta.validation.constraints.*
-import org.theflies.webgame.shared.common.RegisterEvent
-import org.theflies.webgame.shared.models.*
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Positive
+import org.theflies.webgame.shared.models.Method
+import org.theflies.webgame.shared.models.TransactionStatus
+import org.theflies.webgame.shared.models.TransactionType
 import java.math.BigDecimal
 import java.time.Instant
-import java.util.StringJoiner
 
 @Introspected
 @Deserializable
