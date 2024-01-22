@@ -11,7 +11,6 @@ import org.theflies.webgame.shared.common.RegisteredEvent
 import org.theflies.webgame.shared.models.AccountStatus
 import org.theflies.webgame.shared.models.RoleType
 import org.theflies.webgame.shared.models.User
-import java.math.BigDecimal
 
 @Introspected
 @Deserializable
