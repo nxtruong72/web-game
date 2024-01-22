@@ -18,7 +18,6 @@ class B2BWalletController(
     private val walletService: B2BWalletService,
 ) {
     @Post("/deposit")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun deposit(@Body depositRequest: UserDepositRequest, request: HttpRequest<*>): HttpResponse<Any> {
         walletService.deposit(depositRequest)
@@ -26,7 +25,6 @@ class B2BWalletController(
     }
 
     @Post("/withdraw/{id}/approval")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun withdraw(id: Long, @Body approvalRequest: UserWithdrawApprovalRequest, request: HttpRequest<*>): HttpResponse<Any> {
         walletService.withdrawApproval(id, approvalRequest)
@@ -34,7 +32,6 @@ class B2BWalletController(
     }
 
     @Get("/transactions")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun withdraw(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<TransactionResponse>> {
         return HttpResponse.ok(walletService.getTransaction(pageable))

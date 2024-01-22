@@ -18,7 +18,6 @@ class B2BGameController(
     private val gameService: B2BGameService,
 ) {
     @Post("/")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun createGame(@Body createGameRequest: CreateGameRequest, request: HttpRequest<*>): HttpResponse<GameResponse> {
         val gameResponse = gameService.createGame(createGameRequest)
@@ -26,7 +25,6 @@ class B2BGameController(
     }
 
     @Post("/{gameId}/start")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun startGame(gameId: Long, request: HttpRequest<*>): HttpResponse<GameResponse> {
         val gameResponse = gameService.startGame(gameId)
@@ -34,7 +32,6 @@ class B2BGameController(
     }
 
     @Post("/{gameId}/stop")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun stopGame(gameId: Long, request: HttpRequest<*>): HttpResponse<GameResponse> {
         val gameResponse = gameService.stopGame(gameId)
@@ -42,7 +39,6 @@ class B2BGameController(
     }
 
     @Post("/{gameId}/cancel")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun cancelGame(gameId: Long, request: HttpRequest<*>): HttpResponse<GameResponse> {
         val gameResponse = gameService.cancelGame(gameId)
@@ -50,7 +46,6 @@ class B2BGameController(
     }
 
     @Post("/{gameId}/rounds")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun createRounds(gameId: Long, request: HttpRequest<*>): HttpResponse<RoundResponse> {
         val roundResponse = gameService.createNewRound(gameId)
@@ -58,7 +53,6 @@ class B2BGameController(
     }
 
     @Post("/{gameId}/rounds/{roundId}/end")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun endRound (gameId: Long, roundId: Long, @Body @Valid endRequest: RoundEndRequest, request: HttpRequest<*>): HttpResponse<RoundResponse> {
         val roundResponse = gameService.endRound(roundId, endRequest)
@@ -66,7 +60,6 @@ class B2BGameController(
     }
 
     @Post("/{gameId}/rounds/{roundId}/cancel")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun cancelRounds(gameId: Long, roundId: Long, request: HttpRequest<*>): HttpResponse<RoundResponse> {
         val roundResponse = gameService.cancelRound(roundId)
@@ -74,28 +67,24 @@ class B2BGameController(
     }
 
     @Get("/")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun listGames(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<GameResponse>> {
         return HttpResponse.ok(gameService.getGame(pageable))
     }
 
     @Get("/round/{gameId}")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun listRoundByGameId(gameId: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
         return HttpResponse.ok(gameService.getRoundByGameId(gameId, pageable))
     }
 
     @Get("/{gameId}/rounds/{id}")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun getRoundById(gameId: Long, id: Long, request: HttpRequest<*>): HttpResponse<RoundResponse> {
         return HttpResponse.ok(gameService.getRoundById(id))
     }
 
     @Get("/{id}")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @RolesAllowed("ADMIN", "STAFF")
     fun getGameById(id: Long, request: HttpRequest<*>): HttpResponse<GameResponse> {
         return HttpResponse.ok(gameService.getGameById(id))

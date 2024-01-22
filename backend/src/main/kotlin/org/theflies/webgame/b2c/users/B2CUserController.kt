@@ -58,7 +58,6 @@ class B2CUserController(
   }
 
   @Post("/withdraw")
-  @Secured(SecurityRule.IS_AUTHENTICATED)
   @RolesAllowed("MEMBER")
   fun withdraw(@Body withdrawRequest: WithdrawRequest, principal: Principal): HttpResponse<Any> {
     userService.withdraw(withdrawRequest, principal)

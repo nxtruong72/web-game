@@ -17,7 +17,6 @@ class B2BUserController(
   private val hostResolver: HttpHostResolver
 ) {
   @Post("/")
-  @Secured(SecurityRule.IS_AUTHENTICATED)
   @RolesAllowed("ADMIN", "STAFF")
   fun register(@Body user: UserRegisterRequest, request: HttpRequest<*>): HttpResponse<UserRegisterResponse> {
     val appUrl = hostResolver.resolve(request)
@@ -27,7 +26,6 @@ class B2BUserController(
   }
 //
   @Post("/activate")
-  @Secured(SecurityRule.IS_AUTHENTICATED)
   @RolesAllowed("ADMIN", "STAFF")
   fun activation(@Body token: UserActivateRequest, request: HttpRequest<*>): HttpResponse<Any> {
     userService.activate(token)
@@ -35,7 +33,6 @@ class B2BUserController(
   }
 //
   @Post("/resend-activate")
-  @Secured(SecurityRule.IS_AUTHENTICATED)
   @RolesAllowed("ADMIN", "STAFF")
   fun resendActivation(@Body reactivate: UserResendActivationCodeRequest, request: HttpRequest<*>): HttpResponse<Any> {
     val appUrl = hostResolver.resolve(request)

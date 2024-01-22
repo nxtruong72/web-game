@@ -18,7 +18,6 @@ class B2CGameController(
     private val hostResolver: HttpHostResolver
 ) {
   @Post("/bet")
-  @Secured(SecurityRule.IS_AUTHENTICATED)
   @RolesAllowed("MEMBER")
   fun register(@Body betRequest: BetRequest,  principal: Principal, request: HttpRequest<*>): HttpResponse<BetResponse> {
     val betResponse = gameService.bet(betRequest, principal)
