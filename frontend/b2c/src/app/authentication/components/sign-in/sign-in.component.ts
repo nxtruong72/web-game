@@ -19,12 +19,16 @@ export class SignInComponent implements OnInit {
   form!: FormGroup;
   errMsg = '';
   isLoading = false;
+  private userName = '';
+  private password = '';
 
   constructor(
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private _router: Router,
-  ) {}
+  ) {
+    this.getState();
+  }
 
   ngOnInit() {
     this.initForm();
@@ -56,8 +60,8 @@ export class SignInComponent implements OnInit {
 
   private initForm() {
     this.form = this._formBuilder.group({
-      userName: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
+      userName: [this.userName, Validators.compose([Validators.required])],
+      password: [this.password, Validators.compose([Validators.required])],
     });
   }
 
@@ -70,6 +74,14 @@ export class SignInComponent implements OnInit {
     }
     if (isEmptyPassword) {
       this.form.controls['password'].setErrors(requiredErr);
+    }
+  }
+
+  private getState() {
+    const state = this._router.getCurrentNavigation()?.extras?.state;
+    if (state) {
+      this.userName = state['userName'] || '';
+      this.password = state['password'] || '';
     }
   }
 }

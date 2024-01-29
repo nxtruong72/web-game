@@ -36,9 +36,8 @@ export class BetHistoryComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          console.log(data)
+          console.log(data);
           this.betHistory = data;
-          
         },
         (errorRes: HttpErrorResponse) => {
           this.errMsg = errorRes.error.message;

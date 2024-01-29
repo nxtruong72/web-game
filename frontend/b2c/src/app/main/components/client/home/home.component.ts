@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgForOf } from "@angular/common";
+import { CommonModule, NgFor, NgForOf, NgIf } from '@angular/common';
 import { GameService } from '../../../service/games.service';
 import { finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [NgFor, NgForOf],
+  imports: [CommonModule, NgFor, NgForOf, RouterLink, NgIf],
 })
 export class HomeComponent implements OnInit {
   isLoading = false;
@@ -17,37 +18,34 @@ export class HomeComponent implements OnInit {
   today_games: Array<any> = [];
   incomming_games: Array<any> = [];
   historical_games: Array<any> = [];
-  constructor(
-    private _gameService: GameService
-  ) { }
+  constructor(private _gameService: GameService) {}
 
   ngOnInit() {
-    this.getGames()
+    this.getGames();
   }
 
-  trackByFn(index: any, item: { id: any; }) {
+  trackByFn(index: any, item: { id: any }) {
     return item.id;
   }
 
   private getGames() {
-    this.isLoading = true
+    this.isLoading = true;
     this._gameService
-        .getGames()
-        .pipe(
-          finalize(() => {
-            this.isLoading = false;
-          }),
-        )
-        .subscribe(
-          (data) => {
-            this.today_games = data
-            this.incomming_games = data
-            this.historical_games = data
-          },
-          (errorRes: HttpErrorResponse) => {
-            this.errMsg = errorRes.error.message;
-          },
-        );
+      .getGames()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }),
+      )
+      .subscribe(
+        (data) => {
+          this.today_games = data;
+          this.incomming_games = data;
+          this.historical_games = data;
+        },
+        (errorRes: HttpErrorResponse) => {
+          this.errMsg = errorRes.error.message;
+        },
+      );
   }
-
 }

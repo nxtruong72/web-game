@@ -3,36 +3,92 @@
     <div class="auth__container__logo">
       <img src="assets/icons/auth/logo.svg" alt="" srcset="" />
     </div>
-    <div class="card auth__container__card signup__container__card">
-      <div class="card-body auth__container__body">
-        <div class="auth__container__body--title">Đăng Kí</div>
-        <div class="auth__container__body--inputs">
-          <div class="mb-3">
-            <label class="form-label">Tài khoản *</label>
-            <input type="text" class="form-control" placeholder="Tên đăng nhập" />
+    <form [formGroup]="form">
+      <div class="card auth__container__card signup__container__card">
+        <div class="card-body auth__container__body">
+          <div class="auth__container__body--title">Đăng Kí</div>
+          <div class="auth__container__body--inputs">
+            <div class="mb-3">
+              <label class="form-label">Tài khoản *</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="f['userName'].errors && f['userName'].touched"
+                placeholder="Tên đăng nhập"
+                ngDefaultControl
+                formControlName="userName"
+                required
+                aria-describedby="userNameValidation"
+              />
+              <div id="userNameValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Tên đăng nhập</strong>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mật khẩu *</label>
+              <input
+                type="password"
+                class="form-control"
+                [class.is-invalid]="f['password'].errors && f['password'].touched"
+                placeholder="Mật khẩu đăng nhập"
+                ngDefaultControl
+                formControlName="password"
+                required
+                aria-describedby="passwordValidation"
+              />
+              <div id="passwordValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Mật khẩu đăng nhập</strong>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email *</label>
+              <input
+                type="email"
+                class="form-control"
+                [class.is-invalid]="f['email'].errors && f['email'].touched"
+                placeholder="Email bảo mật"
+                ngDefaultControl
+                formControlName="email"
+                required
+                aria-describedby="emailValidation"
+              />
+              <div id="emailValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Email bảo mật</strong>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Số điện thoại *</label>
+              <input
+                type="email"
+                class="form-control"
+                [class.is-invalid]="f['phone'].errors && f['phone'].touched"
+                placeholder="Số điện thoại bảo mật"
+                ngDefaultControl
+                formControlName="phone"
+                required
+              />
+              <div id="emailValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Số điện thoại bảo mật</strong>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Mật khẩu *</label>
-            <input type="password" class="form-control" placeholder="Mật khẩu đăng nhập" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Email *</label>
-            <input type="email" class="form-control" placeholder="Email bảo mật" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Số điện thoại *</label>
-            <input type="email" class="form-control" placeholder="Số điện thoại bảo mật" />
-          </div>
-        </div>
-        <div class="auth__container__body--action">
-          <button type="button" class="btn btn-primary w-100 auth__container__body--action__login">Đăng Nhập</button>
-          <div class="auth__container__body--action__auth">
-            Đã có tài khoản?
-            <a routerLink="/dang-nhap">Đăng nhập</a>
+          <div class="auth__container__body--action">
+            <div class="alert alert-danger" *ngIf="errMsg">Error: {{ errMsg }}</div>
+            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login" (click)="signUp()">
+              Đăng Kí
+            </button>
+            <div class="auth__container__body--action__auth">
+              Đã có tài khoản?
+              <a routerLink="/dang-nhap">Đăng nhập</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
   <div class="auth__footer">
     <div class="auth__container">

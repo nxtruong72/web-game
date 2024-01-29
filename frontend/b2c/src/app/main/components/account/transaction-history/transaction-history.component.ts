@@ -18,7 +18,7 @@ export class TransactionHistoryComponent implements OnInit {
   constructor(private _service: TransactionService) {}
 
   ngOnInit() {
-    this.getTransactions()
+    this.getTransactions();
   }
 
   trackByFn(index: any, item: { id: any }) {

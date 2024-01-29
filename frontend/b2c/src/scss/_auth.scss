@@ -70,7 +70,8 @@
     }
 
     .signup__container__card {
-      height: 590px;
+      min-height: 590px;
+      height: auto;
     }
 
     .forgot__container__card {
