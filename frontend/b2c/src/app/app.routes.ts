@@ -24,6 +24,7 @@ export const routes: Routes = [
     path: 'tai-khoan',
     loadComponent: () => import('./main/components/account/account.component').then((m) => m.AccountComponent),
     children: [
+      { path: '',   redirectTo: 'lich-su-giao-dich', pathMatch: 'full' },
       {
         path: 'lich-su-giao-dich',
         loadComponent: () =>
@@ -35,6 +36,11 @@ export const routes: Routes = [
         path: 'lich-su-dat-cuoc',
         loadComponent: () =>
           import('./main/components/account/bet-history/bet-history.component').then((m) => m.BetHistoryComponent),
+      },
+      {
+        path: 'uu-dai',
+        loadComponent: () =>
+          import('./main/components/account/gift-code/gift-code.component').then((m) => m.GiftCodeComponent),
       },
     ],
   },

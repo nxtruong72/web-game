@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
     "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.3",
     "lodash-es": "^4.17.21",
     "ngx-cookie-service": "^17.0.1",
     "rxjs": "~7.8.0",
