@@ -24,7 +24,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '2',
@@ -33,7 +33,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '3',
@@ -42,7 +42,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '4',
@@ -51,7 +51,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '5',
@@ -60,7 +60,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '6',
@@ -69,7 +69,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '7',
@@ -78,7 +78,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '8',
@@ -87,7 +87,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '9',
@@ -96,7 +96,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '10',
@@ -105,7 +105,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '11',
@@ -114,7 +114,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
     {
       id: '12',
@@ -123,7 +123,7 @@ export class GiftCodeApiService {
       time: '12:04:05',
       amount: '100,0000',
       unit: '₫',
-      code: 'GIFT-25122023'
+      code: 'GIFT-25122023',
     },
   ];
 }

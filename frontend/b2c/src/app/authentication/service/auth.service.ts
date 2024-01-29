@@ -26,4 +26,8 @@ export class AuthService {
       // concatMap(() => this._userApiService.getUserInfo())
     );
   }
+
+  signUp(userName: string, password: string, email: string, phone: string): Observable<any> {
+    return this._authApiService.signUp(userName, password, email, phone);
+  }
 }

@@ -10,13 +10,10 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/rou
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
 })
 export class AccountComponent implements OnInit {
+  constructor(private _router: Router) {}
 
-  constructor(
-    private _router: Router,
-  ) { }
-
-  ngOnInit() { }
+  ngOnInit() {}
   navigateTo(link: string) {
-    this._router.navigate([link])
+    this._router.navigate([link]);
   }
 }

@@ -3,31 +3,45 @@
     <div class="auth__container__logo">
       <img src="assets/icons/auth/logo.svg" alt="" srcset="" />
     </div>
-    <div class="card auth__container__card">
-      <div class="card-body auth__container__body">
-        <div class="auth__container__body--title">Đăng Nhập</div>
-        <div class="auth__container__body--inputs">
-          <div class="mb-3">
-            <label class="form-label">Tài khoản *</label>
-            <input type="text" class="form-control" placeholder="Tên đăng nhập" />
+    <form [formGroup]="form">
+      <div class="card auth__container__card">
+        <div class="card-body auth__container__body">
+          <div class="auth__container__body--title">Đăng Nhập</div>
+          <div class="auth__container__body--inputs">
+            <div class="mb-3">
+              <label class="form-label">Tài khoản *</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tên đăng nhập"
+                ngDefaultControl
+                formControlName="userName"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mật khẩu *</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Mật khẩu đăng nhập"
+                ngDefaultControl
+                formControlName="password"
+              />
+            </div>
+            <div class="mb-3 auth__container__body--forgot__password">
+              <a routerLink="/quen-mat-khau">Quên mật khẩu?</a>
+            </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Mật khẩu *</label>
-            <input type="password" class="form-control" placeholder="Mật khẩu đăng nhập" />
-          </div>
-          <div class="mb-3 auth__container__body--forgot__password">
-            <a routerLink="/quen-mat-khau">Quên mật khẩu?</a>
-          </div>
-        </div>
-        <div class="auth__container__body--action">
-          <button type="button" class="btn btn-primary w-100 auth__container__body--action__login">Đăng Nhập</button>
-          <div class="auth__container__body--action__auth">
-            Chưa có tài khoản?
-            <a routerLink="/dang-ki">Đăng kí</a>
+          <div class="auth__container__body--action">
+            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login">Đăng Nhập</button>
+            <div class="auth__container__body--action__auth">
+              Chưa có tài khoản?
+              <a routerLink="/dang-ki">Đăng kí</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
   <div class="auth__footer">
     <div class="auth__container">

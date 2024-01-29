@@ -24,7 +24,7 @@ export const routes: Routes = [
     path: 'tai-khoan',
     loadComponent: () => import('./main/components/account/account.component').then((m) => m.AccountComponent),
     children: [
-      { path: '',   redirectTo: 'lich-su-giao-dich', pathMatch: 'full' },
+      { path: '', redirectTo: 'lich-su-giao-dich', pathMatch: 'full' },
       {
         path: 'lich-su-giao-dich',
         loadComponent: () =>
