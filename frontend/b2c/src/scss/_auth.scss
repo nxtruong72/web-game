@@ -74,8 +74,14 @@
       height: auto;
     }
 
+    .signin__container__card {
+      min-height: 460px;
+      height: auto;
+    }
+
     .forgot__container__card {
-      height: 440px;
+      min-height: 440px;
+      height: auto;
     }
   }
 

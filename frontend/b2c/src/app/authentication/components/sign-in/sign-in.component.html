@@ -4,7 +4,7 @@
       <img src="assets/icons/auth/logo.svg" alt="" srcset="" />
     </div>
     <form [formGroup]="form">
-      <div class="card auth__container__card">
+      <div class="card auth__container__card signin__container__card">
         <div class="card-body auth__container__body">
           <div class="auth__container__body--title">Đăng Nhập</div>
           <div class="auth__container__body--inputs">
@@ -13,27 +13,40 @@
               <input
                 type="text"
                 class="form-control"
+                [class.is-invalid]="f['userName'].errors && (f['userName'].touched || f['userName'].dirty)"
                 placeholder="Tên đăng nhập"
                 ngDefaultControl
                 formControlName="userName"
               />
+              <div id="userNameValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Tên đăng nhập</strong>
+              </div>
             </div>
             <div class="mb-3">
               <label class="form-label">Mật khẩu *</label>
               <input
                 type="password"
                 class="form-control"
+                [class.is-invalid]="f['password'].errors && (f['password'].touched || f['password'].dirty)"
                 placeholder="Mật khẩu đăng nhập"
                 ngDefaultControl
                 formControlName="password"
               />
+              <div id="passwordValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Mật khẩu đăng nhập</strong>
+              </div>
             </div>
             <div class="mb-3 auth__container__body--forgot__password">
               <a routerLink="/quen-mat-khau">Quên mật khẩu?</a>
             </div>
           </div>
           <div class="auth__container__body--action">
-            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login">Đăng Nhập</button>
+            <div class="alert alert-danger" *ngIf="errMsg">Error: {{ errMsg }}</div>
+            <button type="submit" class="btn btn-primary w-100 auth__container__body--action__login" (click)="signIn()">
+              Đăng Nhập
+            </button>
             <div class="auth__container__body--action__auth">
               Chưa có tài khoản?
               <a routerLink="/dang-ki">Đăng kí</a>
