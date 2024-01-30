@@ -66,14 +66,14 @@ export class SignInComponent implements OnInit {
   }
 
   private validateForm() {
-    const isEmptyUserName = isEmptyString(this.form.controls['userName'].value);
-    const isEmptyPassword = isEmptyString(this.form.controls['password'].value);
+    const isEmptyUserName = isEmptyString(this.f['userName'].value);
+    const isEmptyPassword = isEmptyString(this.f['password'].value);
     const requiredErr = { required: requiredMsg };
     if (isEmptyUserName) {
-      this.form.controls['userName'].setErrors(requiredErr);
+      this.f['userName'].setErrors(requiredErr);
     }
     if (isEmptyPassword) {
-      this.form.controls['password'].setErrors(requiredErr);
+      this.f['password'].setErrors(requiredErr);
     }
   }
 
@@ -83,5 +83,9 @@ export class SignInComponent implements OnInit {
       this.userName = state['userName'] || '';
       this.password = state['password'] || '';
     }
+  }
+
+  get f() {
+    return this.form.controls;
   }
 }
