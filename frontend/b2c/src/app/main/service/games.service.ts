@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractService } from '../../state-management/abstract/abstract-service';
-import { delay, map, of, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { GameApiService } from '../../../api/games/games.api';
 
 @Injectable({

@@ -26,11 +26,20 @@
           <a class="nav-link" routerLink="huong-dan">Hướng dẫn</a>
         </li>
       </ul>
-      <button class="btn btn-outline btn-warning" type="submit" *ngIf="false">
+      <button class="btn btn-outline btn-warning" type="button" *ngIf="isLogged">
         <i class="bi bi-wallet2"></i>
         999,999,999 ₫
       </button>
-      <button class="btn btn-outline btn-warning" type="submit" *ngIf="true" routerLink="dang-nhap">
+      <button
+        class="btn btn-outline btn-danger ms-3"
+        type="button"
+        *ngIf="isLogged"
+        routerLink="dang-nhap"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+      <button class="btn btn-outline btn-warning" type="button" *ngIf="!isLogged" routerLink="dang-nhap">
         Đăng Nhập/Đăng kí
       </button>
     </div>
