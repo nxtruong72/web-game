@@ -48,7 +48,7 @@ export class SignUpComponent implements OnInit {
             this._router.navigate(['dang-nhap'], { state: { userName, password } });
           },
           (errorRes: HttpErrorResponse) => {
-            this.errMsg = errorRes.error.message;
+            this.errMsg = errorRes.error.message || errorRes.error.errors[0];
           },
         );
     }

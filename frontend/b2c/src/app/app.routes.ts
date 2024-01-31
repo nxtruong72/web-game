@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { permissionGuard } from './guard/permission.guard';
 
 export const routes: Routes = [
   {
@@ -31,22 +32,26 @@ export const routes: Routes = [
           import('./main/components/account/transaction-history/transaction-history.component').then(
             (m) => m.TransactionHistoryComponent,
           ),
+        canActivate: [permissionGuard]
       },
       {
         path: 'lich-su-dat-cuoc',
         loadComponent: () =>
           import('./main/components/account/bet-history/bet-history.component').then((m) => m.BetHistoryComponent),
+        canActivate: [permissionGuard]
       },
       {
         path: 'uu-dai',
         loadComponent: () =>
           import('./main/components/account/gift-code/gift-code.component').then((m) => m.GiftCodeComponent),
+        canActivate: [permissionGuard]
       },
     ],
   },
   {
     path: 'huong-dan',
     loadComponent: () => import('./main/components/guideline/guideline.component').then((m) => m.GuidelineComponent),
+    canActivate: [permissionGuard]
   },
   {
     path: '**',
