@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BASE_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '../common.const';
+import { BASE_PATH, LOGOUT_PATH, ME_PATH, SIGN_IN_PATH, SIGN_UP_PATH } from '../common.const';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +23,13 @@ export class AuthApiService {
       email,
       phone,
     });
+  }
+
+  getMe() {
+    return this._http.get<any>(`${BASE_PATH}${ME_PATH}`);
+  }
+
+  logout() {
+    return this._http.post<any>(`${BASE_PATH}${LOGOUT_PATH}`, {});
   }
 }
