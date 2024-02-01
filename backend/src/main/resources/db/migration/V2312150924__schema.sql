@@ -20,6 +20,7 @@ CREATE TABLE users (
 CREATE INDEX idx_username ON users(username);
 CREATE INDEX idx_email ON users(email);
 CREATE INDEX idx_phone ON users(phone);
+ALTER SEQUENCE users_id_seq MINVALUE 100 RESTART WITH 100 START WITH 100;
 
 DROP TABLE IF EXISTS tokens;
 
@@ -53,6 +54,7 @@ CREATE TABLE wallets (
 
 ALTER TABLE wallets ADD CONSTRAINT fk_wallet_users FOREIGN KEY (user_id) REFERENCES users (id);
 CREATE INDEX user_id_wallets ON wallets(user_id);
+ALTER SEQUENCE wallets_id_seq MINVALUE 100 RESTART WITH 100 START WITH 100;
 
 DROP TABLE IF EXISTS transactions;
 
