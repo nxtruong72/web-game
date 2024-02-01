@@ -7,12 +7,14 @@ import { requiredMsg } from '../../../../shared/msg.const';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  providers: [MessageService],
   standalone: true,
 })
 export class SignInComponent implements OnInit {
@@ -26,6 +28,7 @@ export class SignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private _router: Router,
+    private _messageService: MessageService,
   ) {
     this.getState();
   }
@@ -49,6 +52,7 @@ export class SignInComponent implements OnInit {
         .subscribe(
           (data) => {
             console.log(data);
+            this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Đăng nhập thành công' });
             this._router.navigate(['']);
           },
           (errorRes: HttpErrorResponse) => {

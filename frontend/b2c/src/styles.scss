@@ -23,3 +23,14 @@ $theme-colors: map-merge(
   box-sizing: border-box;
   font-family: Segoe UI;
 }
+
+p-toastitem {
+  > div {
+    padding: 8px;
+    > div {
+      > div {
+        margin-left: 16px;
+      }
+    }
+  }
+}
