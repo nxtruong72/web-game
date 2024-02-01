@@ -22,6 +22,10 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'active',
+    loadComponent: () => import('./authentication/components/active/active.component').then((m) => m.ActiveComponent),
+  },
+  {
     path: 'tai-khoan',
     loadComponent: () => import('./main/components/account/account.component').then((m) => m.AccountComponent),
     children: [
@@ -32,26 +36,26 @@ export const routes: Routes = [
           import('./main/components/account/transaction-history/transaction-history.component').then(
             (m) => m.TransactionHistoryComponent,
           ),
-        canActivate: [permissionGuard]
+        canActivate: [permissionGuard],
       },
       {
         path: 'lich-su-dat-cuoc',
         loadComponent: () =>
           import('./main/components/account/bet-history/bet-history.component').then((m) => m.BetHistoryComponent),
-        canActivate: [permissionGuard]
+        canActivate: [permissionGuard],
       },
       {
         path: 'uu-dai',
         loadComponent: () =>
           import('./main/components/account/gift-code/gift-code.component').then((m) => m.GiftCodeComponent),
-        canActivate: [permissionGuard]
+        canActivate: [permissionGuard],
       },
     ],
   },
   {
     path: 'huong-dan',
     loadComponent: () => import('./main/components/guideline/guideline.component').then((m) => m.GuidelineComponent),
-    canActivate: [permissionGuard]
+    canActivate: [permissionGuard],
   },
   {
     path: '**',

@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { isEmptyString } from '../../../../shared/until.helper';
 import { requiredMsg } from '../../../../shared/msg.const';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +15,7 @@ import { requiredMsg } from '../../../../shared/msg.const';
   styleUrls: ['./sign-up.component.scss'],
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  providers: [MessageService],
 })
 export class SignUpComponent implements OnInit {
   form!: FormGroup;
@@ -24,6 +26,7 @@ export class SignUpComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private _router: Router,
+    private _messageService: MessageService,
   ) {}
 
   ngOnInit() {
@@ -45,7 +48,8 @@ export class SignUpComponent implements OnInit {
         .subscribe(
           (data) => {
             console.log(data);
-            this._router.navigate(['dang-nhap'], { state: { userName, password } });
+            this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Đăng kí thành công' });
+            this._router.navigate(['active'], { state: { userName, password } });
           },
           (errorRes: HttpErrorResponse) => {
             this.errMsg = errorRes.error.message || errorRes.error.errors[0];

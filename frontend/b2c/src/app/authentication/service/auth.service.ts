@@ -30,6 +30,10 @@ export class AuthService {
     return this._authApiService.signUp(userName, password, email, phone);
   }
 
+  active(activeCode: string): Observable<any> {
+    return this._authApiService.active(activeCode);
+  }
+
   logout(): Observable<any> {
     return this._authApiService.logout().pipe(
       finalize(() => {

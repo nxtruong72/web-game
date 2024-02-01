@@ -1,0 +1,57 @@
+<div class="auth">
+  <div class="auth__container">
+    <div class="auth__container__logo">
+      <img src="assets/icons/auth/logo.svg" alt="" srcset="" />
+    </div>
+    <form [formGroup]="form">
+      <div class="card auth__container__card forgot__container__card">
+        <div class="card-body auth__container__body">
+          <div class="auth__container__body--title">Active tài khoản</div>
+          <div class="auth__container__body--inputs">
+            <div class="auth__container__body--inputs__notify">
+              Vui lòng nhập
+              <strong>Activation Code</strong>
+              đã được gửi qua email của bạn.
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Activation Code *</label>
+              <input
+                type="text"
+                class="form-control"
+                [class.is-invalid]="f['activeCode'].errors && (f['activeCode'].touched || f['activeCode'].dirty)"
+                ngDefaultControl
+                placeholder="Vui lòng nhập Activation Code"
+                formControlName="activeCode"
+              />
+              <div id="activeCodeValidation" class="invalid-feedback">
+                Vui lòng cung cấp
+                <strong>Activation Code</strong>
+              </div>
+            </div>
+          </div>
+          <div class="auth__container__body--action">
+            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login" (click)="active()">
+              Active Tài Khoản
+            </button>
+            <div class="auth__container__body--action__auth">
+              Trở lại trang
+              <a routerLink="/dang-nhap">Đăng nhập</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="auth__footer">
+    <div class="auth__container">
+      <div class="auth__footer__version">
+        Phiên bản:
+        <span>1.0.0</span>
+      </div>
+      <div class="auth__footer__hotline">
+        CSKH:
+        <span>1900 9999</span>
+      </div>
+    </div>
+  </div>
+</div>
