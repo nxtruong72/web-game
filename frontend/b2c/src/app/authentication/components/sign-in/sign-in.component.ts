@@ -56,6 +56,7 @@ export class SignInComponent implements OnInit {
             this._router.navigate(['']);
           },
           (errorRes: HttpErrorResponse) => {
+            debugger;
             this.errMsg = errorRes.error.message || errorRes.error.errors[0];
           },
         );

@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   isLogged = false;
   errMsg = null;
+  me = '';
   today_games: Array<any> = [];
   incomming_games: Array<any> = [];
   historical_games: Array<any> = [];
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getGames();
+    this.getMe();
     this.isLogged = this.checkLogged();
   }
 
@@ -47,8 +49,12 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  private getMe() {
+    this.me = this._authService.user;
+  }
+
   private checkLogged(): boolean {
-    return this._jwtService.getJwToken ? true : false;
+    return this._jwtService.getJwToken && this._authService.user ? true : false;
   }
 
   private getGames() {
