@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { AuthApiService } from '../../../api/auth/auth.api';
 import { Observable, concatMap, finalize, map } from 'rxjs';
 import { JwtService } from '../../service/jwt.service';
-import { AuthI } from '../../../api/auth/auth.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user: AuthI | null = null;
+  user = '';
 
   constructor(
     private _authApiService: AuthApiService,
     private _jwtService: JwtService,
+    private _router: Router,
   ) {}
 
   signIn(userName: string, password: string): Observable<any> {
@@ -37,12 +38,14 @@ export class AuthService {
   logout(): Observable<any> {
     return this._authApiService.logout().pipe(
       finalize(() => {
-        this.user = null;
+        this.user = '';
+        this._jwtService.deleteJwToken();
+        this._router.navigate(['/']);
       }),
     );
   }
 
-  private getMe() {
+  getMe() {
     return this._authApiService.getMe().pipe(
       map((user) => {
         this.user = user;

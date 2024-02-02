@@ -30,7 +30,7 @@ export class AuthApiService {
   }
 
   getMe() {
-    return this._http.get<any>(`${BASE_PATH}${ME_PATH}`);
+    return this._http.get<string>(`${BASE_PATH}${ME_PATH}`, { responseType: 'text' as 'json' });
   }
 
   logout() {
