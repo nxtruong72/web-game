@@ -1,0 +1,27 @@
+<div class="sidebar">
+  <div class="sidebar__container">
+    <div class="sidebar__container__logo">
+      <div class="sidebar__container__logo__src">LOGO</div>
+    </div>
+    <div class="sidebar__container__menu">
+      @for (item of menu; track item) {
+        <div class="sidebar__container__menu__item" [routerLink]="[item.route]" routerLinkActive="active">
+          <img [src]="'/assets/icons/sidebar/' + item.icon" class="sidebar__container__menu__item__icon" />
+          <span class="sidebar__container__menu__item__name">
+            {{ item.name }}
+          </span>
+        </div>
+      }
+    </div>
+    <div class="sidebar__container__function">
+      <fluent-divider></fluent-divider>
+      <div class="sidebar__container__function__version">
+        <span class="sidebar__container__function__version__text">Phiên bản:</span>
+        <span class="sidebar__container__function__version__number">1.0.1</span>
+      </div>
+      <div class="sidebar__container__function__toggle">
+        <img src="/assets/icons/sidebar/menu-toggle.svg" class="sidebar__container__function__toggle__icon" />
+      </div>
+    </div>
+  </div>
+</div>

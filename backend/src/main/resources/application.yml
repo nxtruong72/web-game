@@ -31,9 +31,9 @@ flyway:
       enabled: true
 
 mailjet:
-  enabled: false
-  api-key: ${MAILJET_API_KEY}
-  api-secret: ${MAILJET_API_SECRET}
+  enabled: true
+  api-key: '1a3ab893c9672918f7026172eabf07cf'
+  api-secret: '0ccf4bd010443ae2b4939d5c5eb44eed'
 
 app:
   site_url: 'http://localhost:8080'

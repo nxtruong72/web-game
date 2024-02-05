@@ -1,0 +1,127 @@
+<div class="container-fluid d-flex flex-column p-0 bg-light" style="height: 100svh">
+  <!-- Nav -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="../assets/brand/logo.svg" class="d-inline-block align-top" alt="Logo" loading="lazy" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent2"
+        aria-controls="navbarSupportedContent2"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="tai-khoan">Tài khoản</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="huong-dan">Hướng dẫn</a>
+          </li>
+        </ul>
+        <button class="btn btn-outline btn-warning" type="submit">
+          <i class="bi bi-wallet2"></i>
+          999,999,999 ₫
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- main -->
+  <div class="container d-flex flex-row flex-fill my-4 border rounded shadow-sm bg-white">
+    <div class="col-3 d-flex flex-column border-end" style="position: relative">
+      <div
+        class="d-flex flex-column pe-2"
+        style="position: absolute; max-height: 100%; height: 100%; width: 100%; overflow-y: auto"
+      >
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <i class="bi bi-person-circle" style="font-size: 48pt; color: #ced4da"></i>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+          <span class="fs-5">User Name</span>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+          <i class="bi bi-envelope text-secondary"></i>
+          <span class="mx-2">example.domain.com</span>
+          <button type="button" class="btn btn-outline-primary border-0 btn-sm">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center pb-3 border-bottom">
+          <i class="bi bi-telephone text-secondary"></i>
+          <span class="mx-2">0123 456 789</span>
+          <button type="button" class="btn btn-outline-primary border-0 btn-sm">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+
+        <!-- <div class="d-flex flex-column justify-content-center align-items-center py-3 border-bottom">
+          <div class="d-flex justify-content-center align-items-center rounded-circle bg-warning"
+            style="width: 48px; height: 48px;">
+            <i class="bi bi-wallet2" style="font-size: 20pt;"></i>
+          </div>
+          <span class="figure-caption mt-2">SỐ DƯ</span>
+          <span class="fs-5">999,999,999 ₫</span>
+          <span class="figure-caption mt-2">KHUYẾN MÃI</span>
+          <span class="fs-5">100,000 ₫</span>
+          <button type="button" class="btn btn-outline-primary btn-sm mt-2">Nạp/Rút</button>
+        </div> -->
+        <div class="list-group border-0 rounded-0 my-2">
+          <a
+            class="list-group-item list-group-item-action border-0 rounded-1"
+            [routerLink]="['/tai-khoan/lich-su-giao-dich']"
+            [routerLinkActive]="['active']"
+          >
+            Lịch sử giao dịch
+          </a>
+          <a
+            class="list-group-item list-group-item-action border-0 rounded-1"
+            [routerLink]="['/tai-khoan/lich-su-dat-cuoc']"
+            [routerLinkActive]="['active']"
+          >
+            Lịch sử đặt cược
+          </a>
+          <a
+            class="list-group-item list-group-item-action border-0 rounded-1"
+            [routerLink]="['/tai-khoan/uu-dai']"
+            [routerLinkActive]="['active']"
+          >
+            Ưu đãi
+          </a>
+        </div>
+        <div class="flex-grow-1"></div>
+        <div class="list-group my-2 py-2 border-top rounded-0">
+          <button type="button" class="list-group-item list-group-item-action border-0 rounded-1">Đổi mật khẩu</button>
+          <button type="button" class="list-group-item list-group-item-action border-0 rounded-1">Đăng xuất</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-fill">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="bg-light border-top">
+    <div class="container d-flex hstack justify-content-between py-2">
+      <div class="auth__footer__version">
+        Phiên bản:
+        <span>1.0.0</span>
+      </div>
+      <div class="auth__footer__hotline">
+        CSKH:
+        <span>1900 9999</span>
+      </div>
+    </div>
+  </div>
+</div>

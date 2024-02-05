@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import './scss/common';
+@import './scss/font';
+@import './scss/variable';
+
+$primary: $purple-color;
+// merge with existing $theme-colors map
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    'primary': $primary,
+  )
+);
+
+// set changes
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Segoe UI;
+}
+
+p-toastitem {
+  > div {
+    padding: 8px;
+    > div {
+      > div {
+        margin-left: 16px;
+      }
+    }
+  }
+}

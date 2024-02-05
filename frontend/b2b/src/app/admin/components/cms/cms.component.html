@@ -1,0 +1,30 @@
+<view-container
+  class="view-container"
+  *ngIf="view$ | async as view"
+  [appViewMain]="mainTmp"
+  [errorTmp]="errorTmp"
+  [loaderTmp]="loaderTmp"
+  [view]="view"
+></view-container>
+
+<ng-template #loaderTmp>
+  <app-loading></app-loading>
+</ng-template>
+
+<ng-template #mainTmp let-model="view">
+  <div class="main__container">
+    <div class="main__container__left">
+      <app-side-bar></app-side-bar>
+    </div>
+    <div class="main__container__right">
+      <app-nav-header></app-nav-header>
+      <div class="main__container__right__container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #errorTmp let-error="view">
+  <div class="error"></div>
+</ng-template>

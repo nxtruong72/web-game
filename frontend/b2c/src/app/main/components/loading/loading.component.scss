@@ -1,0 +1,47 @@
+@import '../../../../scss/variable';
+@import '../../../../scss/common';
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: $gray-color-2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loading__container {
+    width: 297px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .loading__container__logo {
+      @include logo;
+    }
+    .loading__container__progress {
+      margin-top: 16px;
+      .loading__container__progress__container {
+        width: 297px;
+        height: 4px;
+        border-radius: 100px;
+        background-color: $gray-color-3;
+        position: relative;
+      }
+      .loading__container__progress__container__percent {
+        width: 100px;
+        height: 4px;
+        border-radius: 100px;
+        background-color: $purple-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    .loading__container__msg {
+      margin-top: 16px;
+      font-weight: 400;
+      font-size: $font16;
+      line-height: 22px;
+    }
+  }
+}

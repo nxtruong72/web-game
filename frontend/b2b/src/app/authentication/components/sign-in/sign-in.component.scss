@@ -1,0 +1,135 @@
+@import '../../../../scss/variable';
+@import '../../../../scss/common';
+
+.signin {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .signin__container {
+    .signin__container__card {
+      width: 400px;
+      min-height: 480px;
+      padding: calc($base-padding * 2);
+      position: relative;
+      box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.14);
+
+      .signin__container__card--logo {
+        @include logo;
+      }
+      .signin__container__card--title {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: $base-padding;
+        margin-bottom: 24px;
+        .signin__container__card--title--sub {
+          font-weight: 400;
+          font-size: $font16;
+          line-height: 22px;
+        }
+      }
+      .signin__container__card--body {
+        margin-bottom: 12px;
+        fluent-text-field {
+          width: $one-hundred-percent;
+          margin-bottom: $base-padding;
+        }
+      }
+      .signin__container__card--footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .signin__container__card--footer__error {
+          margin-bottom: 32px;
+          width: 100%;
+          fluent-skeleton {
+            height: 50px;
+            width: 100%;
+            border: 1px solid $red-color-2;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            background-color: $red-color-3;
+            height: 52px;
+            padding: 0 10px;
+            .signin__container__card--footer__error--title {
+              font-size: 12px;
+              line-height: 16px;
+              font-weight: 600;
+              display: flex;
+              align-items: center;
+              img {
+                margin-right: 10px;
+              }
+            }
+            .signin__container__card--footer__error--msg {
+              font-size: 12px;
+              line-height: 16px;
+              font-weight: 400;
+              margin-left: 30px;
+            }
+          }
+        }
+        .signin__container__card--footer__option {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          margin-bottom: 32px;
+          .signin__container__card--footer__forgot__password {
+            color: $blue-color-2;
+            font-size: $font14;
+            line-height: 20px;
+            font-weight: 400;
+          }
+          .signin__container__card--footer__remember__me {
+            font-size: $font14;
+          }
+        }
+        .signin__container__card--footer__signin {
+          width: 100%;
+          height: 40px;
+          margin-bottom: 32px;
+          .signin__container__card--footer__signin__text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            fluent-progress-ring {
+              margin-right: 8px;
+              width: 20px;
+              height: 20px;
+              --accent-fill-rest: white;
+            }
+          }
+        }
+      }
+      .signin__container__card--version {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 32px;
+        padding: 0 32px;
+        background-color: $gray-color-2;
+        .signin__container__card--version__number,
+        .signin__container__card--version__c {
+          font-weight: 400;
+          font-size: $font12;
+          line-height: 16px;
+        }
+        .signin__container__card--version__number span,
+        .signin__container__card--version__c span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

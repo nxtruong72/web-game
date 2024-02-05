@@ -1,0 +1,83 @@
+<div class="hstack gap-2 border-bottom" style="padding: 0.5rem 1.5rem">
+  <span class="fs-4">Lịch sử giao dịch</span>
+  <div class="dropdown ms-auto">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle"
+      type="button"
+      id="todayGamesFilter"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i class="bi bi-filter"></i>
+      Tất cả
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="todayGamesFilter">
+      <li><a class="dropdown-item">Tất cả</a></li>
+      <li><a class="dropdown-item">Nạp</a></li>
+      <li><a class="dropdown-item">Rút</a></li>
+      <li><a class="dropdown-item">Cược</a></li>
+      <li><a class="dropdown-item">Thưởng thắng</a></li>
+      <li><a class="dropdown-item">Ưu đãi</a></li>
+    </ul>
+  </div>
+
+  <div class="dropdown">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle"
+      type="button"
+      id="todayGamesSorter"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <i class="bi bi-sort-down"></i>
+      Thời gian
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="todayGamesSorter">
+      <li><a class="dropdown-item">Thời gian</a></li>
+      <li><a class="dropdown-item">Loại</a></li>
+      <li><a class="dropdown-item">Trạng thái</a></li>
+      <li><a class="dropdown-item">Số tiền</a></li>
+    </ul>
+  </div>
+</div>
+<div class="col d-flex flex-column flex-fill" style="position: relative">
+  <div
+    class="d-flex flex-column ps-2"
+    style="position: absolute; max-height: 100%; height: 100%; width: 100%; overflow: auto"
+  >
+    <ul class="list-group list-group-flush">
+      <!-- ITEM -->
+      <li
+        class="list-group-item list-group-item-action hstack gap-2"
+        *ngFor="let item of transactions; trackBy: trackByFn"
+      >
+        <!-- Icon -->
+        <div class="border rounded bg-light d-flex align-items-center justify-content-center dimension-5">
+          <i class="bi bi-box-arrow-in-down fs-4 text-success mb-1"></i>
+        </div>
+
+        <!-- Description -->
+        <div class="vstack flex-fill">
+          <span class="fs-6 text-black">{{ item.content }}</span>
+          <span class="figure-caption text-secondary">{{ item.date }}</span>
+        </div>
+
+        <!-- Badge -->
+        <span class="badge rounded-pill text-bg-success p-1" style="width: 100px">{{ item.status }}</span>
+
+        <!-- Price -->
+        <div style="width: 156px" class="d-flex justify-content-end">
+          <span class="fs-5 text-black">
+            <span class="fs-5 text-success">+</span>
+            {{ item.amount }} {{ item.unit }}
+          </span>
+        </div>
+
+        <!-- Details -->
+        <button type="button" class="btn btn-outline-secondary btn-small border-0">
+          <i class="bi bi-arrow-right-circle"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

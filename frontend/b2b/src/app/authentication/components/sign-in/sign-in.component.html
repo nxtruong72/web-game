@@ -1,0 +1,72 @@
+<div class="signin">
+  <div class="signin__container">
+    <fluent-card class="signin__container__card">
+      <div class="signin__container__card--logo">LOGO</div>
+      <div class="signin__container__card--title">
+        <h2>Đăng Nhập</h2>
+        <span class="signin__container__card--title--sub">để sử dụng hệ thống quản lý, anh/chị ơi! ^_^</span>
+      </div>
+      <form [formGroup]="form">
+        <div class="signin__container__card--body">
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Email đăng nhập"
+            ngDefaultControl
+            formControlName="userName"
+          >
+            Tài Khoản
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Mật khẩu đăng nhập"
+            type="password"
+            ngDefaultControl
+            formControlName="password"
+          >
+            Mật khẩu
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+        <div class="signin__container__card--footer">
+          <div class="signin__container__card--footer__option">
+            <fluent-checkbox class="signin__container__card--footer__remember__me">Ghi nhớ tài khoản</fluent-checkbox>
+            <a class="signin__container__card--footer__forgot__password">Quên mật khẩu?</a>
+          </div>
+          <div class="signin__container__card--footer__error" *ngIf="errMsg">
+            <fluent-skeleton shape="rect" shimmer="false">
+              <div class="signin__container__card--footer__error--title">
+                <img src="assets/icons/dismis-cirlce.svg" alt="" srcset="" />
+                <span [innerHTML]="'Đăng nhập thất bại. @_@'"></span>
+              </div>
+              <div class="signin__container__card--footer__error--msg">
+                {{ errMsg }}
+              </div>
+            </fluent-skeleton>
+          </div>
+          <fluent-button
+            appearance="accent"
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            class="signin__container__card--footer__signin"
+            (click)="signIn()"
+            [disabled]="isLoading"
+          >
+            <!-- <i class="ms-Icon ms-Icon--FollowUser"></i> -->
+            <div class="signin__container__card--footer__signin__text">
+              <fluent-progress-ring *ngIf="isLoading"></fluent-progress-ring>
+              <span>Đăng Nhập</span>
+            </div>
+          </fluent-button>
+        </div>
+      </form>
+      <div class="signin__container__card--version">
+        <div class="signin__container__card--version__number">
+          Phiên bản:
+          <span>1.0.0</span>
+        </div>
+        <div class="signin__container__card--version__c"><span>Copyright ©</span></div>
+      </div>
+    </fluent-card>
+  </div>
+</div>
