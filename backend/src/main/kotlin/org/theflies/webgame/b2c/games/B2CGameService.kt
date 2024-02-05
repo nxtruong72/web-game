@@ -35,7 +35,7 @@ open class B2CGameService(
 
     fun listGame(pageable: Pageable): Page<GameResponse> {
         return gameRepository
-            .findAll(pageable)
+            .findAllOrderByStartTime(pageable)
             .map { mapGameToGameResponse(it) }
     }
 

@@ -58,6 +58,13 @@ data class UserForgotPasswordRequest(
 )
 
 @Introspected
+@Serializable
+data class UserBalance(
+  @NotBlank
+  val balance: BigDecimal
+)
+
+@Introspected
 @Deserializable
 data class NewPasswordRequest(
   @NotBlank

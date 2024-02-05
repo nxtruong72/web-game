@@ -5,6 +5,7 @@ import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.server.util.HttpHostResolver
 import io.micronaut.security.annotation.Secured
@@ -62,5 +63,11 @@ class B2CUserController(
   fun withdraw(@Body withdrawRequest: WithdrawRequest, principal: Principal): HttpResponse<Any> {
     userService.withdraw(withdrawRequest, principal)
     return HttpResponse.ok()
+  }
+
+  @Get("/balance")
+  @RolesAllowed("MEMBER")
+  fun balance(principal: Principal): HttpResponse<UserBalance> {
+    return HttpResponse.ok(userService.balance(principal))
   }
 }

@@ -1,14 +1,16 @@
 package org.theflies.webgame.b2c.games
 
+import io.micronaut.data.model.Page
+import io.micronaut.data.model.Pageable
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.server.util.HttpHostResolver
-import io.micronaut.security.annotation.Secured
-import io.micronaut.security.rules.SecurityRule
 import jakarta.annotation.security.RolesAllowed
+import org.theflies.webgame.b2c.games.GameResponse
 import org.theflies.webgame.b2c.users.*
 import java.security.Principal
 
@@ -23,4 +25,16 @@ class B2CGameController(
     val betResponse = gameService.bet(betRequest, principal)
     return HttpResponse.ok(betResponse);
   }
+
+    @Get("/{id}")
+    @RolesAllowed("MEMBER")
+    fun getGameById(id: Long, request: HttpRequest<*>): HttpResponse<GameResponse> {
+        return HttpResponse.ok(gameService.getGameById(id))
+    }
+
+    @Get("/")
+    @RolesAllowed("MEMBER")
+    fun listGames(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<GameResponse>> {
+        return HttpResponse.ok(gameService.listGame(pageable))
+    }
 }

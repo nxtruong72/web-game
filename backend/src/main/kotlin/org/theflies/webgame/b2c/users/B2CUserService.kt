@@ -141,4 +141,11 @@ open class B2CUserService(
     wallet.blockedBalance = wallet.blockedBalance.add(request.amount);
     walletRepository.update(wallet)
   }
+
+  fun balance(principal: Principal): UserBalance {
+    logger.info { "Get Balance of user: ${principal.name}" }
+    val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
+    val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
+    return UserBalance(wallet.balance)
+  }
 }
