@@ -5,6 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./main/components/client/client.component').then((m) => m.ClientComponent),
+    canActivate: [permissionGuard],
   },
   {
     path: 'dang-nhap',
@@ -59,6 +60,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'dang-nhap',
   },
 ];
