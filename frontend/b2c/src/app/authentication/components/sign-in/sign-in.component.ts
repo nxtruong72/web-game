@@ -51,12 +51,10 @@ export class SignInComponent implements OnInit {
         )
         .subscribe(
           (data) => {
-            console.log(data);
             this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Đăng nhập thành công' });
             this._router.navigate(['']);
           },
           (errorRes: HttpErrorResponse) => {
-            debugger;
             this.errMsg = errorRes.error.message || errorRes.error.errors[0];
           },
         );

@@ -45,6 +45,10 @@ export class AuthService {
     );
   }
 
+  forgotPassword(email: string) {
+    return this._authApiService.forgotPassword(email);
+  }
+
   getMe() {
     return this._authApiService.getMe().pipe(
       map((user) => {
