@@ -1,11 +1,11 @@
 meta {
-  name: get game
+  name: get bet by round-id
   type: http
-  seq: 2
+  seq: 5
 }
 
 get {
-  url: {{host}}/b2c/games
+  url: {{host}}/b2c/games/1/rounds
   body: none
   auth: bearer
 }

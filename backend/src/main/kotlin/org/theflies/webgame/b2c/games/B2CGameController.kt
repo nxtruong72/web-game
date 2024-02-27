@@ -37,4 +37,22 @@ class B2CGameController(
     fun listGames(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<GameResponse>> {
         return HttpResponse.ok(gameService.listGame(pageable))
     }
+
+    @Get("/{gameId}/rounds")
+    @RolesAllowed("MEMBER")
+    fun listRounds(gameId: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
+        return HttpResponse.ok(gameService.listRoundByGameId(gameId, pageable))
+    }
+
+    @Get("/rounds/{roundId}")
+    @RolesAllowed("MEMBER")
+    fun getSpecificRounds(roundId: Long, request: HttpRequest<*>): HttpResponse<RoundResponse> {
+        return HttpResponse.ok(gameService.getRoundById(roundId))
+    }
+
+    @Get("/rounds/{roundId}/bets")
+    @RolesAllowed("MEMBER")
+    fun listBestByRounds(roundId: Long, principal: Principal, request: HttpRequest<*>): HttpResponse<List<BetResponse>> {
+        return HttpResponse.ok(gameService.listBetByRoundIdAndPrincipal(roundId, principal))
+    }
 }

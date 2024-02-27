@@ -12,6 +12,8 @@ import org.theflies.webgame.shared.common.WalletException
 import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.*
 import java.security.Principal
+import java.util.Collections
+import java.util.stream.Collectors
 
 private val logger = KotlinLogging.logger {  }
 
@@ -29,7 +31,7 @@ open class B2CGameService(
     }
 
     fun getRoundById(id: Long): RoundResponse {
-        val round = roundRepository.findById(id).orElseThrow { throw RoundException(404, "Game is not existing") }
+        val round = roundRepository.findById(id).orElseThrow { throw RoundException(404, "Round is not existing") }
         return mapRoundToRoundResponse(round)
     }
 
@@ -68,6 +70,15 @@ open class B2CGameService(
         wallet.blockedBalance = wallet.blockedBalance.add(request.amount);
         walletRepository.update(wallet)
         return mapBetToBetResponse(bet)
+    }
+
+    fun listBetByRoundIdAndPrincipal(roundId: Long, principal: Principal): List<BetResponse> {
+        val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
+        val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
+        val bets = betRepository.findByRoundIdAndWalletId(roundId,wallet.id!!)
+        return bets.stream()
+            .map { mapBetToBetResponse(it) }
+            .collect(Collectors.toList())
     }
 
     private fun mapRoundToRoundResponse(round: Round): RoundResponse {

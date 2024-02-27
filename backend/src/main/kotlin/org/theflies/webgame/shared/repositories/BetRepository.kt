@@ -26,4 +26,6 @@ interface BetRepository: PageableRepository<Bet, Long> {
         Join(value = "wallet.user"),
     )
     fun findByRoundIdForUpdate(@Id roundId: Long): List<Bet>
+
+    fun findByRoundIdAndWalletId(@Id roundId: Long, @Id walletId: Long): List<Bet>
 }
