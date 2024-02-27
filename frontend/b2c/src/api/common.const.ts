@@ -5,3 +5,4 @@ export const SIGN_UP_PATH = 'b2c/users';
 export const ME_PATH = 'b2c/auth/me';
 export const LOGOUT_PATH = 'b2c/auth/me';
 export const ACTIVE_PATH = 'b2c/users/activate';
+export const FORGOT_PASS_PATH = 'b2c/users/forgot-pass';
