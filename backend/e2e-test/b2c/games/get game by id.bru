@@ -1,0 +1,15 @@
+meta {
+  name: get game by id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}/b2c/games
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

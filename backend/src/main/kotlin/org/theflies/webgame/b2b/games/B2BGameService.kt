@@ -13,6 +13,7 @@ import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.Instant
 import java.util.Collections.emptyList
 
 private val logger = KotlinLogging.logger {  }
@@ -49,6 +50,7 @@ open class B2BGameService(
             throw GameException(400, "Game can't start, because status is not pending")
         }
         game.gameStatus = GameStatus.START
+        game.startTime = Instant.now()
         val updatedGame = gameRepository.update(game)
         return mapGameToGameResponse(updatedGame)
     }

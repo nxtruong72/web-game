@@ -89,7 +89,7 @@ open class B2CGameService(
             game.teamTwo,
             game.gameTypes,
             game.streamURL,
-            game.startTime!!,
+            game.startTime,
             game.createdAt!!,
             game.updatedAt!!
         )
