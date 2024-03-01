@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
+import { BASE_PATH, GAMES_PATH } from '../common.const';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,12 @@ export class GameApiService {
   constructor(private _http: HttpClient) {}
 
   getGames(): Observable<any> {
+    // return this._http.get<any>(`${BASE_PATH}${GAMES_PATH}`);
     return this.ok(this.fake_games);
+  }
+
+  getGameDetails(id: string): Observable<any> {
+    return this._http.get<any>(`${BASE_PATH}${GAMES_PATH}/${id}`);
   }
 
   ok(body?: any) {

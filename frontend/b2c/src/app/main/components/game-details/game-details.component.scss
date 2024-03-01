@@ -1,0 +1,34 @@
+.breadcrumb-item a {
+  color: purple;
+  text-decoration: solid;
+}
+
+.tb-row {
+  border-top: 1px dashed #dee2e6;
+}
+
+.tb-cell {
+  padding: 12px 8px;
+}
+
+.border-top-dashed {
+  border-top: 1px dashed #dee2e6;
+}
+
+.vr-dashed {
+  border-left: 1px dashed #dee2e6;
+  width: 1px;
+  padding: 8px 0;
+  height: 100%;
+}
+
+.interactive-card {
+  transition:
+    0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+    0.3s box-shadow,
+    0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+}
+
+.interactive-card:hover {
+  transform: scale(1.05);
+}

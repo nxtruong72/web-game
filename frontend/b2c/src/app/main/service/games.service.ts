@@ -22,8 +22,10 @@ export class GameService extends AbstractService<any> {
         this.games = data.body;
         return this.games;
       }),
-      // get user info
-      // concatMap(() => this._userApiService.getUserInfo())
     );
+  }
+
+  getGameDetails(id: string) {
+    return this._gameAPIService.getGameDetails(id)
   }
 }

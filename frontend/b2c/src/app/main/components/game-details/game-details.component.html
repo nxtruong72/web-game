@@ -1,0 +1,284 @@
+<!-- breadcrumb -->
+<nav class="container-fluid py-2 border-bottom">
+  <div class="container">
+    <ol class="breadcrumb mb-2">
+      <li class="breadcrumb-item"><a [routerLink]="['/trang-chu']">Trang chủ</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/trang-chu/cac-tran-dau']">Các trận đấu</a></li>
+      <li class="breadcrumb-item active" aria-current="page">AOE-25122023-001</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- Container -->
+<div class="container">
+  <!-- Title -->
+  <div class="row my-3">
+    <!-- Col 1 -->
+    <div class="col-9">
+      <span class="fs-1 fw-semibold">
+        <span class="text-info">Houston</span>
+        vs.
+        <span class="text-danger">Texas</span>
+      </span>
+      <div class="hstack">
+        <span class="text-nowrap text-truncate">
+          Mô tả kèo lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+          et dolore magna aliqua.
+        </span>
+        <button type="button" class="btn btn-link text-nowrap">Xem thêm</button>
+      </div>
+    </div>
+    <!-- Col 2 -->
+    <div class="col-3 vstack align-self-center gap-2">
+      <div class="hstack gap-2 justify-content-end">
+        <i class="bi bi-calendar text-secondary"></i>
+        <span>25/12/2023 15:00:00</span>
+        <span class="badge rounded-pill text-bg-danger">Trực tiếp</span>
+      </div>
+      <div class="hstack gap-2 justify-content-end">
+        <i class="bi bi-tag text-secondary"></i>
+        <span class="badge text-bg-light">Cung-Chém</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-9">
+      <div class="ratio ratio-16x9">
+        <iframe
+          class="rounded-ro"
+          src="https://www.youtube.com/embed/j3h9THVwIpA?rel=0"
+          title="YouTube video"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+    <div class="col col-3 card p-0">
+      <!-- Header -->
+      <div class="hstack gap-2 justify-content-between p-2 border-bottom">
+        <button type="button" class="btn btn-light">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+        <span class="fs-6">#AOE-25122023-001</span>
+        <button type="button" class="btn btn-light">
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+      <!-- Alert -->
+      <div class="alert alert-success rounded-0 border-0 m-0">
+        Kèo đang mở, thời gian dự kiến chốt kèo còn lại là:
+        <span class="text-danger fw-bold">00:15:12s</span>
+      </div>
+      <!-- Teams -->
+      <div class="hstack gap-2 px-2 tb-row">
+        <!-- Blue Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <img src="../assets/team/houston.svg" class="dimension-5" />
+          <div class="vstack">
+            <span class="text-info fw-bold">#1 XANH</span>
+            <span>Houston</span>
+          </div>
+        </div>
+        <div class="vr-dashed"></div>
+        <!-- Red Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <img src="../assets/team/texas.svg" class="dimension-5" />
+          <div class="vstack">
+            <span class="text-danger fw-bold">#2 ĐỎ</span>
+            <span>Texas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total bets -->
+      <div class="hstack gap-2 px-2 tb-row">
+        <!-- Blue Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <div class="vstack">
+            <span class="fw-bold text-secondary">Tổng cược</span>
+            <span class="fs-5">999,999,000₫</span>
+          </div>
+        </div>
+        <div class="vr-dashed"></div>
+        <!-- Red Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <div class="vstack">
+            <span class="fw-bold text-secondary">Tổng cược</span>
+            <span class="fs-5">999,999,000₫</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tag bets -->
+      <div class="hstack gap-2 px-2 tb-row">
+        <!-- Blue Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <div class="vstack">
+            <span class="fw-bold text-secondary">Tỉ lệ</span>
+            <span class="fs-5">100k = 135k</span>
+          </div>
+        </div>
+        <div class="vr-dashed"></div>
+        <!-- Red Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <div class="vstack">
+            <span class="fw-bold text-secondary">Tỉ lệ</span>
+            <span class="fs-5">135k = 100k</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Placed bets -->
+      <div class="hstack gap-2 px-2 tb-row">
+        <!-- Blue Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <div class="vstack">
+            <span class="fw-bold text-secondary">Bạn đã cược</span>
+            <span class="fs-5">10,000,000₫</span>
+          </div>
+        </div>
+        <div class="vr-dashed"></div>
+        <!-- Red Team -->
+        <div class="hstack gap-2 w-100 tb-cell">
+          <div class="vstack">
+            <span class="fw-bold text-secondary">Bạn đã cược</span>
+            <span class="fs-5">10,000,000₫</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hstack px-3 tb-row">
+        <button type="button" class="btn btn-primary my-3 w-100" data-bs-toggle="modal" data-bs-target="#betModal">
+          Đặt cược
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 2 -->
+<div class="container pb-4 mt-4">
+  <div class="hstack gap-2 py-4">
+    <h2>Gợi ý</h2>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let game of incomming_games; trackBy: trackByFn">
+      <div class="card shadow-sm interactive-card">
+        <a [routerLink]="['/trang-chu/cac-tran-dau/chi-tiet-tran-dau']" class="stretched-link"></a>
+        <div class="card-header d-inline-flex align-items-center justify-content-between">
+          <span class="fw-semibold fs-6">
+            <i class="bi bi-calendar m-2"></i>
+            {{ game.date }}
+          </span>
+          <span class="badge rounded-pill text-bg-danger">{{ game.status }}</span>
+        </div>
+        <div class="card-body d-inline-flex align-items-center justify-content-between g-4">
+          <div class="d-flex flex-column align-items-center">
+            <img class="mb-2" [src]="game.teamA.logo" alt="Team Logo" />
+            <span class="fw-semibold fs-5">{{ game.teamA.name }}</span>
+            <span>{{ game.teamA.point }} điểm</span>
+          </div>
+
+          <span class="badge rounded-pill text-bg-warning p-2 m-2 fw-semibold fs-6">{{ game.time }}</span>
+
+          <div class="d-flex flex-column align-items-center">
+            <img class="mb-2" [src]="game.teamB.logo" alt="Team Logo" />
+            <span class="fw-semibold fs-5">{{ game.teamB.name }}</span>
+            <span>{{ game.teamB.point }} điểm</span>
+          </div>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-center g-2">
+          <i class="bi bi-tag mr-2"></i>
+          <span class="badge rounded-pill text-bg-dark px-2 mx-1">{{ game.tag }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bet modal -->
+<div class="modal fade" id="betModal" tabindex="-1" aria-labelledby="betModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Đặt cược</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Section 1, Description -->
+        <div class="hstack justify-content-between py-1">
+          <span class="fs-6 text-secondary-emphasis">Mã: #AOE-25122023-001</span>
+          <div class="hstack gap-2">
+            <i class="bi bi-tag text-secondary"></i>
+            <span class="badge text-bg-light">Cung-Chém</span>
+          </div>
+        </div>
+        <div class="alert alert-success rounded-0 border-0 m-0 py-1">
+          Kèo đang mở, thời gian dự kiến chốt kèo còn lại là:
+          <span class="text-danger fw-bold">00:15:12s</span>
+        </div>
+        <!-- Section 2, Choose team -->
+        <div class="my-3">
+          <span class="fs-6 fw-semibold">Chọn đội thắng</span>
+          <div class="hstack py-1">
+            <div class="w-100 form-check hstack gap-3 align-items-center">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="radioBet"
+                id="radioTeamBlue"
+                value="BlueTeam"
+                checked
+              />
+              <!-- Blue team -->
+              <label class="hstack gap-2 form-check-label" for="radioTeamBlue">
+                <img src="../assets/team/houston.svg" class="dimension-5" />
+                <div class="vstack">
+                  <span class="text-info fw-bold">#1 XANH</span>
+                  <span>Houston</span>
+                </div>
+              </label>
+            </div>
+            <div class="w-100 form-check hstack gap-3 align-items-center">
+              <input class="form-check-input" type="radio" name="radioBet" id="radioTeamRed" value="RedTeam" />
+              <!-- Red Team -->
+              <label class="hstack gap-2 form-check-label" for="radioTeamRed">
+                <img src="../assets/team/texas.svg" class="dimension-5" />
+                <div class="vstack">
+                  <span class="text-danger fw-bold">#2 ĐỎ</span>
+                  <span>Texas</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- Section 3, Enter money -->
+        <div class="vstack gap-2">
+          <span class="fs-6 fw-semibold">Đặt mức cược</span>
+          <div class="hstack gap-3">
+            <div class="input-group input-group-lg mb-3 w-100">
+              <input type="number" step="50" min="100" class="form-control" placeholder="Nhập mức cược" value="100" required />
+              <span class="input-group-text" id="inputBet">,000 ₫</span>
+            </div>
+
+            <div class="vstack w-100 gap-1">
+              <div class="hstack gap-1">
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-0">+ 50,000 ₫</button>
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-0">+ 100,000 ₫</button>
+              </div>
+              <div class="hstack gap-1">
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-0">+ 500,000 ₫</button>
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 py-0">+ 1,000,000 ₫</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-primary">Đặt cược</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

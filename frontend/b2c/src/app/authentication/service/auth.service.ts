@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   user = '';
+  wallet = null;
 
   constructor(
     private _authApiService: AuthApiService,
@@ -54,6 +55,14 @@ export class AuthService {
       map((user) => {
         this.user = user;
         return user;
+      }),
+    );
+  }
+  getBalance() {
+    return this._authApiService.getBalance().pipe(
+      map((data) => {
+        this.wallet = data;
+        return this.wallet;
       }),
     );
   }
