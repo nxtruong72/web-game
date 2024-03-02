@@ -9,7 +9,7 @@ import {
   ME_PATH,
   SIGN_IN_PATH,
   SIGN_UP_PATH,
-  BALANCE_PATH
+  BALANCE_PATH,
 } from '../common.const';
 
 @Injectable({
@@ -45,10 +45,9 @@ export class AuthApiService {
   forgotPassword(email: string): Observable<any> {
     return this._http.post(`${BASE_PATH}${FORGOT_PASS_PATH}`, { email });
   }
-  getBalance(){
-    return this._http.get<any>(`${BASE_PATH}${BALANCE_PATH}`)
+  getBalance() {
+    return this._http.get<any>(`${BASE_PATH}${BALANCE_PATH}`);
   }
-
   logout() {
     return this._http.post<any>(`${BASE_PATH}${LOGOUT_PATH}`, {});
   }

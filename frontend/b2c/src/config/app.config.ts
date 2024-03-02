@@ -27,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeApplication,
       multi: true,
       deps: [HttpClient],
+      
     },
     {
       provide: 'TODO',

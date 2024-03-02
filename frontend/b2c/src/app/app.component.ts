@@ -23,6 +23,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this._authService.getMe().subscribe();
+    this._authService.getBalance().subscribe();
     if (this._jwtService.getJwToken) {
       this._router.navigate(['']);
     }

@@ -9,7 +9,7 @@
           <i class="bi bi-person-circle" style="font-size: 48pt; color: #ced4da"></i>
         </div>
         <div class="d-flex flex-row justify-content-center align-items-center">
-          <span class="fs-5">User Name</span>
+          <span class="fs-5">{{me}}</span>
         </div>
         <div class="d-flex flex-row justify-content-center align-items-center">
           <i class="bi bi-envelope text-secondary"></i>
@@ -34,9 +34,9 @@
             <i class="bi bi-wallet2" style="font-size: 20pt"></i>
           </div>
           <span class="figure-caption mt-2">SỐ DƯ</span>
-          <span class="fs-5">999,999,999 ₫</span>
+          <span class="fs-5">{{ balance | currency: 'VND' }}</span>
           <span class="figure-caption mt-2">KHUYẾN MÃI</span>
-          <span class="fs-5">100,000 ₫</span>
+          <span class="fs-5">₫100,000</span>
           <button type="button" class="btn btn-outline-primary btn-sm mt-2">Nạp/Rút</button>
         </div>
         <div class="list-group border-0 rounded-0 my-2">

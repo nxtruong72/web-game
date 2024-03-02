@@ -19,13 +19,26 @@ export class GameService extends AbstractService<any> {
   getGames() {
     return this._gameAPIService.getGames().pipe(
       map((data) => {
-        this.games = data.body;
+        this.games = data.content;
+
         return this.games;
       }),
     );
   }
 
   getGameDetails(id: string) {
-    return this._gameAPIService.getGameDetails(id)
+    return this._gameAPIService.getGameDetails(id);
+  }
+
+  getRoundsByGameId(id: string) {
+    return this._gameAPIService.getRoundsByGameId(id);
+  }
+
+  getBetsByRoundId(id: string) {
+    return this._gameAPIService.getBetsByRoundId(id);
+  }
+
+  placeAbet(_roundInd: number, _teamBet: number, _amount: number) {
+    return this._gameAPIService.placeAbet(_roundInd, _teamBet, _amount);
   }
 }

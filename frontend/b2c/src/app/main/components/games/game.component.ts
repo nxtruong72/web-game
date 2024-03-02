@@ -6,11 +6,12 @@ import { AuthService } from '../../../authentication/service/auth.service';
 import { JwtService } from '../../../service/jwt.service';
 import { finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { GameCardComponent } from '../game-item/game-card.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, NgFor, NgForOf, RouterLink, NgIf],
+  imports: [CommonModule, NgFor, NgForOf, RouterLink, NgIf, GameCardComponent],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
@@ -18,43 +19,15 @@ export class GameComponent implements OnInit {
   isLoading = false;
   isLogged = false;
   errMsg = null;
-  me = '';
   today_games: Array<any> = [];
   incomming_games: Array<any> = [];
   historical_games: Array<any> = [];
   constructor(
     private _gameService: GameService,
-    private _authService: AuthService,
-    private _jwtService: JwtService,
-    private _router: Router,
   ) {}
 
   ngOnInit() {
     this.getGames();
-    this.getMe();
-    this.isLogged = this.checkLogged();
-  }
-
-  trackByFn(index: any, item: { id: any }) {
-    return item.id;
-  }
-
-  logout() {
-    this._authService.logout().subscribe(
-      () => {
-        this._jwtService.deleteJwToken();
-        this._router.navigate(['/']);
-      },
-      (error) => {},
-    );
-  }
-
-  private getMe() {
-    this.me = this._authService.user;
-  }
-
-  private checkLogged(): boolean {
-    return this._jwtService.getJwToken && this._authService.user ? true : false;
   }
 
   private getGames() {
@@ -76,5 +49,9 @@ export class GameComponent implements OnInit {
           this.errMsg = errorRes.error.message;
         },
       );
+  }
+
+  trackByFn(index: any, item: { id: any }) {
+    return item.id;
   }
 }

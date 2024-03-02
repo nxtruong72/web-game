@@ -1,0 +1,20 @@
+<!-- Alert -->
+<div [ngSwitch]="roundState">
+  <ng-template ngSwitchCase="START">
+    <div class="alert alert-success rounded-0 border-0 m-0 py-1">
+      Vòng đấu đang mở, quý khách có thể tiến hành đặt cược.
+    </div>
+  </ng-template>
+  <ng-template ngSwitchCase="PENDING">
+    <div class="alert alert-warning rounded-0 border-0 m-0 py-1">Vòng đấu chưa bắt đầu, không thể đặt cược.</div>
+  </ng-template>
+  <ng-template ngSwitchCase="END">
+    <div class="alert alert-danger rounded-0 border-0 m-0 py-1">Vòng đấu đã kết kết thúc, không thể đặt cược.</div>
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <div class="alert alert-info rounded-0 border-0 m-0 py-1" role="alert">
+      Trận đấu chưa bắt đầu, hoặc không tìm thấy vòng đấu, xin vui lòng quay lại sau.
+    </div>
+  </ng-template>
+</div>

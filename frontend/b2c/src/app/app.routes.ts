@@ -14,7 +14,7 @@ export const routes: Routes = [
         loadComponent: () => import('./main/components/games/game.component').then((m) => m.GameComponent),
       },
       {
-        path: 'cac-tran-dau/chi-tiet-tran-dau',
+        path: 'cac-tran-dau/chi-tiet-tran-dau/:id/details',
         pathMatch: 'full',
         loadComponent: () =>
           import('./main/components/game-details/game-details.component').then((m) => m.GameDetailsComponent),

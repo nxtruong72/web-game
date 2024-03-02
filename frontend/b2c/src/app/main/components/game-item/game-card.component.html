@@ -1,0 +1,29 @@
+<div class="card shadow-sm interactive-card">
+  <a [routerLink]="['/trang-chu/cac-tran-dau/chi-tiet-tran-dau', game?.id, 'details']" class="stretched-link"></a>
+  <div class="card-header d-inline-flex align-items-center justify-content-between">
+    <span class="fw-semibold fs-6">
+      <i class="bi bi-calendar m-2"></i>
+      {{ game?.startTime | date: 'dd/MM/YYYY' }}
+    </span>
+    <span class="badge rounded-pill text-bg-danger">{{ game?.gameStatus }}</span>
+  </div>
+  <div class="card-body d-inline-flex align-items-center justify-content-between g-4">
+    <div class="d-flex flex-column align-items-center">
+      <img class="mb-2" src="../assets/team/houston.svg" alt="Team Logo" />
+      <span class="fw-semibold fs-5">{{ game?.teamOne }}</span>
+      <!-- <span>{{ game.teamA.point }} điểm</span> -->
+    </div>
+
+    <span class="badge rounded-pill text-bg-warning p-2 m-2 fw-semibold fs-6"> {{ game?.startTime | date: 'hh:mm' }}</span>
+
+    <div class="d-flex flex-column align-items-center">
+      <img class="mb-2" src="../assets/team/texas.svg" alt="Team Logo" />
+      <span class="fw-semibold fs-5">{{ game?.teamTwo }}</span>
+      <!-- <span>{{ game.teamB.point }} điểm</span> -->
+    </div>
+  </div>
+  <div class="card-footer d-flex align-items-center justify-content-center g-2">
+    <i class="bi bi-tag mr-2"></i>
+    <span class="badge rounded-pill text-bg-dark px-2 mx-1">{{ game?.gameTypes[0] }}</span>
+  </div>
+</div>
