@@ -63,7 +63,6 @@ export class SignInComponent implements OnInit {
         )
         .subscribe(
           (data) => {
-            console.log(data);
             this._router.navigate(['']);
           },
           (errorRes: HttpErrorResponse) => {

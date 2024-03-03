@@ -1,17 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { GameService } from '../../service/games.service';
-import { Subject, Subscription, finalize } from 'rxjs';
+import { Subscription, finalize, timer } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Route, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { GameCardComponent } from '../game-item/game-card.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../../authentication/service/auth.service';
-import { isEmptyString } from '../../../../shared/until.helper';
-import { requiredMsg } from '../../../../shared/msg.const';
 import { RoundAlertComponent } from '../round-alert/round-alert.component';
+import { UserService } from '../../../service/user.service';
 declare var window: any;
 
 @Component({
@@ -52,13 +51,16 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
   _balanceSub!: Subscription;
 
   betModal: any;
+
+  timer$ = timer(0, 7000);
+  subTime!: Subscription;
   constructor(
     private _gameService: GameService,
     private _route: ActivatedRoute,
     private _sanitizer: DomSanitizer,
     private _formBuilder: FormBuilder,
     private _messageService: MessageService,
-    private _authService: AuthService,
+    private _userService: UserService
   ) {}
 
   ngOnInit() {
@@ -74,16 +76,22 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
         this._getGames();
       }
     });
-    this._balanceSub = this._authService.getUserWallet$().subscribe((wallet: any) => {
-      if (null != wallet) {
-        this.balance = wallet.balance;
-      }
+    this._balanceSub = this._userService.balance$.subscribe((balance) => {
+      this.balance = balance
     });
     this.betModal = new window.bootstrap.Modal(document.getElementById('betModal'));
+
+    this.subTime = this.timer$.subscribe(() => {
+      if (this.currentRound) {
+        this._getRoundById(this.currentRound.id)
+      }
+      
+    });
   }
   ngOnDestroy(): void {
     this._paramSub?.unsubscribe();
     this._balanceSub?.unsubscribe();
+    this.subTime?.unsubscribe();
   }
   private _getGameDetails(_id: string) {
     this._isLoading = true;
@@ -153,6 +161,27 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
       );
   }
 
+  private _getRoundById(id: string) {
+    this._isLoading = true;
+    this._gameService
+      .getRoundById(id)
+      .pipe(
+        finalize(() => {
+          this._isLoading = false;
+        }),
+      )
+      .subscribe(
+        (data) => {
+          this.currentRound.roundStatus = data.roundStatus;
+          this.currentRound.teamWin = data.teamWin;
+          this.oncurrentRoundIndexChange()
+        },
+        (errorRes: HttpErrorResponse) => {
+          this._errMsg = errorRes.error.message;
+        },
+      );
+  }
+
   private _getBetsByRoundID(id: string) {
     this._isLoading = true;
     this._gameService
@@ -205,7 +234,6 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
           this._getBetsByRoundID(this.currentRound.id);
           this.cleanForm();
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Đặt cược thành công' });
-          this._authService.getBalance().subscribe();
         },
         (errorRes: HttpErrorResponse) => {
           this._errMsg = errorRes.error.message || errorRes.error.errors[0];

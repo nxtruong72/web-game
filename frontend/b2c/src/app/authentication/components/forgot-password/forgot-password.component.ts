@@ -8,6 +8,7 @@ import { requiredMsg } from '../../../../shared/msg.const';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,7 +23,7 @@ export class ForgotPasswordComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private _authService: AuthService,
+    private _userService: UserService,
     private _formBuilder: FormBuilder,
     private _messageService: MessageService,
     private _router: Router,
@@ -36,7 +37,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.validateForm();
     if (this.form.valid) {
       this.isLoading = true;
-      this._authService
+      this._userService
         .forgotPassword(this.f['email'].value)
         .pipe(
           finalize(() => {

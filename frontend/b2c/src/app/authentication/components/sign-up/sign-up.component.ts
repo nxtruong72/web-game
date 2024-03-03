@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { isEmptyString } from '../../../../shared/until.helper';
 import { requiredMsg } from '../../../../shared/msg.const';
 import { MessageService } from 'primeng/api';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -23,10 +24,10 @@ export class SignUpComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _messageService: MessageService,
+    private _userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -37,9 +38,10 @@ export class SignUpComponent implements OnInit {
     this.validateForm();
     if (this.form.valid) {
       this.isLoading = true;
+      this.errMsg = '';
       const { userName, password, email, phone } = this.form.value;
-      this._authService
-        .signUp(userName.trim(), password.trim(), email.trim(), phone.trim())
+      this._userService
+        .register(userName.trim(), password.trim(), email.trim(), phone.trim())
         .pipe(
           finalize(() => {
             this.isLoading = false;
@@ -47,7 +49,6 @@ export class SignUpComponent implements OnInit {
         )
         .subscribe(
           (data) => {
-            console.log(data);
             this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Đăng kí thành công' });
             this._router.navigate(['active'], { state: { userName, password } });
           },

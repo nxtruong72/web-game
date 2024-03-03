@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  ACTIVE_PATH,
-  BASE_PATH,
-  FORGOT_PASS_PATH,
-  LOGOUT_PATH,
-  ME_PATH,
-  SIGN_IN_PATH,
-  SIGN_UP_PATH,
-  BALANCE_PATH,
+  USER_ACTIVE_PATH,
+  BASE_CLIENT_PATH,
+  USER_FOGOT_PASS_PATH,
+  AUTH_LOGOUT_PATH,
+  AUTH_ME_PATH,
+  AUTH_LOGIN_PATH,
+  USER_SIGNUP_PATH,
+  USER_BALANCE_PATH,
 } from '../common.const';
 
 @Injectable({
@@ -19,14 +19,14 @@ export class AuthApiService {
   constructor(private _http: HttpClient) {}
 
   signIn(userName: string, password: string): Observable<any> {
-    return this._http.post<any>(`${BASE_PATH}${SIGN_IN_PATH}`, {
+    return this._http.post<any>(`${BASE_CLIENT_PATH}${AUTH_LOGIN_PATH}`, {
       username: userName,
       password,
     });
   }
 
   signUp(userName: string, password: string, email: string, phone: string): Observable<any> {
-    return this._http.post<any>(`${BASE_PATH}${SIGN_UP_PATH}`, {
+    return this._http.post<any>(`${BASE_CLIENT_PATH}${USER_SIGNUP_PATH}`, {
       username: userName,
       password,
       email,
@@ -35,20 +35,22 @@ export class AuthApiService {
   }
 
   active(activeCode: string) {
-    return this._http.post<any>(`${BASE_PATH}${ACTIVE_PATH}`, { code: activeCode });
+    return this._http.post<any>(`${BASE_CLIENT_PATH}${USER_ACTIVE_PATH}`, { code: activeCode });
   }
 
   getMe() {
-    return this._http.get<string>(`${BASE_PATH}${ME_PATH}`, { responseType: 'text' as 'json' });
+    return this._http.get<string>(`${BASE_CLIENT_PATH}${AUTH_ME_PATH}`, { responseType: 'text' as 'json' });
   }
 
   forgotPassword(email: string): Observable<any> {
-    return this._http.post(`${BASE_PATH}${FORGOT_PASS_PATH}`, { email });
+    return this._http.post(`${BASE_CLIENT_PATH}${USER_FOGOT_PASS_PATH}`, { email });
   }
+
   getBalance() {
-    return this._http.get<any>(`${BASE_PATH}${BALANCE_PATH}`);
+    return this._http.get<any>(`${BASE_CLIENT_PATH}${USER_BALANCE_PATH}`);
   }
+  
   logout() {
-    return this._http.post<any>(`${BASE_PATH}${LOGOUT_PATH}`, {});
+    return this._http.post<any>(`${BASE_CLIENT_PATH}${AUTH_LOGOUT_PATH}`, {});
   }
 }

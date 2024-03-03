@@ -8,8 +8,17 @@
   <ng-template ngSwitchCase="PENDING">
     <div class="alert alert-warning rounded-0 border-0 m-0 py-1">Vòng đấu chưa bắt đầu, không thể đặt cược.</div>
   </ng-template>
-  <ng-template ngSwitchCase="END">
-    <div class="alert alert-danger rounded-0 border-0 m-0 py-1">Vòng đấu đã kết kết thúc, không thể đặt cược.</div>
+  <ng-template ngSwitchCase="COMPLETED">
+    <div class="alert alert-danger rounded-0 border-0 m-0 py-1">
+      Vòng đấu đã kết kết thúc, chúc mừng đội
+      <span class="fw-bold" [class]="getClassForTeamWin()">{{ getTeamWin() }}</span>
+      đã gành chiến thắng.
+    </div>
+  </ng-template>
+  <ng-template ngSwitchCase="CALCULATE">
+    <div class="alert alert-info rounded-0 border-0 m-0 py-1">
+      Vòng đấu đã kết kết thúc, đang tính toán kết quả và tiến hành trả thưởng.
+    </div>
   </ng-template>
 
   <ng-template ngSwitchDefault>

@@ -12,7 +12,6 @@ import { JwtService } from './service/jwt.service';
 })
 export class AppComponent {
   constructor(
-    @Inject('TODO') private TODO: any,
     private _jwtService: JwtService,
     private _router: Router,
   ) {}

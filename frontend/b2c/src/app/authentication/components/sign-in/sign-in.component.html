@@ -44,7 +44,18 @@
           </div>
           <div class="auth__container__body--action">
             <div class="alert alert-danger" *ngIf="errMsg">Error: {{ errMsg }}</div>
-            <button type="submit" class="btn btn-primary w-100 auth__container__body--action__login" (click)="signIn()">
+            <button
+              type="submit"
+              class="btn btn-primary w-100 auth__container__body--action__login"
+              [disabled]="isLoading"
+              (click)="signIn()"
+            >
+              <span
+                [hidden]="!isLoading"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
               Đăng Nhập
             </button>
             <div class="auth__container__body--action__auth">

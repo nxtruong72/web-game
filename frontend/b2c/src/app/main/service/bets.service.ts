@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractService } from '../../state-management/abstract/abstract-service';
 import { map } from 'rxjs';
-import { BetHistoryApiService } from '../../../api/bets/bets.api';
+import { BetHistoryApiService } from '../../../api/bets.api';
 
 @Injectable({
   providedIn: 'root',

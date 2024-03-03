@@ -75,7 +75,13 @@
           </div>
           <div class="auth__container__body--action">
             <div class="alert alert-danger" *ngIf="errMsg">Error: {{ errMsg }}</div>
-            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login" (click)="signUp()">
+            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login" (click)="signUp()" [disabled]="isLoading">
+              <span
+                [hidden]="!isLoading"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
               Đăng Kí
             </button>
             <div class="auth__container__body--action__auth">

@@ -25,6 +25,7 @@ export class SignInComponent implements OnInit {
   private password = '';
 
   constructor(
+    
     private _authService: AuthService,
     private _formBuilder: FormBuilder,
     private _router: Router,
@@ -40,10 +41,11 @@ export class SignInComponent implements OnInit {
   signIn() {
     this.validateForm();
     if (this.form.valid) {
+      this.errMsg = '';
       this.isLoading = true;
       const { userName, password } = this.form.value;
       this._authService
-        .signIn(userName, password)
+        .login(userName, password)
         .pipe(
           finalize(() => {
             this.isLoading = false;

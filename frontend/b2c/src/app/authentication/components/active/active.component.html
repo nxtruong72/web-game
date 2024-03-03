@@ -30,7 +30,19 @@
             </div>
           </div>
           <div class="auth__container__body--action">
-            <button type="button" class="btn btn-primary w-100 auth__container__body--action__login" (click)="active()">
+            <div class="alert alert-danger" *ngIf="errMsg">Error: {{ errMsg }}</div>
+            <button
+              type="button"
+              class="btn btn-primary w-100 auth__container__body--action__login"
+              (click)="active()"
+              [disabled]="isLoading"
+            >
+              <span
+                [hidden]="!isLoading"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
               Active Tài Khoản
             </button>
             <div class="auth__container__body--action__auth">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractService } from '../../state-management/abstract/abstract-service';
 import { map } from 'rxjs';
-import { GameApiService } from '../../../api/games/games.api';
+import { GameApiService } from '../../../api/games.api';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +38,9 @@ export class GameService extends AbstractService<any> {
     return this._gameAPIService.getBetsByRoundId(id);
   }
 
+  getRoundById(id: string) {
+    return this._gameAPIService.getRoundById(id);
+  }
   placeAbet(_roundInd: number, _teamBet: number, _amount: number) {
     return this._gameAPIService.placeAbet(_roundInd, _teamBet, _amount);
   }

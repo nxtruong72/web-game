@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
 import { finalize } from 'rxjs';
 import { requiredMsg } from '../../../../shared/msg.const';
 import { isEmptyString } from '../../../../shared/until.helper';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-active',
@@ -26,7 +26,7 @@ export class ActiveComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authService: AuthService,
+    private _userService: UserService,
     private _router: Router,
     private _messageService: MessageService,
   ) {
@@ -40,10 +40,11 @@ export class ActiveComponent implements OnInit {
   active() {
     this.validateForm();
     if (this.form.valid) {
+      this.errMsg = '';
       this.isLoading = true;
       const { activeCode } = this.form.value;
-      this._authService
-        .active(activeCode.trim())
+      this._userService
+        .activate(activeCode.trim())
         .pipe(
           finalize(() => {
             this.isLoading = false;
@@ -59,6 +60,7 @@ export class ActiveComponent implements OnInit {
             this._router.navigate(['dang-nhap'], { state: { userName: this.userName, password: this.password } });
           },
           (errorRes: HttpErrorResponse) => {
+            console.log(errorRes);
             this.errMsg = errorRes.error.message || errorRes.error.errors[0];
           },
         );

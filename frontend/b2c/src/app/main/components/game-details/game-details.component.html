@@ -45,7 +45,13 @@
     <div class="col col-9">
       <ng-template [ngIf]="safeSrc">
         <div class="ratio ratio-16x9">
-          <iframe class="rounded-ro" [src]="safeSrc" title="Video Stream" allowfullscreen></iframe>
+          <iframe
+            class="rounded-ro"
+            [src]="safeSrc"
+            title="Video Stream"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
         </div>
       </ng-template>
     </div>
@@ -68,7 +74,7 @@
           <i class="bi bi-arrow-right"></i>
         </button>
       </div>
-      <app-round-alert [roundState]="currentRound?.roundStatus"></app-round-alert>
+      <app-round-alert [roundState]="currentRound?.roundStatus" [teamWin]="currentRound?.teamWin"></app-round-alert>
       <!-- Teams -->
       <div class="hstack gap-2 px-2 tb-row">
         <!-- Blue Team -->
@@ -77,6 +83,7 @@
           <div class="vstack">
             <span class="text-info fw-bold">#1 XANH</span>
             <span>{{ game?.teamOne }}</span>
+            <div><span [hidden]="currentRound?.teamWin !== 1" class="badge text-bg-success">WIN</span></div>
           </div>
         </div>
         <div class="vr-dashed"></div>
@@ -86,6 +93,7 @@
           <div class="vstack">
             <span class="text-danger fw-bold">#2 ĐỎ</span>
             <span>{{ game?.teamTwo }}</span>
+            <div><span [hidden]="currentRound?.teamWin !== 2" class="badge text-bg-success">WIN</span></div>
           </div>
         </div>
       </div>
@@ -108,26 +116,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Tag bets -->
-      <div class="hstack gap-2 px-2 tb-row">
-        <!-- Blue Team -->
-        <div class="hstack gap-2 w-100 tb-cell">
-          <div class="vstack">
-            <span class="fw-bold text-secondary">Tỉ lệ</span>
-            <span class="fs-5">100k = 135k</span>
-          </div>
-        </div>
-        <div class="vr-dashed"></div>
-        <!-- Red Team -->
-        <div class="hstack gap-2 w-100 tb-cell">
-          <div class="vstack">
-            <span class="fw-bold text-secondary">Tỉ lệ</span>
-            <span class="fs-5">135k = 100k</span>
-          </div>
-        </div>
-      </div>
-
       <!-- Placed bets -->
       <div class="hstack gap-2 px-2 tb-row">
         <!-- Blue Team -->
@@ -267,7 +255,7 @@
               <div id="betAmountValidation" class="invalid-feedback">
                 Mức cược tối thiểu
                 <strong>{{ MIN | currency: 'VND' }}</strong>
-                và không vượt quá số dư hiện tại ({{ balance | currency: 'VND' }})
+                và tối đa không vượt quá số dư hiện tại ({{ balance | currency: 'VND' }})
               </div>
             </div>
 

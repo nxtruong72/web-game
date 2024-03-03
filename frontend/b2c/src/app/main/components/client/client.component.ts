@@ -4,7 +4,7 @@ import { AdminService } from '../../service/admin.service';
 import { ViewContainerComponent } from '../../../state-management/view-container/view-container.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../loading/loading.component';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 @Component({
@@ -25,7 +25,6 @@ import { HomeComponent } from './home/home.component';
 export class ClientComponent extends AbstractComponent<any> {
   constructor(
     private _adminService: AdminService,
-    private _router: Router,
   ) {
     super(_adminService);
   }

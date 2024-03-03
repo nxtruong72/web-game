@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-import { JwtService } from './service/jwt.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from './authentication/service/auth.service';
+import { UserService } from './service/user.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,18 +13,16 @@ import { AuthService } from './authentication/service/auth.service';
   styleUrl: './app.component.scss',
   providers: [MessageService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
-    @Inject('TODO') private TODO: any,
-    private _jwtService: JwtService,
     private _authService: AuthService,
+    private _userService: UserService,
     private _router: Router,
   ) {}
 
   ngOnInit(): void {
-    this._authService.getMe().subscribe();
-    this._authService.getBalance().subscribe();
-    if (this._jwtService.getJwToken) {
+    if (this._authService.isAuthenticated()) {
+      this._userService.loadUserProfile();
       this._router.navigate(['']);
     }
   }
