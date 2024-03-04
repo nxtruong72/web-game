@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { JwtService } from './service/jwt.service';

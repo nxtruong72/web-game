@@ -1,11 +1,12 @@
 import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from '../app/app.routes';
 import { tap } from 'rxjs';
 import { InterceptorService } from '../app/service/interceptor.service';
 import { ErrorInterceptorService } from '../app/service/error.interceptor.service';
+import { authInterceptor } from '../shared/until.helper';
 let todos: Array<any> = [];
 export function initializeApplication(http: HttpClient) {
   return () =>
@@ -22,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(), // for animation as material
     provideHttpClient(),
     provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor])),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApplication,

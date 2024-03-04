@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BettingOddsService } from '../../../service/betting-odds.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-betting-odds',
@@ -7,7 +9,27 @@ import { Component, OnInit } from '@angular/core';
   standalone: true,
 })
 export class BettingOddsComponent implements OnInit {
-  constructor() {}
+  subscription = new Subscription();
+  constructor(private _bettingOddsService: BettingOddsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createGame();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  createGame(): void {
+    const createGameSub = this._bettingOddsService
+      .createGame()
+      .pipe()
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {},
+      );
+    this.subscription.add(createGameSub);
+  }
 }
