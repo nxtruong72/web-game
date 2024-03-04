@@ -1,0 +1,29 @@
+<div class="breadcrumb">
+  <div class="breadcrumb__link">
+    <div class="breadcrumb__home">
+      <a [routerLink]="['/']" class="breadcrumb__home__link">
+        <img [src]="'/assets/icons/cms/home.svg'" class="breadcrumb__home__icon" />
+        <div class="breadcrumb__home__text">Home</div>
+      </a>
+      <div class="breadcrumb__home__arrow">/</div>
+    </div>
+
+    <div class="breadcrumb__page">
+      @for (item of pages; track item; let first = $first, last = $last) {
+        <div class="sidebar__container__menu__item" routerLinkActive="active" [class.active]="last">
+          <span class="sidebar__container__menu__item__name" *ngIf="item.link" [routerLink]="[item.link]">
+            {{ item.name }}
+          </span>
+          <span class="sidebar__container__menu__item__name" *ngIf="!item.link">
+            {{ item.name }}
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="breadcrumb__action">
+    <div class="breadcrumb__action__refresh">
+      <img [src]="'/assets/icons/cms/reload.svg'" class="breadcrumb__action__refresh__icon" (click)="refresh()" />
+    </div>
+  </div>
+</div>

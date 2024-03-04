@@ -1,0 +1,67 @@
+@import '../../../../../scss/variable';
+
+@mixin text {
+  font-weight: 400;
+  font-size: $font14;
+  line-height: 20px;
+  color: $gray-color-5;
+}
+
+.breadcrumb {
+  height: 48px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .breadcrumb__link {
+    display: flex;
+    .breadcrumb__home {
+      display: flex;
+      .breadcrumb__home__link {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+
+        .breadcrumb__home__icon {
+          width: 20px;
+          height: 20px;
+        }
+        .breadcrumb__home__text {
+          @include text;
+          margin-left: 4px;
+        }
+      }
+      .breadcrumb__home__arrow {
+        margin-left: 16px;
+        display: flex;
+        justify-content: center;
+        .breadcrumb__home__arrow__right {
+          width: 20px;
+        }
+      }
+    }
+    .breadcrumb__page {
+      .sidebar__container__menu__item {
+        .sidebar__container__menu__item__name {
+          @include text;
+          margin-left: 16px;
+        }
+      }
+
+      .sidebar__container__menu__item.active {
+        .sidebar__container__menu__item__name {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .breadcrumb__action {
+    .breadcrumb__action__refresh {
+      .breadcrumb__action__refresh__icon {
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
