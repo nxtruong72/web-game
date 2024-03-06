@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { BettingOddsService } from '../../../service/betting-odds.service';
 import { Subscription } from 'rxjs';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { fluentDivider, fluentTextField, provideFluentDesignSystem } from '@fluentui/web-components';
+
+provideFluentDesignSystem().register(fluentTextField(), fluentDivider());
 
 @Component({
   selector: 'app-betting-odds',
@@ -9,6 +12,7 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
   styleUrls: ['./betting-odds.component.scss'],
   standalone: true,
   imports: [BreadcrumbComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BettingOddsComponent implements OnInit {
   subscription = new Subscription();

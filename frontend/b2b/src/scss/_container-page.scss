@@ -1,0 +1,89 @@
+@import 'variable';
+
+@mixin icon {
+  margin-left: 12px;
+  width: 24px;
+  height: 24px;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+  cursor: pointer;
+}
+
+.page__container__main__content {
+  height: calc(100vh - 148px);
+  background-color: $white-color;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  margin-top: 16px;
+
+  .page__container__main__content__table {
+    .page__container__main__content__table__action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      padding: 8px 16px;
+      .page__container__main__content__table__action__left {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .page__container__main__content__table__action__left__title {
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 32px;
+          color: $gray-color-7;
+        }
+        .page__container__main__content__table__action__left__number {
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 32px;
+          margin-left: 8px;
+          color: $gray-color-8;
+        }
+      }
+      .page__container__main__content__table__action__right {
+        display: flex;
+        align-items: center;
+        .page__container__main__content__table__action__right__button {
+          .page__container__main__content__table__action__right__button__add {
+            font-size: 16px;
+            width: 86px;
+            height: 32px;
+            background-color: $blue-color;
+            color: $white-color;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 8px;
+            img {
+              width: 20px;
+            }
+          }
+        }
+        .page__container__main__content__table__action__right__search {
+          margin-left: 12px;
+          fluent-text-field {
+            width: 256px;
+          }
+        }
+        .page__container__main__content__table__action__right__filter {
+          @include icon;
+        }
+        .page__container__main__content__table__action__right__download {
+          @include icon;
+        }
+        .page__container__main__content__table__action__right__more__action {
+          @include icon;
+        }
+      }
+    }
+    .page__container__main__content__table__container {
+    }
+  }
+}
