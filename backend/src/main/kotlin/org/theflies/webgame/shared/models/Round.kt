@@ -18,7 +18,10 @@ class Round (
     var roundStatus: RoundStatus,
 
     @NotBlank
-    var totalBet: Long,
+    var totalBetTeamOne: BigDecimal,
+
+    @NotBlank
+    var totalBetTeamTwo: BigDecimal,
 
     @NotBlank
     var profit: BigDecimal,

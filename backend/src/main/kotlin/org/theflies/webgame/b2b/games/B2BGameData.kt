@@ -28,6 +28,7 @@ data class CreateGameRequest(
   var streamURL: String,
 
   var startTime: Instant? = null,
+  var planStartTime: Instant? = null,
 )
 
 @Introspected
@@ -60,6 +61,8 @@ data class GameResponse(
   @NotBlank
   var streamURL: String,
 
+  var planStartTime: Instant? = null,
+
   @NotBlank
   var startTime: Instant? = null,
 
@@ -82,7 +85,10 @@ data class RoundResponse (
   var roundStatus: RoundStatus,
 
   @NotBlank
-  var totalBet: Long,
+  var totalBetTeamOne: BigDecimal,
+
+  @NotBlank
+  var totalBetTeamTwo: BigDecimal,
 
   @NotBlank
   var profit: BigDecimal,

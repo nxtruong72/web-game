@@ -84,6 +84,7 @@ CREATE TABLE games (
      profit NUMERIC(32,5) NOT NULL CHECK ( profit >= 0 ),
      stream_url VARCHAR(1024) NOT NULL,
      avatar_url VARCHAR(1024),
+     plan_start_time TIMESTAMP,
      start_time TIMESTAMP,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -93,8 +94,9 @@ CREATE TABLE rounds (
     id SERIAL PRIMARY KEY,
     team_win INTEGER NOT NULL CHECK ( team_win >= 0 ),
     round_status VARCHAR(45) DEFAULT 'START' NOT NULL,
-    total_bet BIGINT NOT NULL CHECK ( total_bet >= 0 ),
     profit NUMERIC(32,5) NOT NULL CHECK ( profit >= 0 ),
+    total_bet_team_one NUMERIC(32,5) NOT NULL CHECK ( total_bet_team_one >= 0 ),
+    total_bet_team_two NUMERIC(32,5) NOT NULL CHECK ( total_bet_team_two >= 0 ),
     game_id INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP

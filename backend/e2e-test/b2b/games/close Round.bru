@@ -1,11 +1,11 @@
 meta {
-  name: create bet
+  name: close Round
   type: http
-  seq: 1
+  seq: 7
 }
 
 post {
-  url: {{host}}/b2c/games/bet
+  url: {{host}}/b2b/games/1/rounds/2/close
   body: json
   auth: bearer
 }
@@ -16,8 +16,6 @@ auth:bearer {
 
 body:json {
   {
-    "roundInd": 1,
-    "teamBet": 1,
-    "amount": "10"
+    "teamWin": 0
   }
 }

@@ -12,6 +12,7 @@ import org.theflies.webgame.shared.common.WalletException
 import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.*
 import java.security.Principal
+import java.time.Instant
 import java.util.Collections
 import java.util.stream.Collectors
 
@@ -56,7 +57,7 @@ open class B2CGameService(
         }
         val round = roundRepository.findByIdForUpdate(request.roundInd) ?:  throw RoundException(404, "Round not found")
         if (round.roundStatus != RoundStatus.START) {
-            throw RoundException(400, "Round is not in start")
+            throw RoundException(400, "Round is not in start or round is close")
         }
         val bet = betRepository.save(Bet(
             null,
@@ -66,6 +67,12 @@ open class B2CGameService(
             round,
             wallet
         ))
+        if (request.teamBet == 1) {
+            round.totalBetTeamOne = round.totalBetTeamOne.add(request.amount)
+        } else {
+            round.totalBetTeamTwo = round.totalBetTeamTwo.add(request.amount)
+        }
+        roundRepository.update(round)
         wallet.balance = wallet.balance.subtract(request.amount);
         wallet.blockedBalance = wallet.blockedBalance.add(request.amount);
         walletRepository.update(wallet)
@@ -76,6 +83,14 @@ open class B2CGameService(
         val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
         val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
         val bets = betRepository.findByRoundIdAndWalletId(roundId,wallet.id!!)
+        return bets.stream()
+            .map { mapBetToBetResponse(it) }
+            .collect(Collectors.toList())
+    }
+    fun listBetAfterTime(time: Instant, principal: Principal): List<BetResponse> {
+        val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
+        val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
+        val bets = betRepository.findByWalletIdAndUpdatedAtAfter(wallet.id!!, time)
         return bets.stream()
             .map { mapBetToBetResponse(it) }
             .collect(Collectors.toList())
@@ -100,6 +115,7 @@ open class B2CGameService(
             game.teamTwo,
             game.gameTypes,
             game.streamURL,
+            game.planStartTime,
             game.startTime,
             game.createdAt!!,
             game.updatedAt!!

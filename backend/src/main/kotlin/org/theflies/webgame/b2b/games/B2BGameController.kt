@@ -52,6 +52,13 @@ class B2BGameController(
         return HttpResponse.ok(roundResponse)
     }
 
+    @Post("/{gameId}/rounds/{roundId}/close")
+    @RolesAllowed("ADMIN", "STAFF")
+    fun closeRound (gameId: Long, roundId: Long,  request: HttpRequest<*>): HttpResponse<RoundResponse> {
+        val roundResponse = gameService.closeRound(roundId)
+        return HttpResponse.ok(roundResponse)
+    }
+
     @Post("/{gameId}/rounds/{roundId}/end")
     @RolesAllowed("ADMIN", "STAFF")
     fun endRound (gameId: Long, roundId: Long, @Body @Valid endRequest: RoundEndRequest, request: HttpRequest<*>): HttpResponse<RoundResponse> {

@@ -25,7 +25,7 @@ class Bet (
     @MappedProperty("round_id")
     var round: Round? = null,
 
-    @Relation(value = Relation.Kind.MANY_TO_ONE, cascade = [Cascade.UPDATE])
+    @Relation(value = Relation.Kind.MANY_TO_ONE)
     @MappedProperty("wallet_id")
     var wallet: Wallet? = null,
 

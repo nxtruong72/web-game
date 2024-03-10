@@ -33,7 +33,8 @@ data class GameResponse(
   @NotBlank
   var streamURL: String,
 
-  @NotBlank
+  var planStartTime: Instant?,
+
   var startTime: Instant?,
 
   @NotBlank

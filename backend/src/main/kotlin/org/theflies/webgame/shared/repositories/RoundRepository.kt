@@ -10,6 +10,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.PageableRepository;
 import org.theflies.webgame.shared.models.Game
 import org.theflies.webgame.shared.models.Round
+import org.theflies.webgame.shared.models.RoundStatus
 import org.theflies.webgame.shared.models.Wallet
 import java.util.*
 
@@ -20,6 +21,9 @@ interface RoundRepository: PageableRepository<Round, Long> {
 
     @Join("game")
     fun findByGameId(gameId: Long, pageable: Pageable): Page<Round>
+
+    @Join("game")
+    fun findByGameIdAndRoundStatusInList(gameId: Long, roundStatus: List<RoundStatus>): List<Round>
 
     @Join("game")
     override fun findById(id: Long): @NonNull Optional<Round>

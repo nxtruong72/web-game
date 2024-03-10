@@ -37,6 +37,7 @@ open class B2BGameService(
             0,
             BigDecimal(0),
             createGameRequest.streamURL,
+            createGameRequest.planStartTime,
             createGameRequest.startTime
         ))
         return mapGameToGameResponse(game)
@@ -86,11 +87,16 @@ open class B2BGameService(
         if (game.gameStatus != GameStatus.START) {
             throw GameException(400, "Game is not started yet")
         }
+        val rounds = roundRepository.findByGameIdAndRoundStatusInList(gameId, listOf(RoundStatus.START, RoundStatus.CLOSE))
+        if (!rounds.isEmpty()) {
+            throw GameException(400, "Game has round is in-progress")
+        }
         val round = roundRepository.save(Round(
             null,
             0,
             RoundStatus.START,
-            0,
+            BigDecimal(0),
+            BigDecimal(0),
             BigDecimal(0),
             game
         ))
@@ -101,12 +107,30 @@ open class B2BGameService(
     open fun endRound(roundId: Long, roundEndRequest: RoundEndRequest): RoundResponse {
         logger.info { "End round id $roundId with info $roundEndRequest" }
         val round = roundRepository.findByIdForUpdate(roundId) ?: throw RoundException(404, "Round is not existing")
-        if (round.roundStatus != RoundStatus.START) {
-            throw RoundException(400, "Round is not in start state")
+        if (round.roundStatus != RoundStatus.CLOSE && round.roundStatus != RoundStatus.START) {
+            throw RoundException(400, "Round is not in start or close state")
         }
 
         round.teamWin = roundEndRequest.teamWin;
         round.roundStatus = RoundStatus.CALCULATE;
+        val roundUpdated = roundRepository.update(round);
+        eventPublisher.publishEvent(RoundEndedEvent(
+            roundUpdated.id!!,
+            roundUpdated.roundStatus,
+            roundUpdated.teamWin
+        ))
+        return mapRoundToRoundResponse(roundUpdated)
+    }
+
+    @Transactional
+    open fun closeRound(roundId: Long): RoundResponse {
+        logger.info { "Close round id $roundId" }
+        val round = roundRepository.findByIdForUpdate(roundId) ?: throw RoundException(404, "Round is not existing")
+        if (round.roundStatus != RoundStatus.START) {
+            throw RoundException(400, "Round is not in start state")
+        }
+
+        round.roundStatus = RoundStatus.CLOSE;
         val roundUpdated = roundRepository.update(round);
         eventPublisher.publishEvent(RoundEndedEvent(
             roundUpdated.id!!,
@@ -212,7 +236,8 @@ open class B2BGameService(
             round.id!!,
             round.teamWin,
             round.roundStatus,
-            round.totalBet,
+            round.totalBetTeamOne,
+            round.totalBetTeamTwo,
             round.profit,
             round.createdAt!!,
             round.updatedAt!!
@@ -230,6 +255,7 @@ open class B2BGameService(
             game.profit,
             game.gameTypes,
             game.streamURL,
+            game.planStartTime,
             game.startTime,
             game.createdAt!!,
             game.updatedAt!!

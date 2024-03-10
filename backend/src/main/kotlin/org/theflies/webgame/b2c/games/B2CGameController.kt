@@ -1,18 +1,18 @@
 package org.theflies.webgame.b2c.games
 
+import io.micronaut.core.convert.format.Format
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
 import io.micronaut.http.server.util.HttpHostResolver
 import jakarta.annotation.security.RolesAllowed
 import org.theflies.webgame.b2c.games.GameResponse
 import org.theflies.webgame.b2c.users.*
 import java.security.Principal
+import java.time.Instant
+import java.time.ZonedDateTime
 
 @Controller("/b2c/games")
 class B2CGameController(
@@ -21,7 +21,7 @@ class B2CGameController(
 ) {
   @Post("/bet")
   @RolesAllowed("MEMBER")
-  fun register(@Body betRequest: BetRequest,  principal: Principal, request: HttpRequest<*>): HttpResponse<BetResponse> {
+  fun bet(@Body betRequest: BetRequest,  principal: Principal, request: HttpRequest<*>): HttpResponse<BetResponse> {
     val betResponse = gameService.bet(betRequest, principal)
     return HttpResponse.ok(betResponse);
   }
@@ -54,5 +54,11 @@ class B2CGameController(
     @RolesAllowed("MEMBER")
     fun listBestByRounds(roundId: Long, principal: Principal, request: HttpRequest<*>): HttpResponse<List<BetResponse>> {
         return HttpResponse.ok(gameService.listBetByRoundIdAndPrincipal(roundId, principal))
+    }
+
+    @Get("/bets")
+    @RolesAllowed("MEMBER")
+    fun listBetAfterTime(@QueryValue time: Long, principal: Principal, request: HttpRequest<*>): HttpResponse<List<BetResponse>> {
+        return HttpResponse.ok(gameService.listBetAfterTime(Instant.ofEpochSecond(time), principal))
     }
 }

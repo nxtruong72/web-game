@@ -11,6 +11,7 @@ import org.theflies.webgame.shared.models.Bet
 import org.theflies.webgame.shared.models.Game
 import org.theflies.webgame.shared.models.Round
 import org.theflies.webgame.shared.models.Wallet
+import java.time.Instant
 import java.util.*
 
 @JdbcRepository(dialect = Dialect.POSTGRES)
@@ -28,4 +29,6 @@ interface BetRepository: PageableRepository<Bet, Long> {
     fun findByRoundIdForUpdate(@Id roundId: Long): List<Bet>
 
     fun findByRoundIdAndWalletId(@Id roundId: Long, @Id walletId: Long): List<Bet>
+
+    fun findByWalletIdAndUpdatedAtAfter(@Id walletId: Long, updateAt: Instant): List<Bet>
 }

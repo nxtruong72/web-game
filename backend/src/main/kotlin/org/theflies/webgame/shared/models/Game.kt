@@ -40,6 +40,8 @@ class Game (
     @NotBlank
     var streamURL: String,
 
+    var planStartTime: Instant? = null,
+
     var startTime: Instant? = null,
 
     var avatarURL: String? = null,
