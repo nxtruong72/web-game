@@ -7,10 +7,7 @@ import io.micronaut.data.annotation.repeatable.JoinSpecifications
 import io.micronaut.data.jdbc.annotation.JdbcRepository;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.PageableRepository;
-import org.theflies.webgame.shared.models.Bet
-import org.theflies.webgame.shared.models.Game
-import org.theflies.webgame.shared.models.Round
-import org.theflies.webgame.shared.models.Wallet
+import org.theflies.webgame.shared.models.*
 import java.time.Instant
 import java.util.*
 
@@ -30,5 +27,5 @@ interface BetRepository: PageableRepository<Bet, Long> {
 
     fun findByRoundIdAndWalletId(@Id roundId: Long, @Id walletId: Long): List<Bet>
 
-    fun findByWalletIdAndUpdatedAtAfter(@Id walletId: Long, updateAt: Instant): List<Bet>
+    fun findByWalletIdAndUpdatedAtAfterAndBetStatusInList(@Id walletId: Long, updateAt: Instant, betStatus: BetStatus): List<Bet>
 }
