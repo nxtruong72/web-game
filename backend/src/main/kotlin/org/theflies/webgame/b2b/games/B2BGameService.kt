@@ -15,6 +15,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.Instant
 import java.util.Collections.emptyList
+import java.util.HashMap
 
 private val logger = KotlinLogging.logger {  }
 
@@ -23,6 +24,7 @@ open class B2BGameService(
     private val gameRepository: GameRepository,
     private val roundRepository: RoundRepository,
     private val betRepository: BetRepository,
+    private val walletRepository: WalletRepository,
     private val eventPublisher: ApplicationEventPublisher<Any>,
 ) {
     fun createGame(createGameRequest: CreateGameRequest): GameResponse {
@@ -110,7 +112,9 @@ open class B2BGameService(
         if (round.roundStatus != RoundStatus.CLOSE && round.roundStatus != RoundStatus.START) {
             throw RoundException(400, "Round is not in start or close state")
         }
-
+        if (roundEndRequest.teamWin != 1 && roundEndRequest.teamWin != 2) {
+            throw RoundException(400, "Team win must be 1 or 2")
+        }
         round.teamWin = roundEndRequest.teamWin;
         round.roundStatus = RoundStatus.CALCULATE;
         val roundUpdated = roundRepository.update(round);
@@ -199,20 +203,35 @@ open class B2BGameService(
         val loseBets = teamBets[if (round.teamWin == 1) 2 else 1] ?: emptyList()
         val totalLoseValue = loseBets.sumOf {it.amount}
         val totalWinValue = winBets.sumOf {it.amount}
+        var walletMap: MutableMap<Long, Wallet> = HashMap()
         loseBets.forEach {
             it.betStatus  = BetStatus.LOSE
-            it.wallet!!.blockedBalance = it.wallet!!.blockedBalance.subtract(it.amount)
+            if (!walletMap.containsKey(it.wallet!!.id)) {
+                it.wallet!!.blockedBalance = it.wallet!!.blockedBalance.subtract(it.amount)
+                walletMap.put(it.wallet!!.id!!, it.wallet!!)
+            } else {
+                val wallet = walletMap.get(it.wallet!!.id)
+                wallet!!.blockedBalance = wallet.blockedBalance.subtract(it.amount)
+            }
         }
-        betRepository.updateAll(loseBets)
         winBets.forEach {
             it.betStatus  = BetStatus.WIN
-            it.wallet!!.blockedBalance = it.wallet!!.blockedBalance.subtract(it.amount)
             val winAmount = it.amount.add(it.amount.divide(totalWinValue, RoundingMode.DOWN).multiply(totalLoseValue))
-            it.wallet!!.balance = it.wallet!!.balance.add(winAmount)
+            if (!walletMap.containsKey(it.wallet!!.id)) {
+                it.wallet!!.blockedBalance = it.wallet!!.blockedBalance.subtract(it.amount)
+                it.wallet!!.balance = it.wallet!!.balance.add(winAmount)
+                walletMap.put(it.wallet!!.id!!, it.wallet!!)
+            } else {
+                val wallet = walletMap.get(it.wallet!!.id)
+                wallet!!.blockedBalance = wallet.blockedBalance.subtract(it.amount)
+                wallet!!.balance = wallet!!.balance.add(winAmount)
+            }
         }
+        betRepository.updateAll(loseBets)
         betRepository.updateAll(winBets)
         round.roundStatus = RoundStatus.COMPLETED
         roundRepository.update(round)
+        walletRepository.updateAll(walletMap.values)
     }
 
     @Transactional
