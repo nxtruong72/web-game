@@ -148,4 +148,29 @@ open class B2CUserService(
     val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
     return UserBalance(wallet.balance)
   }
+
+  fun getProfile(principal: Principal): UserProfile {
+    val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
+    return UserProfile(
+      user.id!!,
+      user.username,
+      user.email,
+      user.phone,
+      user.createdAt,
+      user.updatedAt
+    )
+  }
+
+  fun changePassword(changePasswordRequest: ChangePasswordRequest, principal: Principal) {
+    logger.info {"User ${principal.name} request change password"}
+    val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
+    if (changePasswordRequest.oldPassword == changePasswordRequest.newPassword) {
+      throw UserException(400, "Old and new password is not different")
+    }
+    if (!encoder.matches(changePasswordRequest.oldPassword, user.password)) {
+      throw UserException(400, "Old password is not match")
+    }
+    user.password = encoder.encode(changePasswordRequest.newPassword)
+    userRepository.update(user)
+  }
 }

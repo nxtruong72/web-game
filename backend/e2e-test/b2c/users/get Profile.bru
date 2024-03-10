@@ -1,0 +1,15 @@
+meta {
+  name: get Profile
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{host}}/b2c/users/profile
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

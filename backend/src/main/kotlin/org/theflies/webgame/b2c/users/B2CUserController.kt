@@ -11,6 +11,7 @@ import io.micronaut.http.server.util.HttpHostResolver
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import jakarta.annotation.security.RolesAllowed
+import org.theflies.webgame.shared.models.User
 import java.security.Principal
 
 private val logger = KotlinLogging.logger {  }
@@ -69,5 +70,18 @@ class B2CUserController(
   @RolesAllowed("MEMBER")
   fun balance(principal: Principal): HttpResponse<UserBalance> {
     return HttpResponse.ok(userService.balance(principal))
+  }
+
+  @Get("/profile")
+  @RolesAllowed("MEMBER")
+  fun profile(principal: Principal): HttpResponse<UserProfile> {
+    return HttpResponse.ok(userService.getProfile(principal))
+  }
+
+  @Post("/change-pass")
+  @RolesAllowed("MEMBER")
+  fun profile(@Body changePasswordRequest: ChangePasswordRequest, principal: Principal): HttpResponse<Void> {
+    userService.changePassword(changePasswordRequest, principal)
+    return HttpResponse.ok()
   }
 }

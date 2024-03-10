@@ -1,0 +1,22 @@
+meta {
+  name: change-pass
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/b2c/users/change-pass
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "oldPassword": "123456789",
+    "newPassword": "0123456789"
+  }
+}

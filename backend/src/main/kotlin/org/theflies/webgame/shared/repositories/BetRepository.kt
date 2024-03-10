@@ -27,5 +27,5 @@ interface BetRepository: PageableRepository<Bet, Long> {
 
     fun findByRoundIdAndWalletId(@Id roundId: Long, @Id walletId: Long): List<Bet>
 
-    fun findByWalletIdAndUpdatedAtAfterAndBetStatusInList(@Id walletId: Long, updateAt: Instant, betStatus: BetStatus): List<Bet>
+    fun findByWalletIdAndUpdatedAtAfterAndBetStatusInList(@Id walletId: Long, updateAt: Instant, betStatus: List<BetStatus>): List<Bet>
 }

@@ -90,7 +90,7 @@ open class B2CGameService(
     fun listBetAfterTime(time: Instant, principal: Principal): List<BetResponse> {
         val user = userRepository.findByUsername(principal.name) ?: throw UserException(404, "Username not found")
         val wallet = walletRepository.findByUserIdForUpdate(user.id!!) ?:  throw WalletException(404, "Wallet not found")
-        val bets = betRepository.findByWalletIdAndUpdatedAtAfter(wallet.id!!, time, listOf(BetStatus.WIN, BetStatus.LOSE))
+        val bets = betRepository.findByWalletIdAndUpdatedAtAfterAndBetStatusInList(wallet.id!!, time, listOf(BetStatus.WIN, BetStatus.LOSE))
         return bets.stream()
             .map { mapBetToBetResponse(it) }
             .collect(Collectors.toList())
