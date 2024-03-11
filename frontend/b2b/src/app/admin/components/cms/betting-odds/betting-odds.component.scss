@@ -1,1 +1,12 @@
 @import '../../../../../scss/container-page';
+
+fluent-data-grid {
+  fluent-data-grid-row:nth-child(1) fluent-data-grid-cell {
+    @include tableRow;
+    background-color: $gray-color-2;
+  }
+
+  fluent-data-grid-row:not(:nth-child(1)) fluent-data-grid-cell {
+    @include tableRow;
+  }
+}

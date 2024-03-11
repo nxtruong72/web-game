@@ -11,6 +11,14 @@
   cursor: pointer;
 }
 
+@mixin tableRow {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+}
+
 .page__container__main__content {
   height: calc(100vh - 148px);
   background-color: $white-color;
@@ -18,8 +26,12 @@
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.14);
   border-radius: 8px;
   margin-top: 16px;
+  position: relative;
 
   .page__container__main__content__table {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 198px);
     .page__container__main__content__table__action {
       display: flex;
       justify-content: space-between;
@@ -84,6 +96,14 @@
       }
     }
     .page__container__main__content__table__container {
+      flex: 1;
+    }
+    .page__container__main__content__table__pagination {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
     }
   }
 }
