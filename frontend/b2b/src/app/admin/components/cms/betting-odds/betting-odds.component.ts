@@ -1,21 +1,40 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ViewEncapsulation } from '@angular/core';
 import { BettingOddsService } from '../../../service/betting-odds.service';
 import { Subscription } from 'rxjs';
-import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
-import { fluentDivider, fluentTextField, provideFluentDesignSystem } from '@fluentui/web-components';
+import { BreadcrumbComponent } from '../../shared/breadcrumb/breadcrumb.component';
+import {
+  DataGrid,
+  fluentDataGrid,
+  fluentDataGridCell,
+  fluentDataGridRow,
+  fluentDivider,
+  fluentTextField,
+  provideFluentDesignSystem,
+} from '@fluentui/web-components';
+import { IBettingOdds } from '../../../../../api/betting-odds/betting-odds.interface';
+import { NgIf } from '@angular/common';
+import { TableActionComponent } from '../../shared/table-action/table-action.component';
 
-provideFluentDesignSystem().register(fluentTextField(), fluentDivider());
+provideFluentDesignSystem().register(
+  fluentTextField(),
+  fluentDivider(),
+  fluentDataGrid(),
+  fluentDataGridCell(),
+  fluentDataGridRow(),
+);
 
 @Component({
   selector: 'app-betting-odds',
   templateUrl: './betting-odds.component.html',
   styleUrls: ['./betting-odds.component.scss'],
   standalone: true,
-  imports: [BreadcrumbComponent],
+  imports: [BreadcrumbComponent, TableActionComponent, NgIf],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  encapsulation: ViewEncapsulation.None,
 })
-export class BettingOddsComponent implements OnInit {
+export class BettingOddsComponent implements AfterViewInit {
   subscription = new Subscription();
+  defaultGridElement: DataGrid | null = null;
   pages = [
     {
       name: 'Kèo cá cược',
@@ -24,7 +43,7 @@ export class BettingOddsComponent implements OnInit {
   ];
   constructor(private _bettingOddsService: BettingOddsService) {}
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
     this.createGame();
   }
 
@@ -41,11 +60,28 @@ export class BettingOddsComponent implements OnInit {
       .createGame()
       .pipe()
       .subscribe(
-        (data) => {
-          console.log(data);
+        (bettingOdds: IBettingOdds) => {
+          this.populateDataGrid(bettingOdds);
         },
         (error) => {},
       );
     this.subscription.add(createGameSub);
+  }
+
+  private populateDataGrid(bettingOdds: IBettingOdds) {
+    const rowsData: Array<any> = [];
+    this.defaultGridElement = document.getElementById('defaultGrid') as DataGrid;
+    bettingOdds.content.forEach((bettingOdd) => {
+      rowsData.push({
+        Mã: bettingOdd.id,
+        Tên: bettingOdd.name,
+        'Hình Thức': bettingOdd.form,
+        'Trạng Thái': bettingOdd.status,
+        'Ngày bắt đầu': bettingOdd.startDate,
+        'Tổng bet': bettingOdd.total,
+        'Lợi nhuận': bettingOdd.profit,
+      });
+    });
+    this.defaultGridElement.rowsData = rowsData;
   }
 }

@@ -27,3 +27,10 @@ export const authInterceptor: HttpInterceptorFn = (
     return next(req);
   }
 };
+
+export function getStandardValue(value: any): string {
+  if (!value) {
+    return 'N/A';
+  }
+  return value;
+}
