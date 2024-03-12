@@ -97,6 +97,8 @@
     }
     .page__container__main__content__table__container {
       flex: 1;
+      height: auto;
+      overflow-y: auto;
     }
     .page__container__main__content__table__pagination {
       position: absolute;
