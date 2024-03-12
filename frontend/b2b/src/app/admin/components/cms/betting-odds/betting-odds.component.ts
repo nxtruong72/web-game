@@ -14,6 +14,7 @@ import {
 import { IBettingOdds } from '../../../../../api/betting-odds/betting-odds.interface';
 import { NgIf } from '@angular/common';
 import { TableActionComponent } from '../../shared/table-action/table-action.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -28,7 +29,7 @@ provideFluentDesignSystem().register(
   templateUrl: './betting-odds.component.html',
   styleUrls: ['./betting-odds.component.scss'],
   standalone: true,
-  imports: [BreadcrumbComponent, TableActionComponent, NgIf],
+  imports: [BreadcrumbComponent, TableActionComponent, NgIf, PaginationComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
 })
