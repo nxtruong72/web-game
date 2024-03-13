@@ -15,6 +15,7 @@ import { IBettingOdds } from '../../../../../api/betting-odds/betting-odds.inter
 import { NgIf } from '@angular/common';
 import { TableActionComponent } from '../../shared/table-action/table-action.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { MomentService } from '../../../../service/moment.service';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -42,7 +43,10 @@ export class BettingOddsComponent implements AfterViewInit {
       link: null,
     },
   ];
-  constructor(private _bettingOddsService: BettingOddsService) {}
+  constructor(
+    private _bettingOddsService: BettingOddsService,
+    private _momentService: MomentService,
+  ) {}
 
   ngAfterViewInit(): void {
     this.createGame();
@@ -62,24 +66,25 @@ export class BettingOddsComponent implements AfterViewInit {
       .pipe()
       .subscribe(
         (bettingOdds: IBettingOdds) => {
-          this.populateDataGrid(bettingOdds);
+          this.initDataGrid(bettingOdds);
         },
         (error) => {},
       );
     this.subscription.add(createGameSub);
   }
 
-  private populateDataGrid(bettingOdds: IBettingOdds) {
+  private initDataGrid(bettingOdds: IBettingOdds) {
     const rowsData: Array<any> = [];
     this.defaultGridElement = document.getElementById('defaultGrid') as DataGrid;
     bettingOdds.content.forEach((bettingOdd) => {
       rowsData.push({
         Mã: bettingOdd.id,
         Tên: bettingOdd.name,
-        'Hình Thức': bettingOdd.form,
-        'Trạng Thái': bettingOdd.status,
-        'Ngày bắt đầu': bettingOdd.startDate,
-        'Tổng bet': bettingOdd.total,
+        Team: `${bettingOdd.teamOne} - ${bettingOdd.teamOne}`,
+        'Hình Thức': bettingOdd.gameTypes,
+        'Trạng Thái': bettingOdd.gameStatus,
+        'Ngày bắt đầu': this._momentService.getStandardDate(bettingOdd.planStartTime),
+        'Tổng bet': bettingOdd.totalBet,
         'Lợi nhuận': bettingOdd.profit,
       });
     });

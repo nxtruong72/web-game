@@ -26,6 +26,7 @@
     "@microsoft/fast-element": "^1.12.0",
     "chart.js": "^4.4.1",
     "lodash-es": "^4.17.21",
+    "moment": "^2.30.1",
     "ng2-charts": "^5.0.4",
     "ngx-cookie-service": "^17.0.1",
     "rxjs": "~7.8.0",
