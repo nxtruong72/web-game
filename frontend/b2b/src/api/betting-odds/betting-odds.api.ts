@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_PATH } from '../common.const';
@@ -15,7 +15,8 @@ export class BettingOddsApiService {
   constructor(private _http: HttpClient) {}
 
   getGames(): Observable<IBettingOdds> {
-    return this._http.get<IBettingOdds>(`${BASE_PATH}${this.CREATE_GAME_PATH}`);
+    const params = new HttpParams().set('size', 25).set('number', 1);
+    return this._http.get<IBettingOdds>(`${BASE_PATH}${this.CREATE_GAME_PATH}`, { params });
   }
 
   createRoundGame(gameId: number): Observable<any> {

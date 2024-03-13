@@ -1,4 +1,4 @@
-import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Component, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { BettingOddsService } from '../../../service/betting-odds.service';
 import { Subscription } from 'rxjs';
 import { BreadcrumbComponent } from '../../shared/breadcrumb/breadcrumb.component';
@@ -36,7 +36,8 @@ provideFluentDesignSystem().register(
 })
 export class BettingOddsComponent implements AfterViewInit {
   subscription = new Subscription();
-  defaultGridElement: DataGrid | null = null;
+  gridElement: DataGrid | null = null;
+  isExistDataGrid = false;
   pages = [
     {
       name: 'Kèo cá cược',
@@ -46,6 +47,7 @@ export class BettingOddsComponent implements AfterViewInit {
   constructor(
     private _bettingOddsService: BettingOddsService,
     private _momentService: MomentService,
+    private _cdr: ChangeDetectorRef,
   ) {}
 
   ngAfterViewInit(): void {
@@ -75,7 +77,7 @@ export class BettingOddsComponent implements AfterViewInit {
 
   private initDataGrid(bettingOdds: IBettingOdds) {
     const rowsData: Array<any> = [];
-    this.defaultGridElement = document.getElementById('defaultGrid') as DataGrid;
+
     bettingOdds.content.forEach((bettingOdd) => {
       rowsData.push({
         Mã: bettingOdd.id,
@@ -88,6 +90,19 @@ export class BettingOddsComponent implements AfterViewInit {
         'Lợi nhuận': bettingOdd.profit,
       });
     });
-    this.defaultGridElement.rowsData = rowsData;
+
+    this.setState(bettingOdds, rowsData);
+  }
+
+  private setState(bettingOdds: IBettingOdds, rowsData: Array<any>) {
+    if (bettingOdds.content.length === 0) {
+      this.isExistDataGrid = false;
+      return;
+    }
+    this.isExistDataGrid = true;
+    this._cdr.detectChanges();
+    this.gridElement = document.getElementById('defaultGrid') as DataGrid;
+    this.gridElement.rowsData = rowsData;
+    return;
   }
 }

@@ -99,6 +99,14 @@
       flex: 1;
       height: auto;
       overflow-y: auto;
+
+      .page__container__main__content__table__container__no__record {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
     .page__container__main__content__table__pagination {
       position: absolute;

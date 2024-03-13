@@ -7,7 +7,12 @@
       <app-table-action></app-table-action>
       <fluent-divider></fluent-divider>
       <div class="page__container__main__content__table__container">
-        <fluent-data-grid id="defaultGrid" #defaultGrid style="overflow-y: auto"></fluent-data-grid>
+        <div *ngIf="isExistDataGrid; else noRecordsFound">
+          <fluent-data-grid id="defaultGrid"></fluent-data-grid>
+        </div>
+        <ng-template #noRecordsFound>
+          <div class="page__container__main__content__table__container__no__record">No Records Found</div>
+        </ng-template>
       </div>
       <fluent-divider></fluent-divider>
       <div class="page__container__main__content__table__pagination">
