@@ -8,6 +8,15 @@ export interface IBettingOdds {
   totalSize: number;
 }
 
+export interface INewGame {
+  name: string;
+  teamOne: string;
+  teamTwo: string;
+  gameTypes: Array<string>;
+  streamURL: string;
+  planStartTime: string;
+}
+
 interface BettingOdds {
   id: number | null;
   name: string | null;

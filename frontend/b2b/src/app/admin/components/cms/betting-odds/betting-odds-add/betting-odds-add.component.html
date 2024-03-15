@@ -1,0 +1,82 @@
+<fluent-dialog id="defaultDialog" hidden trap-focus modal>
+  <div class="dialog">
+    <form [formGroup]="form">
+      <h2>Tạo kèo cá cược mới</h2>
+      <div class="dialog__content">
+        <!-- name -->
+        <div class="dialog__content__input">
+          <fluent-text-field appearance="outline" placeholder="Nhập tên kèo" ngDefaultControl formControlName="name">
+            Tên kèo
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+        <!-- team one -->
+        <div class="dialog__content__input">
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Nhập team một"
+            ngDefaultControl
+            formControlName="teamOne"
+          >
+            Team một
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+        <!-- team two -->
+        <div class="dialog__content__input">
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Nhập team hai"
+            ngDefaultControl
+            formControlName="teamTwo"
+          >
+            Team hai
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+        <!-- gameTypes -->
+        <div class="dialog__content__input">
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Chọn loại game"
+            ngDefaultControl
+            formControlName="gameTypes"
+          >
+            Loại game
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+        <!-- streamURL -->
+        <div class="dialog__content__input">
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Nhập link trực tiếp"
+            ngDefaultControl
+            formControlName="streamURL"
+          >
+            Link trực tiếp
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+        <!-- planStartTime -->
+        <div class="dialog__content__input">
+          <fluent-text-field
+            appearance="outline"
+            placeholder="Nhập ngày bắt đầu"
+            ngDefaultControl
+            formControlName="planStartTime"
+          >
+            Ngày bắt đầu
+            <span class="c_required__input">*</span>
+          </fluent-text-field>
+        </div>
+      </div>
+      <div class="dialog__action">
+        <fluent-button class="dialog__action__close" id="dialogCloser" tabindex="0">Hủy bỏ</fluent-button>
+        <fluent-button class="dialog__action__submit" appearance="accent" tabindex="1" (click)="createNewBettingOdds()">
+          Tạo mới
+        </fluent-button>
+      </div>
+    </form>
+  </div>
+</fluent-dialog>

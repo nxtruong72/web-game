@@ -1,0 +1,32 @@
+@import '../../../../../../scss/container-page';
+
+fluent-dialog {
+  --dialog-height: auto !important;
+  --dialog-width: 400px;
+  .dialog {
+    padding: 16px;
+
+    .dialog__content {
+      margin-top: 16px;
+      .dialog__content__input {
+        margin-top: 8px;
+        fluent-text-field {
+          width: 100%;
+        }
+      }
+    }
+
+    .dialog__action {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .dialog__action__close {
+      }
+      .dialog__action__submit {
+        margin-left: 8px;
+      }
+    }
+  }
+}

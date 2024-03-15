@@ -16,6 +16,7 @@ import { NgIf } from '@angular/common';
 import { TableActionComponent } from '../../shared/table-action/table-action.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { MomentService } from '../../../../service/moment.service';
+import { BettingOddsAddComponent } from './betting-odds-add/betting-odds-add.component';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -30,7 +31,7 @@ provideFluentDesignSystem().register(
   templateUrl: './betting-odds.component.html',
   styleUrls: ['./betting-odds.component.scss'],
   standalone: true,
-  imports: [BreadcrumbComponent, TableActionComponent, NgIf, PaginationComponent],
+  imports: [BreadcrumbComponent, TableActionComponent, NgIf, PaginationComponent, BettingOddsAddComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
 })
@@ -51,7 +52,7 @@ export class BettingOddsComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.createGame();
+    this.getGames();
   }
 
   ngOnDestroy(): void {
@@ -59,12 +60,12 @@ export class BettingOddsComponent implements AfterViewInit {
   }
 
   refresh() {
-    this.createGame();
+    this.getGames();
   }
 
-  createGame(): void {
+  getGames(): void {
     const createGameSub = this._bettingOddsService
-      .createGame()
+      .getGames()
       .pipe()
       .subscribe(
         (bettingOdds: IBettingOdds) => {

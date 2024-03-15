@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_PATH } from '../common.const';
-import { IBettingOdds } from './betting-odds.interface';
+import { IBettingOdds, INewGame } from './betting-odds.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,6 +17,10 @@ export class BettingOddsApiService {
   getGames(): Observable<IBettingOdds> {
     const params = new HttpParams().set('size', 25).set('number', 1);
     return this._http.get<IBettingOdds>(`${BASE_PATH}${this.CREATE_GAME_PATH}`, { params });
+  }
+
+  newGame(body: INewGame): Observable<any> {
+    return this._http.post<INewGame>(`${BASE_PATH}${this.CREATE_GAME_PATH}`, body);
   }
 
   createRoundGame(gameId: number): Observable<any> {
