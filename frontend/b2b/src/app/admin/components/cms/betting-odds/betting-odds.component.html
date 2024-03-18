@@ -4,7 +4,7 @@
   </div>
   <div class="page__container__main__content">
     <div class="page__container__main__content__table">
-      <app-table-action></app-table-action>
+      <app-table-action (refreshEvent)="refresh()"></app-table-action>
       <fluent-divider></fluent-divider>
       <div class="page__container__main__content__table__container">
         <div *ngIf="isExistDataGrid; else noRecordsFound">

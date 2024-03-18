@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { provideFluentDesignSystem, fluentDialog } from '@fluentui/web-components';
+import { ObservableService } from '../../../../service/observable.service';
 
 provideFluentDesignSystem().register(fluentDialog());
 
@@ -11,7 +12,7 @@ provideFluentDesignSystem().register(fluentDialog());
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TableActionComponent implements OnInit {
-  constructor() {}
+  constructor(private _observableService: ObservableService) {}
 
   ngOnInit() {}
 
@@ -30,6 +31,7 @@ export class TableActionComponent implements OnInit {
       }
     });
     dialogCloser?.addEventListener('click', (e) => {
+      this._observableService.refreshData();
       this.closeDialog(dialogElement);
     });
   }

@@ -17,6 +17,7 @@ import { TableActionComponent } from '../../shared/table-action/table-action.com
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { MomentService } from '../../../../service/moment.service';
 import { BettingOddsAddComponent } from './betting-odds-add/betting-odds-add.component';
+import { ObservableService } from '../../../../service/observable.service';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -49,7 +50,12 @@ export class BettingOddsComponent implements AfterViewInit {
     private _bettingOddsService: BettingOddsService,
     private _momentService: MomentService,
     private _cdr: ChangeDetectorRef,
+    private _observableService: ObservableService,
   ) {}
+
+  ngOnInit(): void {
+    this.initRefresh();
+  }
 
   ngAfterViewInit(): void {
     this.getGames();
@@ -105,5 +111,12 @@ export class BettingOddsComponent implements AfterViewInit {
     this.gridElement = document.getElementById('defaultGrid') as DataGrid;
     this.gridElement.rowsData = rowsData;
     return;
+  }
+
+  private initRefresh() {
+    const refresh = this._observableService.refresh$.subscribe(() => {
+      this.refresh();
+    });
+    this.subscription.add(refresh);
   }
 }

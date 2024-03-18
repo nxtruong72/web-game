@@ -1,5 +1,26 @@
 @import '../../../../../../scss/container-page';
 
+@mixin fluentSelect {
+  fluent-select {
+    min-width: 50px;
+    fluent-option {
+      padding: 0 12px;
+    }
+  }
+}
+
+@mixin formLabel {
+  .label {
+    display: block;
+    color: #1a1a1a;
+    cursor: pointer;
+    font-size: $font14;
+    line-height: 20px;
+    font-weight: initial;
+    margin-top: 8px;
+  }
+}
+
 fluent-dialog {
   --dialog-height: auto !important;
   --dialog-width: 400px;
@@ -8,16 +29,21 @@ fluent-dialog {
 
     .dialog__content {
       margin-top: 16px;
+      @include formLabel;
       .dialog__content__input {
         margin-top: 8px;
         fluent-text-field {
           width: 100%;
         }
+        fluent-select {
+          width: 100%;
+        }
+        @include fluentSelect;
       }
     }
 
     .dialog__action {
-      margin-top: 16px;
+      margin-top: 24px;
       display: flex;
       justify-content: flex-end;
       align-items: center;

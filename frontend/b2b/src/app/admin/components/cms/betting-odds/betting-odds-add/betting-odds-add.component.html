@@ -36,15 +36,19 @@
         </div>
         <!-- gameTypes -->
         <div class="dialog__content__input">
-          <fluent-text-field
+          <label part="label" for="control" class="label">
+            <slot>Chọn loại game *</slot>
+          </label>
+          <fluent-select
+            title="Loại game"
             appearance="outline"
             placeholder="Chọn loại game"
             ngDefaultControl
             formControlName="gameTypes"
           >
-            Loại game
-            <span class="c_required__input">*</span>
-          </fluent-text-field>
+            <fluent-option value="CUNG">CUNG</fluent-option>
+            <fluent-option value="CHEM">CHÉM</fluent-option>
+          </fluent-select>
         </div>
         <!-- streamURL -->
         <div class="dialog__content__input">

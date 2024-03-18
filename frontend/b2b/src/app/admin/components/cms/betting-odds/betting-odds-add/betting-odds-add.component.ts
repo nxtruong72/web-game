@@ -1,13 +1,19 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fluentButton, fluentDialog, provideFluentDesignSystem } from '@fluentui/web-components';
+import {
+  fluentButton,
+  fluentDialog,
+  provideFluentDesignSystem,
+  fluentSelect,
+  fluentOption,
+} from '@fluentui/web-components';
 import { requiredMsg } from '../../../../../../shared/msg.const';
 import { isEmptyString } from '../../../../../../shared/until.helper';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BettingOddsService } from '../../../../service/betting-odds.service';
 import { finalize } from 'rxjs';
 
-provideFluentDesignSystem().register(fluentDialog(), fluentButton());
+provideFluentDesignSystem().register(fluentDialog(), fluentButton(), fluentSelect(), fluentOption());
 
 @Component({
   selector: 'app-betting-odds-add',
@@ -35,6 +41,7 @@ export class BettingOddsAddComponent implements OnInit {
     this.validateForm();
     if (this.form.valid) {
       this.isLoading = true;
+      this.form.value.gameTypes = [this.form.value.gameTypes];
       this._bettingOddsService
         .newGame(this.form.value)
         .pipe(
@@ -44,7 +51,9 @@ export class BettingOddsAddComponent implements OnInit {
         )
         .subscribe(
           (data) => {
-            console.log(data);
+            const dialogCloser = document.getElementById('dialogCloser');
+            this.form.reset();
+            dialogCloser?.click();
           },
           (errorRes: HttpErrorResponse) => {
             this.errMsg = errorRes.error.message;
@@ -58,7 +67,7 @@ export class BettingOddsAddComponent implements OnInit {
       name: ['', Validators.compose([Validators.required])],
       teamOne: ['', Validators.compose([Validators.required])],
       teamTwo: ['', Validators.compose([Validators.required])],
-      gameTypes: [['xxx'], Validators.compose([Validators.required])],
+      gameTypes: ['CUNG', Validators.compose([Validators.required])],
       streamURL: ['', Validators.compose([Validators.required])],
       planStartTime: ['', Validators.compose([Validators.required])],
     });
