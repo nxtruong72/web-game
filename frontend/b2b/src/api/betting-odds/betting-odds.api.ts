@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_PATH } from '../common.const';
 import { IBettingOdds, INewGame } from './betting-odds.interface';
+import { PayloadService } from '../../app/service/payload.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,10 +13,14 @@ export class BettingOddsApiService {
   private readonly START_GAME_PATH = (gameId: number) => `b2b/games/${gameId}/start`;
   private readonly END_GAME_PATH = (gameId: number, roundId: number) => `/b2b/games/${gameId}/rounds/${roundId}/end`;
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _payloadService: PayloadService,
+  ) {}
 
   getGames(): Observable<IBettingOdds> {
-    const params = new HttpParams().set('size', 25).set('number', 1);
+    const pagination = this._payloadService.getPaginationParam();
+    const params = new HttpParams().set('size', pagination.size).set('number', pagination.number);
     return this._http.get<IBettingOdds>(`${BASE_PATH}${this.CREATE_GAME_PATH}`, { params });
   }
 

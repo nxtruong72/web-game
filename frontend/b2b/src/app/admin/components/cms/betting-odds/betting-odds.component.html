@@ -1,10 +1,10 @@
 <div class="page__container">
   <div class="page__container__breadcrumb">
-    <app-breadcrumb [pages]="pages" (refreshEvent)="refresh()"></app-breadcrumb>
+    <app-breadcrumb [pages]="pages" (refreshEvent)="getGames()"></app-breadcrumb>
   </div>
   <div class="page__container__main__content">
     <div class="page__container__main__content__table">
-      <app-table-action (refreshEvent)="refresh()"></app-table-action>
+      <app-table-action (refreshEvent)="getGames()"></app-table-action>
       <fluent-divider></fluent-divider>
       <div class="page__container__main__content__table__container">
         <div *ngIf="isExistDataGrid; else noRecordsFound">
@@ -16,7 +16,7 @@
       </div>
       <fluent-divider></fluent-divider>
       <div class="page__container__main__content__table__pagination">
-        <app-pagination></app-pagination>
+        <app-pagination [totalSize]="totalSize" [contentSize]="contentSize"></app-pagination>
       </div>
     </div>
   </div>

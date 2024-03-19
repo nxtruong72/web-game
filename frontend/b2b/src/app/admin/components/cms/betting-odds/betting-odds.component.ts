@@ -18,6 +18,7 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 import { MomentService } from '../../../../service/moment.service';
 import { BettingOddsAddComponent } from './betting-odds-add/betting-odds-add.component';
 import { ObservableService } from '../../../../service/observable.service';
+import { PayloadService } from '../../../../service/payload.service';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -46,11 +47,14 @@ export class BettingOddsComponent implements AfterViewInit {
       link: null,
     },
   ];
+  totalSize = 0;
+  contentSize = 0;
   constructor(
     private _bettingOddsService: BettingOddsService,
     private _momentService: MomentService,
     private _cdr: ChangeDetectorRef,
     private _observableService: ObservableService,
+    private _payloadService: PayloadService,
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +70,7 @@ export class BettingOddsComponent implements AfterViewInit {
   }
 
   refresh() {
+    this._payloadService.refreshPayload();
     this.getGames();
   }
 
@@ -76,6 +81,8 @@ export class BettingOddsComponent implements AfterViewInit {
       .subscribe(
         (bettingOdds: IBettingOdds) => {
           this.initDataGrid(bettingOdds);
+          this.totalSize = bettingOdds.totalSize;
+          this.contentSize = bettingOdds.content.length;
         },
         (error) => {},
       );
@@ -95,6 +102,7 @@ export class BettingOddsComponent implements AfterViewInit {
         'Ngày bắt đầu': this._momentService.getStandardDate(bettingOdd.planStartTime),
         'Tổng bet': bettingOdd.totalBet,
         'Lợi nhuận': bettingOdd.profit,
+        'Ngày tạo': this._momentService.getStandardDate(bettingOdd.createdAt),
       });
     });
 
@@ -115,7 +123,7 @@ export class BettingOddsComponent implements AfterViewInit {
 
   private initRefresh() {
     const refresh = this._observableService.refresh$.subscribe(() => {
-      this.refresh();
+      this.getGames();
     });
     this.subscription.add(refresh);
   }

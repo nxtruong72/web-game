@@ -52,7 +52,7 @@ export class BettingOddsAddComponent implements OnInit {
         .subscribe(
           (data) => {
             const dialogCloser = document.getElementById('dialogCloser');
-            this.form.reset();
+            this.form.reset({ gameTypes: 'CUNG' });
             dialogCloser?.click();
           },
           (errorRes: HttpErrorResponse) => {

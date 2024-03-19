@@ -1,33 +1,34 @@
-<div class="pagination">
-  <div class="pagination__left">
-    <div class="pagination__left__text">Số mục trên mỗi trang</div>
-    <div class="pagination__left__option">
-      <fluent-select title="Select a section">
-        <fluent-option value="25">25</fluent-option>
-        <fluent-option value="50">50</fluent-option>
-        <fluent-option value="100">100</fluent-option>
-      </fluent-select>
-    </div>
-  </div>
-
-  <div class="pagination__right">
-    <div class="pagination__right__total">1-20 / 200</div>
-    <div class="pagination__right__action">
-      <div class="pagination__right__action__previous">
-        <img [src]="'/assets/icons/cms/previous.svg'" />
-      </div>
-      <div class="pagination__right__action__next">
-        <img [src]="'/assets/icons/cms/next.svg'" />
-      </div>
-
-      <div class="pagination__right__action__goto">
-        <div class="pagination__right__action__goto__text">Go to</div>
-        <fluent-select title="Select a section">
-          <fluent-option value="1">1</fluent-option>
-          <fluent-option value="2">2</fluent-option>
-          <fluent-option value="3">3</fluent-option>
+<form [formGroup]="form">
+  <div class="pagination">
+    <div class="pagination__left">
+      <div class="pagination__left__text">Số mục trên mỗi trang</div>
+      <div class="pagination__left__option">
+        <fluent-select ngDefaultControl formControlName="size">
+          @for (size of sizes; track size) {
+            <fluent-option [value]="size">{{ size }}</fluent-option>
+          }
         </fluent-select>
       </div>
     </div>
+
+    <div class="pagination__right">
+      <div class="pagination__right__total">{{ contentSize }} / {{ totalSize }}</div>
+      <div class="pagination__right__action">
+        <!-- <div class="pagination__right__action__previous">
+          <img [src]="'/assets/icons/cms/previous.svg'" />
+        </div>
+        <div class="pagination__right__action__next">
+          <img [src]="'/assets/icons/cms/next.svg'" />
+        </div> -->
+        <div class="pagination__right__action__goto">
+          <div class="pagination__right__action__goto__text">Go to</div>
+          <fluent-select ngDefaultControl formControlName="number">
+            @for (page of pages; track page) {
+              <fluent-option [value]="page">{{ page + 1 }}</fluent-option>
+            }
+          </fluent-select>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</form>

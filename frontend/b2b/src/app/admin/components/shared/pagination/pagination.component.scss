@@ -18,48 +18,51 @@
   margin-right: 4px;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  padding: 0 16px;
-  .pagination__left {
-    display: flex;
-    .pagination__left__text {
-      @include text;
-    }
-    .pagination__left__option {
-      @include fluentSelect;
-    }
-  }
-
-  .pagination__right {
+form {
+  height: 50px;
+  .pagination {
     display: flex;
     align-items: center;
-    .pagination__right__total {
-      font-weight: 600;
-      font-size: $font14;
-      line-height: 20px;
-      margin-right: 18px;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 16px;
+    .pagination__left {
+      display: flex;
+      .pagination__left__text {
+        @include text;
+      }
+      .pagination__left__option {
+        @include fluentSelect;
+      }
     }
-    .pagination__right__action {
+
+    .pagination__right {
       display: flex;
       align-items: center;
-      .pagination__right__action__next,
-      .pagination__right__action__previous {
-        cursor: pointer;
-        height: 18px;
+      .pagination__right__total {
+        font-weight: 600;
+        font-size: $font14;
+        line-height: 20px;
         margin-right: 18px;
-        img {
-          width: 18px;
-        }
       }
-      .pagination__right__action__goto {
-        @include fluentSelect;
+      .pagination__right__action {
         display: flex;
-        .pagination__right__action__goto__text {
-          @include text;
+        align-items: center;
+        .pagination__right__action__next,
+        .pagination__right__action__previous {
+          cursor: pointer;
+          height: 18px;
+          margin-right: 18px;
+          img {
+            width: 18px;
+          }
+        }
+        .pagination__right__action__goto {
+          @include fluentSelect;
+          display: flex;
+          .pagination__right__action__goto__text {
+            @include text;
+          }
         }
       }
     }
