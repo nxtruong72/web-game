@@ -56,6 +56,18 @@ data class RoundResponse (
   var roundStatus: RoundStatus,
 
   @NotBlank
+  var totalBetTeamOne: BigDecimal,
+
+  @NotBlank
+  var totalBetTeamTwo: BigDecimal,
+
+  @NotBlank
+  var totalUserBetTeamOne: BigDecimal,
+
+  @NotBlank
+  var totalUserBetTeamTwo: BigDecimal,
+
+  @NotBlank
   var createdAt: Instant,
 
   @NotBlank

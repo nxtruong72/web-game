@@ -11,9 +11,11 @@ import org.theflies.webgame.shared.common.UserException
 import org.theflies.webgame.shared.common.WalletException
 import org.theflies.webgame.shared.models.*
 import org.theflies.webgame.shared.repositories.*
+import java.math.BigDecimal
 import java.security.Principal
 import java.time.Instant
 import java.util.Collections
+import java.util.Collections.emptyList
 import java.util.stream.Collectors
 
 private val logger = KotlinLogging.logger {  }
@@ -31,9 +33,10 @@ open class B2CGameService(
         return mapGameToGameResponse(game)
     }
 
-    fun getRoundById(id: Long): RoundResponse {
+    fun getRoundById(id: Long, principal: Principal): RoundResponse {
         val round = roundRepository.findById(id).orElseThrow { throw RoundException(404, "Round is not existing") }
-        return mapRoundToRoundResponse(round)
+        val bets = listBetByRoundIdAndPrincipal(id, principal)
+        return mapRoundToRoundResponse(round, bets)
     }
 
     fun listGame(pageable: Pageable): Page<GameResponse> {
@@ -42,10 +45,10 @@ open class B2CGameService(
             .map { mapGameToGameResponse(it) }
     }
 
-    fun listRoundByGameId(gameId: Long, pageable: Pageable): Page<RoundResponse> {
+    fun listRoundByGameId(gameId: Long, principal: Principal, pageable: Pageable): Page<RoundResponse> {
         return roundRepository
             .findByGameId(gameId, pageable)
-            .map { mapRoundToRoundResponse(it) }
+            .map { mapRoundToRoundResponse(it, listBetByRoundIdAndPrincipal(it.id!!, principal)) }
     }
 
     @Transactional
@@ -96,11 +99,27 @@ open class B2CGameService(
             .collect(Collectors.toList())
     }
 
-    private fun mapRoundToRoundResponse(round: Round): RoundResponse {
+    private fun mapRoundToRoundResponse(round: Round, bets: List<BetResponse>): RoundResponse {
+        var totalUserBetTeamOne = BigDecimal(0)
+        var totalUserBetTeamTwo = BigDecimal(0)
+
+        for (bet in bets) {
+            if (bet.teamBet == 1) {
+                totalUserBetTeamOne = totalUserBetTeamOne!!.add(bet.amount)
+            } else {
+                totalUserBetTeamTwo = totalUserBetTeamTwo!!.add(bet.amount)
+            }
+        }
+
+
         return RoundResponse(
             round.id!!,
             round.teamWin,
             round.roundStatus,
+            round.totalBetTeamOne,
+            round.totalBetTeamTwo,
+            totalUserBetTeamOne,
+            totalUserBetTeamTwo,
             round.createdAt!!,
             round.updatedAt!!
         )
