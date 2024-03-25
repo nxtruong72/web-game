@@ -1,3 +1,5 @@
+@import 'variable';
+
 @mixin logo {
   width: 148px;
   height: 48px;
@@ -14,6 +16,85 @@
 
 @mixin cursorPointer {
   cursor: pointer;
+}
+
+@mixin inputCustom {
+  /* Font & Text */
+  font-family: 'Segoe UI';
+  font-size: $font14;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: normal;
+  text-decoration: none solid #1a1a1a;
+  text-align: start;
+  text-indent: 0px;
+  text-transform: none;
+  vertical-align: top;
+  white-space: normal;
+  word-spacing: 0px;
+
+  /* Color & Background */
+  background-attachment: scroll;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: none;
+  background-position: 0% 0%;
+  background-repeat: repeat;
+  color: #1a1a1a;
+
+  /* Box */
+  height: 32px;
+  width: 368px;
+  border: 0px none #1a1a1a;
+  margin: 0px;
+  max-height: none;
+  min-height: 0px;
+  max-width: none;
+  min-width: 50px;
+
+  /* Positioning */
+  position: relative;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  float: none;
+  display: inline-flex;
+  clear: none;
+  z-index: auto;
+
+  /* List */
+  list-style-image: none;
+  list-style-type: disc;
+  list-style-position: outside;
+
+  /* Table */
+  border-collapse: separate;
+  border-spacing: 0px 0px;
+  caption-side: top;
+  empty-cells: show;
+  table-layout: auto;
+
+  /* Miscellaneous */
+  overflow: visible;
+  cursor: auto;
+  visibility: visible;
+
+  /* Effects */
+  transform: none;
+  transition: all 0s ease 0s;
+  outline: $gray-color-9 solid 1px;
+  outline-offset: 0px;
+  box-sizing: border-box;
+  resize: none;
+  text-shadow: none;
+  text-overflow: clip;
+  word-wrap: normal;
+  box-shadow: none;
+  border-radius: 4px;
+  padding: 0 8px;
+  border-bottom: #929292 solid 1px;
 }
 
 .c_required__input {

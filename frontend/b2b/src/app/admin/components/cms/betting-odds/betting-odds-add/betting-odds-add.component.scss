@@ -1,3 +1,4 @@
+@import '../../../../../../scss/common';
 @import '../../../../../../scss/container-page';
 
 @mixin fluentSelect {
@@ -38,6 +39,9 @@ fluent-dialog {
         fluent-select {
           width: 100%;
         }
+        .input__custom {
+          @include inputCustom;
+        }
         @include fluentSelect;
       }
     }
@@ -55,4 +59,8 @@ fluent-dialog {
       }
     }
   }
+}
+
+::ng-deep .mat-mdc-form-field {
+  @include inputCustom;
 }

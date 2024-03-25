@@ -20,7 +20,7 @@ export function initializeApplication(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAnimations(), // for animation as material
+    provideAnimations(),
     provideHttpClient(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
@@ -46,5 +46,6 @@ export const appConfig: ApplicationConfig = {
         return todos;
       },
     },
+    provideAnimations(),
   ],
 };

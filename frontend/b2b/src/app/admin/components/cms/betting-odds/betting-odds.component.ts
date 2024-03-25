@@ -99,10 +99,10 @@ export class BettingOddsComponent implements AfterViewInit {
         Team: `${bettingOdd.teamOne} - ${bettingOdd.teamOne}`,
         'Hình Thức': bettingOdd.gameTypes,
         'Trạng Thái': bettingOdd.gameStatus,
-        'Ngày bắt đầu': this._momentService.getStandardDate(bettingOdd.planStartTime),
+        'Ngày bắt đầu': this._momentService.displayDate(bettingOdd.planStartTime),
         'Tổng bet': bettingOdd.totalBet,
         'Lợi nhuận': bettingOdd.profit,
-        'Ngày tạo': this._momentService.getStandardDate(bettingOdd.createdAt),
+        'Ngày tạo': this._momentService.displayDate(bettingOdd.createdAt),
       });
     });
 

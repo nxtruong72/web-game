@@ -55,7 +55,7 @@ export class PaginationComponent implements OnInit {
   private initPageNumber() {
     const size = this._payloadService.getPaginationParam().size;
     const totalPage = Math.ceil(this.totalSize / size);
-    this.pages = [...Array(totalPage).keys()];
+    this.pages = totalPage > 0 ? [...Array(totalPage).keys()] : [0];
   }
 
   private formChange() {

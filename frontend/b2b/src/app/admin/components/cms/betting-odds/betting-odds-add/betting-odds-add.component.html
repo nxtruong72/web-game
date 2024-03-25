@@ -62,17 +62,20 @@
             <span class="c_required__input">*</span>
           </fluent-text-field>
         </div>
-        <!-- planStartTime -->
+        <!-- startDate -->
         <div class="dialog__content__input">
-          <fluent-text-field
-            appearance="outline"
-            placeholder="Nhập ngày bắt đầu"
-            ngDefaultControl
-            formControlName="planStartTime"
-          >
+          <fluent-text-field appearance="outline" placeholder="30/12/2024" ngDefaultControl formControlName="startDate">
             Ngày bắt đầu
             <span class="c_required__input">*</span>
           </fluent-text-field>
+        </div>
+        <!-- startTime -->
+        <div class="dialog__content__input">
+          <label part="label" for="control" class="label">
+            <slot>Giờ bắt đầu *</slot>
+          </label>
+          <input [ngxTimepicker]="picker" [format]="24" class="input__custom" formControlName="startTime" />
+          <ngx-material-timepicker #picker></ngx-material-timepicker>
         </div>
       </div>
       <div class="dialog__action">

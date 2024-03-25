@@ -34,3 +34,13 @@ export function getStandardValue(value: any): string {
   }
   return value;
 }
+
+export function dateFormatValidator(control: any) {
+  // Regex pattern for dd/mm/yyyy format
+  const DATE_REGEX = /^\d{2}\/\d{2}\/\d{4}$/;
+
+  if (control.value && !DATE_REGEX.test(control.value)) {
+    return { invalidDateFormat: true };
+  }
+  return null;
+}
