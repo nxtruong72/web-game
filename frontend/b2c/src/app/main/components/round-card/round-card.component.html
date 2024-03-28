@@ -1,0 +1,90 @@
+<div class="vstack" *ngIf="round$ | async as round; else elseBlock">
+  <!-- Header -->
+  <div class="hstack gap-2 justify-content-between border-top-dashed tb-cell">
+    <span class="px-2">
+      Vòng đấu:
+      <strong>#{{ round?.id }}</strong>
+      <a
+        role="button"
+        class="mx-2 link-secondary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover"
+        data-bs-toggle="modal"
+        data-bs-target="#RoundHistoryModal"
+      >
+        (Danh sách các vòng đấu)
+      </a>
+    </span>
+  </div>
+
+  <!-- Total bets -->
+  <div class="hstack gap-2 px-2 border-top-dashed">
+    <!-- Blue Team -->
+    <div class="hstack gap-2 w-100 tb-cell">
+      <div class="vstack">
+        <span class="fw-bold text-secondary">Tổng cược</span>
+        <span class="fs-5">{{ round?.totalBetTeamOne | currency: 'VND' }}</span>
+      </div>
+    </div>
+    <div class="vr-dashed"></div>
+    <!-- Red Team -->
+    <div class="hstack gap-2 w-100 tb-cell">
+      <div class="vstack">
+        <span class="fw-bold text-secondary">Tổng cược</span>
+        <span class="fs-5">{{ round?.totalBetTeamTwo | currency: 'VND' }}</span>
+      </div>
+    </div>
+  </div>
+  <!-- Total user bets -->
+  <div class="hstack gap-2 px-2 tb-row">
+    <!-- Blue Team -->
+    <div class="hstack gap-2 w-100 tb-cell">
+      <div class="vstack">
+        <span class="fw-bold text-secondary">Bạn đã cược</span>
+        <span class="fs-5">{{ round?.totalUserBetTeamOne | currency: 'VND' }}</span>
+      </div>
+    </div>
+    <div class="vr-dashed"></div>
+    <!-- Red Team -->
+    <div class="hstack gap-2 w-100 tb-cell">
+      <div class="vstack">
+        <span class="fw-bold text-secondary">Bạn đã cược</span>
+        <span class="fs-5">{{ round?.totalUserBetTeamTwo | currency: 'VND' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hstack px-2 tb-row">
+    <!-- Blue Team -->
+    <div class="hstack gap-2 w-100 tb-cell">
+      <button type="button" class="btn btn-info my-2 w-100" (click)="changeTeam(1)" data-bs-toggle="modal" data-bs-target="#betModal">
+        Đặt đội xanh
+      </button>
+    </div>
+
+    <div class="vr-dashed mx-2"></div>
+
+    <!-- Red Team -->
+    <div class="hstack gap-2 w-100 tb-cell">
+      <button type="button" class="btn btn-danger my-2 w-100" (click)="changeTeam(2)" data-bs-toggle="modal" data-bs-target="#betModal">
+        Đặt đội đỏ
+      </button>
+    </div>
+  </div>
+
+  <div class="border-top-dashed">
+    <app-round-alert [roundState]="round?.roundStatus" [teamWin]="round?.teamWin"></app-round-alert>
+  </div>
+</div>
+
+<div class="modal fade" id="RoundHistoryModal" tabindex="-1" aria-labelledby="RoundHistoryModal" aria-hidden="true">
+  <app-rounds-history-modal></app-rounds-history-modal>
+</div>
+<ng-template #elseBlock>Ko dữ liệu</ng-template>
+<app-bet-modal
+  [game]="game"
+  [defaultTeam]="selectedTeam"
+  class="modal fade"
+  id="betModal"
+  tabindex="-1"
+  aria-labelledby="betModal"
+  aria-hidden="true"
+></app-bet-modal>

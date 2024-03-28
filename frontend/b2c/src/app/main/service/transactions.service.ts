@@ -22,8 +22,6 @@ export class TransactionService extends AbstractService<any> {
         this.transactions = data.body;
         return this.transactions;
       }),
-      // get user info
-      // concatMap(() => this._userApiService.getUserInfo())
     );
   }
 }

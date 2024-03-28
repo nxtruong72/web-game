@@ -2,7 +2,7 @@ import { NgFor, NgForOf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
-import { BetHistoryService } from '../../../service/bets.service';
+import { BetService } from '../../../service/bets.service';
 
 @Component({
   selector: 'app-bet-history',
@@ -15,7 +15,7 @@ export class BetHistoryComponent implements OnInit {
   isLoading = false;
   errMsg = null;
   betHistory: Array<any> = [];
-  constructor(private _service: BetHistoryService) {}
+  constructor(private _service: BetService) {}
 
   ngOnInit() {
     this.getBets();

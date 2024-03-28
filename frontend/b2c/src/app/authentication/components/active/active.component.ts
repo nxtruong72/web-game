@@ -7,7 +7,7 @@ import { requiredMsg } from '../../../../shared/msg.const';
 import { isEmptyString } from '../../../../shared/until.helper';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { UserService } from '../../../service/user.service';
+import { UserService } from '../../../main/service/user.service';
 
 @Component({
   selector: 'app-active',
@@ -60,7 +60,6 @@ export class ActiveComponent implements OnInit {
             this._router.navigate(['dang-nhap'], { state: { userName: this.userName, password: this.password } });
           },
           (errorRes: HttpErrorResponse) => {
-            console.log(errorRes);
             this.errMsg = errorRes.error.message || errorRes.error.errors[0];
           },
         );

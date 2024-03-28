@@ -1,0 +1,122 @@
+<!-- Bet modal -->
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <form [formGroup]="form" class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Đặt cược</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <!-- Section 1, Description -->
+      <div class="hstack justify-content-between py-1">
+        <span class="fs-6 text-secondary">
+          Mã trận:
+          <span class="mx-1 fw-semibold text-secondary-emphasis">#AOE-{{ game?.planStartTime | date: 'ddMMYYYY' }}-{{ game?.id }}</span>
+        </span>
+        <span class="fs-6 text-secondary">
+          Vòng thứ:
+          <span class="text-secondary-emphasis fw-semibold">{{ currentRound?.id }}</span>
+        </span>
+        <app-game-types *ngIf="game" [types]="game.gameTypes"></app-game-types>
+      </div>
+
+      <!-- Alert -->
+      <app-round-alert [roundState]="currentRound?.roundStatus"></app-round-alert>
+
+      <!-- Section 3, Enter money -->
+      <div class="vstack gap-2">
+        <span class="fs-6 fw-semibold">Đặt mức cược</span>
+        <div class="hstack gap-3">
+          <div class="input-group input-group-lg mb-3 w-100">
+            <span class="input-group-text" id="inputBet">₫</span>
+            <input
+              type="number"
+              formControlName="betAmount"
+              [step]="STEP"
+              [min]="MIN"
+              [max]="balance"
+              class="form-control"
+              [class.is-invalid]="showError('betAmount')"
+              required
+            />
+            <div id="betAmountValidation" class="invalid-feedback">
+              Mức cược tối thiểu
+              <strong>{{ MIN | currency: 'VND' }}</strong>
+              và tối đa không vượt quá số dư hiện tại ({{ balance | currency: 'VND' }})
+            </div>
+          </div>
+
+          <div class="vstack w-100 gap-1">
+            <div class="hstack gap-1">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm w-100 py-0"
+                (click)="changeBetAmount(STEPX10)"
+                [disabled]="!canChangeBetAmount(STEPX10)"
+              >
+                + {{ STEPX10 | currency: 'VND' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm w-100 py-0"
+                (click)="changeBetAmount(STEPX20)"
+                [disabled]="!canChangeBetAmount(STEPX20)"
+              >
+                + {{ STEPX20 | currency: 'VND' }}
+              </button>
+            </div>
+            <div class="hstack gap-1">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm w-100 py-0"
+                (click)="changeBetAmount(-STEPX10)"
+                [disabled]="!canChangeBetAmount(-STEPX10)"
+              >
+                - {{ STEPX10 | currency: 'VND' }}
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm w-100 py-0"
+                (click)="changeBetAmount(-STEPX20)"
+                [disabled]="!canChangeBetAmount(-STEPX20)"
+              >
+                - {{ STEPX20 | currency: 'VND' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- error -->
+      <ng-template [ngIf]="errMsg">
+        <div class="alert alert-danger d-flex align-items-center p-2" role="alert">
+          <i class="bi bi-exclamation-circle text-danger p-2"></i>
+          <div>{{ errMsg }}</div>
+        </div>
+      </ng-template>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button
+          *ngIf="defaultTeam === 1"
+          class="btn btn-info"
+          type="submit"
+          [disabled]="isLoading || !isBetSessionOpened()"
+          (click)="onSubmit()"
+        >
+          <span [hidden]="!isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Đặt đội xanh
+        </button>
+        <button
+          *ngIf="defaultTeam === 2"
+          class="btn btn-danger"
+          type="submit"
+          [disabled]="isLoading || !isBetSessionOpened()"
+          (click)="onSubmit()"
+        >
+          <span [hidden]="!isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Đặt đội đỏ
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

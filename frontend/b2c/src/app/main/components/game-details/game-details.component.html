@@ -4,7 +4,9 @@
     <ol class="breadcrumb mb-2">
       <li class="breadcrumb-item"><a [routerLink]="['/trang-chu']">Trang chủ</a></li>
       <li class="breadcrumb-item"><a [routerLink]="['/trang-chu/cac-tran-dau']">Các trận đấu</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{ getDisplayGameId() }}</li>
+      <li class="breadcrumb-item active" aria-current="page">
+        AOE-{{ game?.planStartTime | date: 'ddMMYYYY' }}-{{ game?.id }}
+      </li>
     </ol>
   </div>
 </nav>
@@ -35,10 +37,7 @@
         <span>{{ game?.startTime | date: 'dd/MM/YYYY hh:mm:ss' }}</span>
         <span class="badge rounded-pill text-bg-danger">{{ game?.gameStatus }}</span>
       </div>
-      <div class="hstack gap-2 justify-content-end">
-        <i class="bi bi-tag text-secondary"></i>
-        <span class="badge text-bg-light">{{ game?.gameTypes[0] }}</span>
-      </div>
+      <app-game-types class="hstack gap-2 justify-content-end" [types]="game?.gameTypes"></app-game-types>
     </div>
   </div>
   <div class="row">
@@ -56,34 +55,18 @@
       </ng-template>
     </div>
     <div class="col col-3 card p-0">
-      <!-- Header -->
-      <div class="hstack gap-2 justify-content-between p-2 border-bottom">
-        <button type="button" class="btn btn-light" (click)="previousRound()" [disabled]="!canGoPreviousRound()">
-          <i class="bi bi-arrow-left"></i>
-        </button>
-        <span>
-          Vòng:
-          <span class="fs-4">
-            <span class="fw-semibold">{{ getDisplayRoundIndex() }}</span>
-            /
-            <span>{{ roundsCount }}</span>
-          </span>
-        </span>
-
-        <button type="button" class="btn btn-light" (click)="nextRound()" [disabled]="!canGoNextRound()">
-          <i class="bi bi-arrow-right"></i>
-        </button>
+      <div class="hstack px-3 tb-cell">
+        Mã trận:
+        <span class="mx-1 fw-semibold text-secondary-emphasis">#AOE-{{ game?.planStartTime | date: 'ddMMYYYY' }}-{{ game?.id }}</span>
       </div>
-      <app-round-alert [roundState]="currentRound?.roundStatus" [teamWin]="currentRound?.teamWin"></app-round-alert>
       <!-- Teams -->
-      <div class="hstack gap-2 px-2 tb-row">
+      <div class="hstack gap-2 px-2 border-top-dashed">
         <!-- Blue Team -->
         <div class="hstack gap-2 w-100 tb-cell">
           <img src="../assets/team/houston.svg" class="dimension-5" />
           <div class="vstack">
             <span class="text-info fw-bold">#1 XANH</span>
             <span>{{ game?.teamOne }}</span>
-            <div><span [hidden]="currentRound?.teamWin !== 1" class="badge text-bg-success">WIN</span></div>
           </div>
         </div>
         <div class="vr-dashed"></div>
@@ -93,59 +76,10 @@
           <div class="vstack">
             <span class="text-danger fw-bold">#2 ĐỎ</span>
             <span>{{ game?.teamTwo }}</span>
-            <div><span [hidden]="currentRound?.teamWin !== 2" class="badge text-bg-success">WIN</span></div>
           </div>
         </div>
       </div>
-
-      <!-- Total bets -->
-      <div class="hstack gap-2 px-2 tb-row">
-        <!-- Blue Team -->
-        <div class="hstack gap-2 w-100 tb-cell">
-          <div class="vstack">
-            <span class="fw-bold text-secondary">Tổng cược</span>
-            <span class="fs-5">{{ betAmountTeamBlue | currency: 'VND' }}</span>
-          </div>
-        </div>
-        <div class="vr-dashed"></div>
-        <!-- Red Team -->
-        <div class="hstack gap-2 w-100 tb-cell">
-          <div class="vstack">
-            <span class="fw-bold text-secondary">Tổng cược</span>
-            <span class="fs-5">{{ betAmountTeamRed | currency: 'VND' }}</span>
-          </div>
-        </div>
-      </div>
-      <!-- Placed bets -->
-      <div class="hstack gap-2 px-2 tb-row">
-        <!-- Blue Team -->
-        <div class="hstack gap-2 w-100 tb-cell">
-          <div class="vstack">
-            <span class="fw-bold text-secondary">Bạn đã cược</span>
-            <span class="fs-5">{{ myBetAmountTeamBlue | currency: 'VND' }}</span>
-          </div>
-        </div>
-        <div class="vr-dashed"></div>
-        <!-- Red Team -->
-        <div class="hstack gap-2 w-100 tb-cell">
-          <div class="vstack">
-            <span class="fw-bold text-secondary">Bạn đã cược</span>
-            <span class="fs-5">{{ myBetAmountTeamRed | currency: 'VND' }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hstack px-3 tb-row">
-        <button
-          type="button"
-          class="btn btn-primary my-3 w-100"
-          data-bs-toggle="modal"
-          data-bs-target="#betModal"
-          [disabled]="'START' != currentRound?.roundStatus"
-        >
-          Đặt cược
-        </button>
-      </div>
+      <app-round-card class="vstack" [gameId]="gameId" [game]="game"></app-round-card>
     </div>
   </div>
 </div>
@@ -163,164 +97,3 @@
   </div>
 </div>
 <div style="height: 60px"></div>
-
-<!-- Bet modal -->
-<div class="modal fade" id="betModal" tabindex="-1" aria-labelledby="betModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <form [formGroup]="form" class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Đặt cược</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Section 1, Description -->
-        <div class="hstack justify-content-between py-1">
-          <span class="fs-6 text-secondary">
-            Mã:
-            <span class="text-secondary-emphasis">#{{ getDisplayGameId() }}</span>
-          </span>
-          <span class="fs-6 text-secondary">
-            Vòng:
-            <span class="text-secondary-emphasis fw-semibold">{{ getDisplayRoundIndex() }}</span>
-            /
-            <span class="text-secondary-emphasis">{{ roundsCount }}</span>
-          </span>
-          <div class="hstack gap-2">
-            <i class="bi bi-tag text-secondary"></i>
-            <span class="badge text-bg-light">{{ game?.gameTypes[0] }}</span>
-          </div>
-        </div>
-
-        <!-- Alert -->
-        <app-round-alert [roundState]="currentRound?.roundStatus"></app-round-alert>
-
-        <!-- Section 2, Choose team -->
-        <div class="my-3">
-          <span class="fs-6 fw-semibold">Chọn đội thắng</span>
-          <div class="hstack py-1">
-            <div class="w-100 form-check hstack gap-3 align-items-center">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="teamBet"
-                id="radioTeamBlue"
-                [value]="1"
-                formControlName="teamBet"
-              />
-              <!-- Blue team -->
-              <label class="hstack gap-2 form-check-label" for="radioTeamBlue">
-                <img src="../assets/team/houston.svg" class="dimension-5" />
-                <div class="vstack">
-                  <span class="text-info fw-bold">#1 XANH</span>
-                  <span>{{ game?.teamOne }}</span>
-                </div>
-              </label>
-            </div>
-            <div class="w-100 form-check hstack gap-3 align-items-center">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="teamBet"
-                id="radioTeamRed"
-                [value]="2"
-                formControlName="teamBet"
-              />
-              <!-- Red Team -->
-              <label class="hstack gap-2 form-check-label" for="radioTeamRed">
-                <img src="../assets/team/texas.svg" class="dimension-5" />
-                <div class="vstack">
-                  <span class="text-danger fw-bold">#2 ĐỎ</span>
-                  <span>{{ game?.teamTwo }}</span>
-                </div>
-              </label>
-            </div>
-          </div>
-        </div>
-        <!-- Section 3, Enter money -->
-        <div class="vstack gap-2">
-          <span class="fs-6 fw-semibold">Đặt mức cược</span>
-          <div class="hstack gap-3">
-            <div class="input-group input-group-lg mb-3 w-100">
-              <span class="input-group-text" id="inputBet">₫</span>
-              <input
-                type="number"
-                formControlName="betAmount"
-                [step]="STEP"
-                [min]="MIN"
-                [max]="balance"
-                class="form-control"
-                [class.is-invalid]="showError('betAmount')"
-                required
-              />
-              <div id="betAmountValidation" class="invalid-feedback">
-                Mức cược tối thiểu
-                <strong>{{ MIN | currency: 'VND' }}</strong>
-                và tối đa không vượt quá số dư hiện tại ({{ balance | currency: 'VND' }})
-              </div>
-            </div>
-
-            <div class="vstack w-100 gap-1">
-              <div class="hstack gap-1">
-                <button
-                  type="button"
-                  class="btn btn-outline-primary btn-sm w-100 py-0"
-                  (click)="changeBetAmount(STEPX10)"
-                  [disabled]="!canChangeBetAmount(STEPX10)"
-                >
-                  + {{ STEPX10 | currency: 'VND' }}
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary btn-sm w-100 py-0"
-                  (click)="changeBetAmount(STEPX20)"
-                  [disabled]="!canChangeBetAmount(STEPX20)"
-                >
-                  + {{ STEPX20 | currency: 'VND' }}
-                </button>
-              </div>
-              <div class="hstack gap-1">
-                <button
-                  type="button"
-                  class="btn btn-outline-primary btn-sm w-100 py-0"
-                  (click)="changeBetAmount(-STEPX10)"
-                  [disabled]="!canChangeBetAmount(-STEPX10)"
-                >
-                  - {{ STEPX10 | currency: 'VND' }}
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary btn-sm w-100 py-0"
-                  (click)="changeBetAmount(-STEPX20)"
-                  [disabled]="!canChangeBetAmount(-STEPX20)"
-                >
-                  - {{ STEPX20 | currency: 'VND' }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- error -->
-        <ng-template [ngIf]="_errMsg">
-          <div class="alert alert-danger d-flex align-items-center p-2" role="alert">
-            <i class="bi bi-exclamation-circle text-danger p-2"></i>
-            <div>{{ _errMsg }}</div>
-          </div>
-        </ng-template>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-          <button class="btn btn-primary" type="submit" [disabled]="_isLoading" (click)="placeAbet()">
-            <span
-              [hidden]="!_isLoading"
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            Đặt cược
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>

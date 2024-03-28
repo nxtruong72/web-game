@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../../authentication/service/auth.service';
-import { Observable, Subscription, timer } from 'rxjs';
-import { UserService } from '../../../service/user.service';
+import { Observable } from 'rxjs';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-navigator',

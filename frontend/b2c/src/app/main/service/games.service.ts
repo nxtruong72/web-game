@@ -1,47 +1,23 @@
 import { Injectable } from '@angular/core';
-import { AbstractService } from '../../state-management/abstract/abstract-service';
-import { map } from 'rxjs';
-import { GameApiService } from '../../../api/games.api';
+import { Observable, map } from 'rxjs';
+import { GameApiService } from '../../../api/games/games.api';
+import { Game } from '../../../api/games/game.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GameService extends AbstractService<any> {
-  games: Array<any> = [];
-  constructor(private _gameAPIService: GameApiService) {
-    super();
-  }
-
-  override ngOnInit(): void {
-    this.view$.asObservable();
-  }
+export class GameService {
+  constructor(private _gameAPIService: GameApiService) {}
 
   getGames() {
     return this._gameAPIService.getGames().pipe(
       map((data) => {
-        this.games = data.content;
-
-        return this.games;
+        return data.content;
       }),
     );
   }
 
-  getGameDetails(id: string) {
-    return this._gameAPIService.getGameDetails(id);
-  }
-
-  getRoundsByGameId(id: string) {
-    return this._gameAPIService.getRoundsByGameId(id);
-  }
-
-  getBetsByRoundId(id: string) {
-    return this._gameAPIService.getBetsByRoundId(id);
-  }
-
-  getRoundById(id: string) {
-    return this._gameAPIService.getRoundById(id);
-  }
-  placeAbet(_roundInd: number, _teamBet: number, _amount: number) {
-    return this._gameAPIService.placeAbet(_roundInd, _teamBet, _amount);
+  getGameDetails(id: string): Observable<Game> {
+    return this._gameAPIService.getGameDetailsById(id);
   }
 }

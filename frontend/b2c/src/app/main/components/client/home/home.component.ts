@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavigatorComponent } from '../../navigator/navigator.component';
 import { FooterComponent } from '../../footer/footer.component';
-import { UserService } from '../../../../service/user.service';
+import { UserService } from '../../../service/user.service';
 import { TimerService } from '../../../../service/timer.service';
 
 @Component({

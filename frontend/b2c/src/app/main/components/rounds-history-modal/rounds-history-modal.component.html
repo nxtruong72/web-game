@@ -1,0 +1,35 @@
+<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Danh sách vòng đấu</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Vòng</th>
+            <th scope="col">Tổng cược đội Xanh</th>
+            <th scope="col">Tổng cược đội Đỏ</th>
+            <th scope="col">Bạn đã cược đội Xanh</th>
+            <th scope="col">Bạn đã cược đội Đỏ</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Kết quả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let round of rounds$ | async; trackBy: trackByFn">
+            <th scope="row">{{ round.id }}</th>
+            <td>{{ round.totalBetTeamOne | currency: 'VND' }}</td>
+            <td>{{ round.totalBetTeamTwo | currency: 'VND' }}</td>
+            <td>{{ round.totalUserBetTeamOne | currency: 'VND' }}</td>
+            <td>{{ round.totalUserBetTeamTwo | currency: 'VND' }}</td>
+            <td><app-round-status-component [status]="round.roundStatus"></app-round-status-component></td>
+            <td><app-round-winer [winner]="round.teamWin"></app-round-winer></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="modal-footer"></div> -->
+  </div>
+</div>

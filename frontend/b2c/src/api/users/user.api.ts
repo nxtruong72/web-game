@@ -13,6 +13,7 @@ import {
 } from '../common.const';
 import { Observable } from 'rxjs';
 import { Wallet } from './wallet.interface';
+import { User } from './user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -54,8 +55,8 @@ export class UserApiService {
     });
   }
 
-  profile(): Observable<any> {
-    return this._http.get<any>(`${BASE_CLIENT_PATH}${USER_PROFILE_PATH}`, { responseType: 'text' as 'json' });
+  profile(): Observable<User> {
+    return this._http.get<User>(`${BASE_CLIENT_PATH}${USER_PROFILE_PATH}`);
   }
 
   balance(): Observable<Wallet> {

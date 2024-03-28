@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
-import { AbstractService } from '../../state-management/abstract/abstract-service';
 import { map } from 'rxjs';
 import { BetHistoryApiService } from '../../../api/bets.api';
+import { BetApiService } from '../../../api/bets/bet.api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BetHistoryService extends AbstractService<any> {
-  transactions: Array<any> = [];
-  constructor(private _service: BetHistoryApiService) {
-    super();
-  }
-
-  override ngOnInit(): void {
-    this.view$.asObservable();
-  }
+export class BetService {
+  constructor(
+    private _betHistoryApi: BetHistoryApiService,
+    private _betApiService: BetApiService,
+  ) {}
 
   getBetHistory() {
-    return this._service.getBetHistory().pipe(
+    return this._betHistoryApi.getBetHistory().pipe(
       map((data) => {
-        this.transactions = data.body;
-        return this.transactions;
+        return data.body;
       }),
-      // get user info
-      // concatMap(() => this._userApiService.getUserInfo())
     );
+  }
+
+  finBetsByRoundId(roundId: number) {
+    return this._betApiService.findBetsByRoundId(roundId);
+  }
+
+  placeAbet(_roundId: number, _teamBet: number, _amount: number) {
+    return this._betApiService.placeAbet(_roundId, _teamBet, _amount);
   }
 }

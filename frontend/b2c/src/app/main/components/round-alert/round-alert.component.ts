@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-round-alert',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RoundAlertComponent],
   templateUrl: './round-alert.component.html',
   styleUrls: ['./round-alert.component.scss'],
 })
@@ -15,7 +15,8 @@ export class RoundAlertComponent {
   getTeamWin() {
     if (1 === this.teamWin) {
       return '#1 XANH';
-    } else if (2 === this.teamWin) {
+    }
+    if (2 === this.teamWin) {
       return '#2 ĐỎ';
     }
     return '--';
@@ -24,7 +25,8 @@ export class RoundAlertComponent {
   getClassForTeamWin() {
     if (1 === this.teamWin) {
       return 'text-info';
-    } else if (2 === this.teamWin) {
+    }
+    if (2 === this.teamWin) {
       return 'text-danger';
     }
     return 'text-secondary';

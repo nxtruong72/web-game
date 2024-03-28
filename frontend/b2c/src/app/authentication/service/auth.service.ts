@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AuthApiService } from '../../../api/auth/auth.api';
-import { BehaviorSubject, Observable, concatMap, finalize, map, mergeMap } from 'rxjs';
+import { Observable, finalize, map } from 'rxjs';
 import { JwtService } from '../../service/jwt.service';
 import { Router } from '@angular/router';
-import { UserService } from '../../service/user.service';
+import { UserService } from '../../main/service/user.service';
 
 @Injectable({
   providedIn: 'root',

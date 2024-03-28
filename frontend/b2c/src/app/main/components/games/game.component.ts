@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor, NgForOf, NgIf } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { GameService } from '../../service/games.service';
-import { AuthService } from '../../../authentication/service/auth.service';
-import { JwtService } from '../../../service/jwt.service';
 import { finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GameCardComponent } from '../game-item/game-card.component';

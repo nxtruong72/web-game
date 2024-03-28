@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, forkJoin, map, mergeAll } from 'rxjs';
-import { UserApiService } from '../../api/users/user.api';
-import { TimerService } from './timer.service';
+import { UserApiService } from '../../../api/users/user.api';
+import { TimerService } from '../../service/timer.service';
+import { User } from '../../../api/users/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private _user$: BehaviorSubject<any>;
+  private _user$: BehaviorSubject<User | null>;
   private _balance$: BehaviorSubject<number>;
 
   private _tickSub!: Subscription;
@@ -17,7 +18,7 @@ export class UserService {
     private _userApiService: UserApiService,
     private _timerService: TimerService,
   ) {
-    this._user$ = new BehaviorSubject(null);
+    this._user$ = new BehaviorSubject<User | null>(null);
     this._balance$ = new BehaviorSubject(0);
   }
 
@@ -73,15 +74,16 @@ export class UserService {
 
   private syncBalance() {
     this._counterForBalanceUpdate++;
-    if (this._counterForBalanceUpdate >= 10) {
+    // Sync every 5 secs
+    if (this._counterForBalanceUpdate >= 5) {
       this._counterForBalanceUpdate = 0;
       this._getBalance().subscribe();
     }
   }
 
-  private _getMe(): Observable<any> {
+  private _profile(): Observable<User> {
     return this._userApiService.profile().pipe(
-      map((user: any) => {
+      map((user: User) => {
         this.user$.next(user);
         return user;
       }),
@@ -90,7 +92,7 @@ export class UserService {
 
   loadUserProfile(): Observable<any> {
     return forkJoin({
-      me: this._getMe(),
+      me: this._profile(),
       balance: this._getBalance(),
     });
   }

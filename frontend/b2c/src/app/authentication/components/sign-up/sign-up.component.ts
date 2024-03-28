@@ -8,7 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { isEmptyString } from '../../../../shared/until.helper';
 import { requiredMsg } from '../../../../shared/msg.const';
 import { MessageService } from 'primeng/api';
-import { UserService } from '../../../service/user.service';
+import { UserService } from '../../../main/service/user.service';
 
 @Component({
   selector: 'app-sign-up',

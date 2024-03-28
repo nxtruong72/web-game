@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isEmptyString } from '../../../../shared/until.helper';
 import { requiredMsg } from '../../../../shared/msg.const';
 import { HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { UserService } from '../../../service/user.service';
+import { UserService } from '../../../main/service/user.service';
 
 @Component({
   selector: 'app-forgot-password',
