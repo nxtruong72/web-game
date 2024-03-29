@@ -33,7 +33,7 @@ export class BettingOddsApiService {
   }
 
   startGame(gameId: number): Observable<any> {
-    return this._http.get<any>(`${BASE_PATH}${this.START_GAME_PATH(gameId)}`);
+    return this._http.post(`${BASE_PATH}${this.START_GAME_PATH(gameId)}`, {});
   }
 
   endGame(gameId: number, roundId: number): Observable<any> {

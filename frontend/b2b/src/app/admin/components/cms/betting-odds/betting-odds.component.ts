@@ -10,8 +10,9 @@ import {
   fluentDivider,
   fluentTextField,
   provideFluentDesignSystem,
+  fluentBadge,
 } from '@fluentui/web-components';
-import { IBettingOdds } from '../../../../../api/betting-odds/betting-odds.interface';
+import { BettingOdds, IBettingOdds } from '../../../../../api/betting-odds/betting-odds.interface';
 import { NgIf } from '@angular/common';
 import { TableActionComponent } from '../../shared/table-action/table-action.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -19,6 +20,7 @@ import { MomentService } from '../../../../service/moment.service';
 import { BettingOddsAddComponent } from './betting-odds-add/betting-odds-add.component';
 import { ObservableService } from '../../../../service/observable.service';
 import { PayloadService } from '../../../../service/payload.service';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -26,6 +28,7 @@ provideFluentDesignSystem().register(
   fluentDataGrid(),
   fluentDataGridCell(),
   fluentDataGridRow(),
+  fluentBadge(),
 );
 
 @Component({
@@ -33,7 +36,14 @@ provideFluentDesignSystem().register(
   templateUrl: './betting-odds.component.html',
   styleUrls: ['./betting-odds.component.scss'],
   standalone: true,
-  imports: [BreadcrumbComponent, TableActionComponent, NgIf, PaginationComponent, BettingOddsAddComponent],
+  imports: [
+    BreadcrumbComponent,
+    TableActionComponent,
+    NgIf,
+    PaginationComponent,
+    BettingOddsAddComponent,
+    RouterOutlet,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
 })
@@ -55,6 +65,7 @@ export class BettingOddsComponent implements AfterViewInit {
     private _cdr: ChangeDetectorRef,
     private _observableService: ObservableService,
     private _payloadService: PayloadService,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +83,20 @@ export class BettingOddsComponent implements AfterViewInit {
   refresh() {
     this._payloadService.refreshPayload();
     this.getGames();
+  }
+
+  onRowClick(event: any): void {
+    const gameID = event.target._rowData['Mã'];
+    const startGame = this._bettingOddsService
+      .startGame(gameID as number)
+      .pipe()
+      .subscribe(
+        (bettingOdds: BettingOdds) => {
+          this._router.navigateByUrl(`keo-ca-cuoc/${gameID}`);
+        },
+        (error) => {},
+      );
+    this.subscription.add(startGame);
   }
 
   getGames(): void {

@@ -41,10 +41,15 @@
       }
     }
     .breadcrumb__page {
+      display: flex;
       .sidebar__container__menu__item {
         .sidebar__container__menu__item__name {
           @include text;
           margin-left: 16px;
+          cursor: pointer;
+          .sidebar__container__menu__item__name__last__item {
+            margin-left: 8px;
+          }
         }
       }
 

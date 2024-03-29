@@ -42,6 +42,14 @@ export const routes: Routes = [
         canActivate: [permissionGuard],
       },
       {
+        path: 'keo-ca-cuoc/:id',
+        loadComponent: () =>
+          import('./admin/components/cms/betting-odds/betting-odds-detail/betting-odds-detail.component').then(
+            (m) => m.BettingOddsDetailComponent,
+          ),
+        canActivate: [permissionGuard],
+      },
+      {
         path: 'bots',
         loadComponent: () => import('./admin/components/cms/bots/bots.component').then((m) => m.BotsComponent),
         canActivate: [permissionGuard],

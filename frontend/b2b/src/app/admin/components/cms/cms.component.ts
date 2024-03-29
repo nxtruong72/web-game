@@ -5,7 +5,7 @@ import { ViewContainerComponent } from '../../../state-management/view-container
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../loading/loading.component';
 import { SideBarComponent } from '../side-bar/side-bar.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavHeaderComponent } from '../nav-header/nav-header.component';
 
 @Component({
@@ -13,7 +13,15 @@ import { NavHeaderComponent } from '../nav-header/nav-header.component';
   templateUrl: './cms.component.html',
   styleUrls: ['./cms.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ViewContainerComponent, LoadingComponent, SideBarComponent, NavHeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    RouterOutlet,
+    ViewContainerComponent,
+    LoadingComponent,
+    SideBarComponent,
+    NavHeaderComponent,
+  ],
 })
 export class CmsComponent extends AbstractComponent<any> {
   constructor(private _adminService: AdminService) {

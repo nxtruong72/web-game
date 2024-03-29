@@ -17,7 +17,7 @@ export interface INewGame {
   planStartTime: string;
 }
 
-interface BettingOdds {
+export interface BettingOdds {
   id: number | null;
   name: string | null;
   form: string | null;

@@ -15,7 +15,8 @@
             {{ item.name }}
           </span>
           <span class="sidebar__container__menu__item__name" *ngIf="!item.link">
-            {{ item.name }}
+            /
+            <span class="sidebar__container__menu__item__name__last__item">{{ item.name }}</span>
           </span>
         </div>
       }

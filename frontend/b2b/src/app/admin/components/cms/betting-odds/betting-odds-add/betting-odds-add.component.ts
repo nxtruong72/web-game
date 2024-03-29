@@ -99,8 +99,8 @@ export class BettingOddsAddComponent implements OnInit {
   private validateForm() {
     const fieldsToValidate = ['name', 'teamOne', 'teamTwo', 'gameTypes', 'streamURL', 'startDate', 'startTime'];
     const requiredErr = { required: requiredMsg };
-  
-    fieldsToValidate.forEach(fieldName => {
+
+    fieldsToValidate.forEach((fieldName) => {
       const control = this.form.controls[fieldName];
       const isEmpty = isEmptyString(control.value);
       if (isEmpty) {

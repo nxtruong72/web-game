@@ -8,7 +8,7 @@
       <fluent-divider></fluent-divider>
       <div class="page__container__main__content__table__container">
         <div *ngIf="isExistDataGrid; else noRecordsFound">
-          <fluent-data-grid id="defaultGrid"></fluent-data-grid>
+          <fluent-data-grid id="defaultGrid" #defaultGrid (click)="onRowClick($event)"></fluent-data-grid>
         </div>
         <ng-template #noRecordsFound>
           <div class="page__container__main__content__table__container__no__record">No Records Found</div>
@@ -22,3 +22,5 @@
   </div>
   <app-betting-odds-add></app-betting-odds-add>
 </div>
+
+<router-outlet></router-outlet>
