@@ -5,17 +5,22 @@
         <img [src]="'/assets/icons/cms/home.svg'" class="breadcrumb__home__icon" />
         <div class="breadcrumb__home__text">Home</div>
       </a>
-      <div class="breadcrumb__home__arrow">/</div>
+      <!-- <div class="breadcrumb__home__arrow">/</div> -->
     </div>
 
     <div class="breadcrumb__page">
       @for (item of pages; track item; let first = $first, last = $last) {
         <div class="sidebar__container__menu__item" routerLinkActive="active" [class.active]="last">
-          <span class="sidebar__container__menu__item__name" *ngIf="item.link" [routerLink]="[item.link]">
+          <span class="sidebar__container__menu__item__separate">/</span>
+          <span
+            class="sidebar__container__menu__item__name"
+            [class.active__Link]="item.link"
+            *ngIf="item.link"
+            [routerLink]="[item.link]"
+          >
             {{ item.name }}
           </span>
           <span class="sidebar__container__menu__item__name" *ngIf="!item.link">
-            /
             <span class="sidebar__container__menu__item__name__last__item">{{ item.name }}</span>
           </span>
         </div>

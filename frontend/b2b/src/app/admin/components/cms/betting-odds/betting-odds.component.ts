@@ -20,7 +20,7 @@ import { MomentService } from '../../../../service/moment.service';
 import { BettingOddsAddComponent } from './betting-odds-add/betting-odds-add.component';
 import { ObservableService } from '../../../../service/observable.service';
 import { PayloadService } from '../../../../service/payload.service';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 provideFluentDesignSystem().register(
   fluentTextField(),
@@ -92,7 +92,7 @@ export class BettingOddsComponent implements AfterViewInit {
       .pipe()
       .subscribe(
         (bettingOdds: BettingOdds) => {
-          this._router.navigateByUrl(`keo-ca-cuoc/${gameID}`);
+          this._router.navigate(['keo-ca-cuoc', gameID]);
         },
         (error) => {},
       );

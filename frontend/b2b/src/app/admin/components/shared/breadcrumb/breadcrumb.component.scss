@@ -43,13 +43,19 @@
     .breadcrumb__page {
       display: flex;
       .sidebar__container__menu__item {
+        display: flex;
+        .sidebar__container__menu__item__separate {
+          margin-left: 18px;
+          margin-top: -2px;
+        }
         .sidebar__container__menu__item__name {
           @include text;
-          margin-left: 16px;
+          margin-left: 18px;
+          display: flex;
+          align-items: center;
+        }
+        .sidebar__container__menu__item__name.active__Link {
           cursor: pointer;
-          .sidebar__container__menu__item__name__last__item {
-            margin-left: 8px;
-          }
         }
       }
 

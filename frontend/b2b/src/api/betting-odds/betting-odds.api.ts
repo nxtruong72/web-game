@@ -11,7 +11,8 @@ export class BettingOddsApiService {
   private readonly CREATE_GAME_PATH = 'b2b/games';
   private readonly CREATE_ROUND_PATH = (gameId: number) => `b2b/games/${gameId}/rounds`;
   private readonly START_GAME_PATH = (gameId: number) => `b2b/games/${gameId}/start`;
-  private readonly END_GAME_PATH = (gameId: number, roundId: number) => `/b2b/games/${gameId}/rounds/${roundId}/end`;
+  private readonly END_GAME_PATH = (gameId: number, roundId: number) => `b2b/games/${gameId}/rounds/${roundId}/end`;
+  private readonly GET_GAME_BY_ID_PATH = (gameId: number) => `b2b/games/${gameId}`;
 
   constructor(
     private _http: HttpClient,
@@ -38,5 +39,9 @@ export class BettingOddsApiService {
 
   endGame(gameId: number, roundId: number): Observable<any> {
     return this._http.get<any>(`${BASE_PATH}${this.END_GAME_PATH(gameId, roundId)}`);
+  }
+
+  getGameById(gameId: number) {
+    return this._http.get<any>(`${BASE_PATH}${this.GET_GAME_BY_ID_PATH(gameId)}`);
   }
 }

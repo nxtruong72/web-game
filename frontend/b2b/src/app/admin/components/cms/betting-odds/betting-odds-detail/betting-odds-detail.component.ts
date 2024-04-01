@@ -1,15 +1,21 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { BreadcrumbComponent } from '../../../shared/breadcrumb/breadcrumb.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { BettingOddsService } from '../../../../service/betting-odds.service';
+import { BettingOdds } from '../../../../../../api/betting-odds/betting-odds.interface';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-betting-odds-detail',
   templateUrl: './betting-odds-detail.component.html',
   styleUrls: ['./betting-odds-detail.component.scss'],
   standalone: true,
-  imports: [BreadcrumbComponent],
+  imports: [BreadcrumbComponent, JsonPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BettingOddsDetailComponent implements OnInit {
+  bettingOdds: BettingOdds | null = null;
   pages = [
     {
       name: 'Kèo cá cược',
@@ -21,11 +27,37 @@ export class BettingOddsDetailComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  private subscription = new Subscription();
 
-  ngOnInit() {}
+  constructor(
+    private _bettingOddsService: BettingOddsService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
+  ) {}
 
-  getGames() {
-    // TODO
+  ngOnInit() {
+    this.getGameId();
+  }
+
+  refresh() {}
+
+  private getGameId() {
+    const gameId = this._activatedRoute.snapshot.paramMap.get('id');
+
+    if (gameId) {
+      this.getGames(Number(gameId));
+    } else {
+      this._router.navigate(['keo-ca-cuoc']);
+    }
+  }
+
+  private getGames(gameId: number) {
+    const gameDetail = this._bettingOddsService.getGameById(gameId).subscribe(
+      (bettingOdds: BettingOdds) => {
+        this.bettingOdds = bettingOdds;
+      },
+      (error) => {},
+    );
+    this.subscription.add(gameDetail);
   }
 }

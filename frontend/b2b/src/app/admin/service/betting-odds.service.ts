@@ -28,4 +28,8 @@ export class BettingOddsService {
   endGame(gameId: number, roundId: number): Observable<any> {
     return this._bettingOddsApiService.endGame(gameId, roundId);
   }
+
+  getGameById(gameId: number): Observable<any> {
+    return this._bettingOddsApiService.getGameById(gameId);
+  }
 }

@@ -1,4 +1,5 @@
 @import '../../../../../scss/container-page';
+@import '../../../../../scss/variable';
 
 fluent-data-grid {
   fluent-data-grid-row:nth-child(1) fluent-data-grid-cell {
@@ -8,5 +9,22 @@ fluent-data-grid {
 
   fluent-data-grid-row:not(:nth-child(1)) fluent-data-grid-cell {
     @include tableRow;
+  }
+
+  fluent-data-grid-row {
+    position: relative;
+  }
+  fluent-data-grid-row:hover::after {
+    content: 'Start Game';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $gray-color-9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 }
