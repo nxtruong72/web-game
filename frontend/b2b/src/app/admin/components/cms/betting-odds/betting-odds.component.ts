@@ -70,8 +70,6 @@ export class BettingOddsComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.initRefresh();
-
-    this._router.navigate(['keo-ca-cuoc', 4]);
   }
 
   ngAfterViewInit(): void {
