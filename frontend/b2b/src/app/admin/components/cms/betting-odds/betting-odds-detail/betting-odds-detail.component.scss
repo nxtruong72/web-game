@@ -1,1 +1,37 @@
 @import '../../../../../../scss/container-page';
+
+.page__container__main__content {
+  padding: 16px;
+
+  .page__container__main__content__fit__height {
+    display: flex;
+    flex-wrap: wrap;
+
+    .page__container__main__content__item {
+      padding: 16px;
+      display: flex;
+      width: 200px;
+      height: 70px;
+
+      .page__container__main__content__item__icon {
+        display: flex;
+        align-items: center;
+        padding-right: 12px;
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .page__container__main__content__item__info {
+        font-size: $font14;
+        .page__container__main__content__item__info__display {
+          font-weight: 600;
+          color: $gray-color-8;
+        }
+        .page__container__main__content__item__info__value {
+        }
+      }
+    }
+  }
+}

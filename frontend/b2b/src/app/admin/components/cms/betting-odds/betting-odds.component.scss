@@ -14,6 +14,7 @@ fluent-data-grid {
   fluent-data-grid-row {
     position: relative;
   }
+
   fluent-data-grid-row:hover::after {
     content: 'Start Game';
     position: absolute;
@@ -26,5 +27,8 @@ fluent-data-grid {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: 0.5s;
+    font-weight: 600;
+    color: $blue-color;
   }
 }

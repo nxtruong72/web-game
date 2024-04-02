@@ -4,18 +4,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BettingOddsService } from '../../../../service/betting-odds.service';
 import { BettingOdds } from '../../../../../../api/betting-odds/betting-odds.interface';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe, NgIf, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { BETTING_ODDS_DETAIL_ITEM } from '../../../../const/admin.const';
 
 @Component({
   selector: 'app-betting-odds-detail',
   templateUrl: './betting-odds-detail.component.html',
   styleUrls: ['./betting-odds-detail.component.scss'],
   standalone: true,
-  imports: [BreadcrumbComponent, JsonPipe],
+  imports: [BreadcrumbComponent, JsonPipe, NgIf, NgSwitchCase, NgSwitchDefault, DatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BettingOddsDetailComponent implements OnInit {
-  bettingOdds: BettingOdds | null = null;
+  itemDetail = BETTING_ODDS_DETAIL_ITEM;
+  bettingOdds!: BettingOdds | any;
   pages = [
     {
       name: 'Kèo cá cược',
@@ -55,6 +57,7 @@ export class BettingOddsDetailComponent implements OnInit {
     const gameDetail = this._bettingOddsService.getGameById(gameId).subscribe(
       (bettingOdds: BettingOdds) => {
         this.bettingOdds = bettingOdds;
+        console.log(bettingOdds);
       },
       (error) => {},
     );

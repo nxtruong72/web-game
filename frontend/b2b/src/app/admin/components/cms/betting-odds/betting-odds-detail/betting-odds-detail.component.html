@@ -3,6 +3,39 @@
     <app-breadcrumb [pages]="pages" (refreshEvent)="refresh()"></app-breadcrumb>
   </div>
   <div class="page__container__main__content">
-    {{ bettingOdds | json }}
+    <div class="page__container__main__content__fit__height">
+      @for (item  of itemDetail; track item; let first = $first, last = $last) {
+        <div class="page__container__main__content__item" *ngIf="bettingOdds">
+          <div class="page__container__main__content__item__icon">
+            <img [src]="'/assets/icons/cms/info.svg'" class="breadcrumb__home__icon" />
+          </div>
+
+          <div class="page__container__main__content__item__info">
+            <div class="page__container__main__content__item__info__display">
+              {{ item.display }}
+            </div>
+            <div class="page__container__main__content__item__info__value">
+              @switch (item.value) {
+                @case ('planStartTime') {
+                  {{ bettingOdds[item.value] | date: 'dd/MM/yyyy HH:mm' }}
+                }
+                @case ('startTime') {
+                  {{ bettingOdds[item.value] | date: 'dd/MM/yyyy HH:mm' }}
+                }
+                @case ('createdAt') {
+                  {{ bettingOdds[item.value] | date: 'dd/MM/yyyy HH:mm' }}
+                }
+                @case ('updatedAt') {
+                  {{ bettingOdds[item.value] | date: 'dd/MM/yyyy HH:mm' }}
+                }
+                @default {
+                  {{ bettingOdds[item.value] }}
+                }
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>
