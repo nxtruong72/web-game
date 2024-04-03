@@ -3,6 +3,9 @@
     <app-breadcrumb [pages]="pages" (refreshEvent)="refresh()"></app-breadcrumb>
   </div>
   <div class="page__container__main__content">
+    <div class="page__container__main__content__action">
+      <fluent-button appearance="accent" (click)="createRound()">Tạo Round Mới</fluent-button>
+    </div>
     <div class="page__container__main__content__fit__height">
       @for (item  of itemDetail; track item; let first = $first, last = $last) {
         <div class="page__container__main__content__item" *ngIf="bettingOdds">
@@ -27,6 +30,16 @@
                 }
                 @case ('updatedAt') {
                   {{ bettingOdds[item.value] | date: 'dd/MM/yyyy HH:mm' }}
+                }
+                @case ('totalBet') {
+                  {{ bettingOdds[item.value] | currency: 'VND' : 'symbol' : '4.2-2' }}
+                }
+                @case ('profit') {
+                  {{ bettingOdds[item.value] | currency: 'VND' : 'symbol' : '4.2-2' }}
+                }
+                @case ('streamURL') {
+                  <fluent-badge id="anchor">New</fluent-badge>
+                  <fluent-tooltip anchor="anchor">{{ bettingOdds[item.value] }}</fluent-tooltip>
                 }
                 @default {
                   {{ bettingOdds[item.value] }}

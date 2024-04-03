@@ -12,7 +12,7 @@ import {
   provideFluentDesignSystem,
   fluentBadge,
 } from '@fluentui/web-components';
-import { BettingOdds, IBettingOdds } from '../../../../../api/betting-odds/betting-odds.interface';
+import { IBettingOdds } from '../../../../../api/betting-odds/betting-odds.interface';
 import { NgIf } from '@angular/common';
 import { TableActionComponent } from '../../shared/table-action/table-action.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -91,7 +91,7 @@ export class BettingOddsComponent implements AfterViewInit {
       .startGame(gameID as number)
       .pipe()
       .subscribe(
-        (bettingOdds: BettingOdds) => {
+        (bettingOdds: IBettingOdds) => {
           this._router.navigate(['keo-ca-cuoc', gameID]);
         },
         (error) => {},

@@ -3,6 +3,10 @@
 .page__container__main__content {
   padding: 16px;
 
+  .page__container__main__content__action {
+    display: flex;
+    justify-content: flex-end;
+  }
   .page__container__main__content__fit__height {
     display: flex;
     flex-wrap: wrap;
@@ -30,6 +34,11 @@
           color: $gray-color-8;
         }
         .page__container__main__content__item__info__value {
+          fluent-badge {
+            background-color: $yellow-color;
+            border-radius: 4px;
+            --badge-color-light: #ffffff;
+          }
         }
       }
     }

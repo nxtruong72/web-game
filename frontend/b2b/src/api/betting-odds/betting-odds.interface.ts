@@ -1,5 +1,5 @@
 export interface IBettingOdds {
-  content: Array<BettingOdds>;
+  content: Array<IBettingOdds>;
   pageable: {
     size: number;
     number: number;
@@ -17,7 +17,7 @@ export interface INewGame {
   planStartTime: string;
 }
 
-export interface BettingOdds {
+export interface IBettingOdds {
   id: number | null;
   name: string | null;
   form: string | null;
@@ -34,4 +34,15 @@ export interface BettingOdds {
   planStartTime: string | null;
   createdAt: string | null;
   updatedAt: string | null;
+}
+
+export interface IRound {
+  id: number;
+  teamWin: number;
+  roundStatus: string;
+  totalBetTeamOne: number;
+  totalBetTeamTwo: number;
+  profit: number;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BettingOddsApiService } from '../../../api/betting-odds/betting-odds.api';
-import { IBettingOdds, INewGame } from '../../../api/betting-odds/betting-odds.interface';
+import { IBettingOdds, INewGame, IRound } from '../../../api/betting-odds/betting-odds.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +17,12 @@ export class BettingOddsService {
     return this._bettingOddsApiService.newGame(body);
   }
 
-  createRoundGame(gameId: number): Observable<any> {
-    return this._bettingOddsApiService.createRoundGame(gameId);
+  createRound(gameId: number): Observable<any> {
+    return this._bettingOddsApiService.createRound(gameId);
+  }
+
+  getRounds(gameId: number): Observable<Array<IRound>> {
+    return this._bettingOddsApiService.getRounds(gameId);
   }
 
   startGame(gameId: number): Observable<any> {
