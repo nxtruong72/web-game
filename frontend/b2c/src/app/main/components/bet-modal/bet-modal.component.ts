@@ -131,6 +131,7 @@ export class BetModalComponent implements OnInit, OnDestroy {
     this.betAmount = 0;
     this.isSubmited = false;
     this.errMsg = '';
+    this.initForm();
   }
 
   showError(controlName: string) {

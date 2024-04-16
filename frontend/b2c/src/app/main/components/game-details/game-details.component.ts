@@ -9,12 +9,13 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { RoundCardComponent } from '../round-card/round-card.component';
 import { GameTypesComponent } from '../game-types/game-types.component';
+import { GameStatusComponent } from '../game-status/game-status.component';
 
 @Component({
   selector: 'app-game-details',
   templateUrl: './game-details.component.html',
   styleUrls: ['./game-details.component.scss'],
-  imports: [CommonModule, RouterLink, NgIf, GameCardComponent, RoundCardComponent, GameTypesComponent],
+  imports: [CommonModule, RouterLink, NgIf, GameCardComponent, RoundCardComponent, GameTypesComponent, GameStatusComponent],
   standalone: true,
 })
 export class GameDetailsComponent implements OnInit, OnDestroy {
@@ -90,7 +91,4 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  getDisplayGameId() {
-    return 'AOE-03022024-' + this.gameId;
-  }
 }

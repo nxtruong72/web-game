@@ -15,29 +15,20 @@
 <div class="container">
   <!-- Title -->
   <div class="row my-3">
-    <!-- Col 1 -->
-    <div class="col-9">
-      <span class="fs-1 fw-semibold">
-        <span class="text-info">{{ game?.teamOne }}</span>
-        vs.
-        <span class="text-danger">{{ game?.teamTwo }}</span>
-      </span>
-      <div class="hstack">
-        <span class="text-nowrap text-truncate">
-          Mô tả kèo lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-          et dolore magna aliqua.
-        </span>
-        <button type="button" class="btn btn-link text-nowrap">Xem thêm</button>
-      </div>
-    </div>
-    <!-- Col 2 -->
-    <div class="col-3 vstack align-self-center gap-2">
-      <div class="hstack gap-2 justify-content-end">
+    <span class="fs-1 fw-semibold">
+      <span class="text-info">{{ game?.teamOne }}</span>
+      vs.
+      <span class="text-danger">{{ game?.teamTwo }}</span>
+    </span>
+
+    <div class="hstack gap-4">
+      <div class="hstack gap-2">
         <i class="bi bi-calendar text-secondary"></i>
         <span>{{ game?.startTime | date: 'dd/MM/YYYY hh:mm:ss' }}</span>
-        <span class="badge rounded-pill text-bg-danger">{{ game?.gameStatus }}</span>
       </div>
-      <app-game-types class="hstack gap-2 justify-content-end" [types]="game?.gameTypes"></app-game-types>
+      <app-game-types [types]="game?.gameTypes"></app-game-types>
+
+      <app-game-status [status]="game?.gameStatus"></app-game-status>
     </div>
   </div>
   <div class="row">
@@ -57,7 +48,9 @@
     <div class="col col-3 card p-0">
       <div class="hstack px-3 tb-cell">
         Mã trận:
-        <span class="mx-1 fw-semibold text-secondary-emphasis">#AOE-{{ game?.planStartTime | date: 'ddMMYYYY' }}-{{ game?.id }}</span>
+        <span class="mx-1 fw-semibold text-secondary-emphasis">
+          #AOE-{{ game?.planStartTime | date: 'ddMMYYYY' }}-{{ game?.id }}
+        </span>
       </div>
       <!-- Teams -->
       <div class="hstack gap-2 px-2 border-top-dashed">
