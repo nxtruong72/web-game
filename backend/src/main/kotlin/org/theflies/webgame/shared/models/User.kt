@@ -41,6 +41,9 @@ data class User(
 
   var deviceUsedForRegister: String? = null,
 
+  @Relation(value = Relation.Kind.ONE_TO_ONE, mappedBy="user")
+  var wallet: Wallet? = null,
+
   @NotNull
   var accountStatus: AccountStatus = AccountStatus.INACTIVATE, // Assuming true means active and false means locked
 

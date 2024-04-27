@@ -4,6 +4,7 @@ import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable.Deserializable
 import io.micronaut.serde.annotation.Serdeable.Serializable
 import jakarta.validation.constraints.*
+import org.theflies.webgame.b2c.users.UserBalance
 import org.theflies.webgame.shared.common.RegisterEvent
 import org.theflies.webgame.shared.models.AccountStatus
 import org.theflies.webgame.shared.models.RoleType
@@ -52,6 +53,25 @@ data class UserActivateRequest(
 data class UserResendActivationCodeRequest(
   @NotBlank
   val email: String
+)
+
+@Introspected
+@Serializable
+data class UserResponse(
+  @NotBlank
+  val id: Long,
+
+  @NotBlank
+  val username: String,
+  @NotBlank
+  val phone: String,
+  @NotBlank
+  val email: String,
+  @Size(min = 1)
+  @NotNull
+  val roles: List<RoleType>,
+  val accountStatus: AccountStatus?,
+  val balance: BigDecimal?
 )
 
 // Event data

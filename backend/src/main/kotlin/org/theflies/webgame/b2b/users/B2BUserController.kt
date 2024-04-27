@@ -1,6 +1,8 @@
 package org.theflies.webgame.b2b.users
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.micronaut.data.model.Page
+import io.micronaut.data.model.Pageable
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
@@ -38,5 +40,11 @@ class B2BUserController(
     val appUrl = hostResolver.resolve(request)
     userService.resendActivationCode(reactivate, appUrl)
     return HttpResponse.ok()
+  }
+
+  @Get("/")
+  @RolesAllowed("ADMIN", "STAFF")
+  fun getListUser(pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<UserResponse>> {
+    return HttpResponse.ok(userService.getUser(pageable))
   }
 }

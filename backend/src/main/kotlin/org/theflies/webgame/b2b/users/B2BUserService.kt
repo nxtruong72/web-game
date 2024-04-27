@@ -2,6 +2,8 @@ package org.theflies.webgame.b2b.users
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micronaut.context.event.ApplicationEventPublisher
+import io.micronaut.data.model.Page
+import io.micronaut.data.model.Pageable
 import jakarta.inject.Singleton
 import org.theflies.webgame.shared.common.PasswordEncoder
 import org.theflies.webgame.shared.common.UserException
@@ -78,6 +80,24 @@ open class B2BUserService(
     } ?: run {
       throw UserException(400, "Token not found")
     }
+  }
+
+  fun getUser(pageable: Pageable): Page<UserResponse> {
+    return userRepository
+      .findAll(pageable)
+      .map { mapUserToUserResponse(it) }
+  }
+
+  private fun mapUserToUserResponse(user: User): UserResponse {
+    return UserResponse(
+      user.id!!,
+      user.username,
+      user.phone,
+      user.email,
+      user.roles,
+      user.accountStatus,
+      user.wallet?.balance
+    )
   }
 
   fun resendActivationCode(request: UserResendActivationCodeRequest, url: String) {
