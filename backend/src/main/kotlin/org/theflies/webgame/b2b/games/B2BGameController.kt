@@ -79,7 +79,7 @@ class B2BGameController(
         return HttpResponse.ok(gameService.getGame(pageable))
     }
 
-    @Get("/round/{gameId}")
+    @Get("{gameId}/rounds/")
     @RolesAllowed("ADMIN", "STAFF")
     fun listRoundByGameId(gameId: Long, pageable: Pageable, request: HttpRequest<*>): HttpResponse<Page<RoundResponse>> {
         return HttpResponse.ok(gameService.getRoundByGameId(gameId, pageable))
