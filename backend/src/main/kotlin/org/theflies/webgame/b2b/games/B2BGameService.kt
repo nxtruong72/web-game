@@ -230,6 +230,7 @@ open class B2BGameService(
         betRepository.updateAll(loseBets)
         betRepository.updateAll(winBets)
         round.roundStatus = RoundStatus.COMPLETED
+        round.profit = if ( round.teamWin == 1 ) round.totalBetTeamOne.subtract(round.totalBetTeamTwo) else round.totalBetTeamTwo.subtract(round.totalBetTeamOne)
         roundRepository.update(round)
         walletRepository.updateAll(walletMap.values)
     }
